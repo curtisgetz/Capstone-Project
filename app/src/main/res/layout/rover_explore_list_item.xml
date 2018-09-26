@@ -68,6 +68,7 @@
             />
         
         <EditText
+            android:id="@+id/sol_edit_text"
             android:layout_width="60dp"
             android:layout_height="0dp" 
             android:inputType="number"

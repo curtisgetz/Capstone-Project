@@ -2,13 +2,9 @@ package com.curtisgetz.marsexplorer.ui.explore;
 
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,15 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverCategoryAdapter;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
-import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestLoader;
-import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestVMFactory;
-import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestViewModel;
 import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 import com.curtisgetz.marsexplorer.utils.IndexUtils;
 import com.curtisgetz.marsexplorer.utils.InformationUtils;
@@ -38,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RoverExploreActivity extends AppCompatActivity implements
-        RoverCategoryAdapter.CategoryClickListener{
+        RoverCategoryAdapter.CategoryClickListener, RoverCategoryAdapter.SolClickListener {
 
     private final static String TAG = RoverExploreActivity.class.getSimpleName();
 
@@ -62,8 +55,8 @@ public class RoverExploreActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
         ButterKnife.bind(this);
-        mAdapter = new RoverCategoryAdapter(this);
-
+        mAdapter = new RoverCategoryAdapter(this, this);
+        showManifestProgress();
         int layoutOrientation;
         if (isTwoPane) {
             layoutOrientation = LinearLayoutManager.VERTICAL;
@@ -77,22 +70,16 @@ public class RoverExploreActivity extends AppCompatActivity implements
         mCategoryRecycler.setAdapter(mAdapter);
 
         Intent intent = getIntent();
-
         if (intent == null) {
             finish();
         }else {
             mRoverIndex = intent.getIntExtra(getString(R.string.explore_extra), -1);
-
             RoverManifestVMFactory factory = new RoverManifestVMFactory(mRoverIndex, getApplication());
             mViewModel = ViewModelProviders.of(this, factory).get(RoverManifestViewModel.class);
             mViewModel.getManifest().observe(this, new Observer<RoverManifest>() {
                 @Override
                 public void onChanged(@Nullable RoverManifest roverManifest) {
-                    if(roverManifest != null) {
-                        populateManifestUI();
-                    }else {
-                        Log.d(TAG, "Manifest is null");
-                    }
+                    populateManifestUI();
                 }
             });
 
@@ -131,6 +118,7 @@ public class RoverExploreActivity extends AppCompatActivity implements
         Log.i(TAG, "Manifest UI Updated");
         RoverManifest roverManifest = mViewModel.getManifest().getValue();
         if(roverManifest == null)return;
+        hideManifestProgress();
       // todo change date to String
         mMissionStatusTv.setText(IndexUtils.capitalizeFirstLetter(roverManifest.getStatus()));
         mLandingTv.setText(roverManifest.getLandingDate());
@@ -139,4 +127,18 @@ public class RoverExploreActivity extends AppCompatActivity implements
     }
 
 
+    private void showManifestProgress(){
+        mManifestProgress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideManifestProgress(){
+        mManifestProgress.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    public void onSolButtonClick(int pos) {
+        String toast = "Button Clicked " + String.valueOf(pos);
+        Toast.makeText(this, toast , Toast.LENGTH_SHORT).show();
+    }
 }

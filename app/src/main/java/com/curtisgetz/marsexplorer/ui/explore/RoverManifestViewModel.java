@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.data.rover_manifest;
+package com.curtisgetz.marsexplorer.ui.explore;
 
 
 import android.app.Application;
@@ -9,15 +9,19 @@ import android.content.Context;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;
-
+import com.curtisgetz.marsexplorer.data.room.AppDataBase;
+import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
 
 public class RoverManifestViewModel extends ViewModel {
 
 
     private final static String TAG = RoverManifestViewModel.class.getSimpleName();
+
+
     private LiveData<RoverManifest> mManifest;
     private MarsRepository mRepository;
+
 
 
     public RoverManifestViewModel(int roverIndex, Application application){
@@ -42,5 +46,9 @@ public class RoverManifestViewModel extends ViewModel {
     }
 
 
-
+    @Override
+    protected void onCleared() {
+        Log.d(TAG, "ViewModel Cleared");
+        super.onCleared();
+    }
 }

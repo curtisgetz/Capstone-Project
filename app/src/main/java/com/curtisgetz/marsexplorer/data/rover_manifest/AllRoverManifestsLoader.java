@@ -4,9 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
-import com.curtisgetz.marsexplorer.data.MainExploreAdapter;
 import com.curtisgetz.marsexplorer.utils.IndexUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;

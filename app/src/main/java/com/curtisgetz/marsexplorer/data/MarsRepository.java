@@ -2,7 +2,6 @@ package com.curtisgetz.marsexplorer.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,37 +14,25 @@ import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 
 import java.net.URL;
-import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
 public class MarsRepository {
 
     private MarsDao mMarsDao;
-    private LiveData<List<RoverManifest>> mAllManifest;
-    public MutableLiveData<RoverManifest> mRoverManifest = new MutableLiveData<>();
+    //private LiveData<List<RoverManifest>> mAllManifest;
+    //private LiveData<RoverManifest> mRoverManifest;
     private final static int[] ROVER_INDICES = IndexUtils.ROVER_INDICES;
 
     public MarsRepository(Application application){
-        AppDataBase dataBase = AppDataBase.getInstance(application);
-        mMarsDao = dataBase.marsDao();
-        mAllManifest = mMarsDao.loadAllRoverManifests();
+        mMarsDao = AppDataBase.getInstance(application).marsDao();
     }
 
-    public LiveData<List<RoverManifest>> getAllManifest() {
-        return mAllManifest;
-    }
 
-    public MutableLiveData<RoverManifest> getRoverManifest(final int roverIndex){
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mRoverManifest.postValue(mMarsDao.loadRoverManifestByIndex(roverIndex));
-            }
-        });
-        return mRoverManifest;
+    public LiveData<RoverManifest> getRoverManifest(final int roverIndex){
+        return mMarsDao.loadRoverManifestByIndex(roverIndex);
+        //return mRoverManifest;
     }
-
 
     public void insertManifest(final RoverManifest roverManifest){
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -83,5 +70,10 @@ public class MarsRepository {
             }
         });
     }
+
+
+
+
+
 
 }

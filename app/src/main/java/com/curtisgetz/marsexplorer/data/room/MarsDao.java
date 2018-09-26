@@ -18,7 +18,7 @@ public interface MarsDao {
 
     //Main Explore Type
     @Query("SELECT * FROM exploretypes ORDER BY mTypeIndex")
-    List<MainExploreType> loadAllExploreTypes();
+    LiveData<List<MainExploreType>> loadAllExploreTypes();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertExploreType(MainExploreType exploreType);
@@ -32,7 +32,7 @@ public interface MarsDao {
     LiveData<List<RoverManifest>> loadAllRoverManifests();
 
     @Query("SELECT * FROM roverManifest WHERE mRoverIndex = :roverIndex")
-    RoverManifest loadRoverManifestByIndex(int roverIndex);
+    LiveData<RoverManifest> loadRoverManifestByIndex(int roverIndex);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRoverManifest(RoverManifest roverManifest);

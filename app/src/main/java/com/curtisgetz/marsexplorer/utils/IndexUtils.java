@@ -23,7 +23,7 @@ public final class IndexUtils {
     public final static int[] ROVER_INDICES = {CURIOSITY_ROVER_INDEX, OPPORTUNITY_ROVER_INDEX, SPIRIT_ROVER_INDEX};
 
     //ROVER CATEGORY INDICES
-    private final static int ROVER_PICTURES_CAT_INDEX = 0;
+    public final static int ROVER_PICTURES_CAT_INDEX = 0;
     private final static int ROVER_INFO_CAT_INDEX = 1;
     private final static int ROVER_SCIENCE_CAT_INDEX = 2;
 
@@ -89,7 +89,7 @@ public final class IndexUtils {
         for (int category : categories) {
             String title = getCategoryTitle(context, category);
             int imageResId = getCategoryImgResId(context, roverIndex, category);
-            exploreCategoriesList.add(new RoverExploreCategory(title, imageResId));
+            exploreCategoriesList.add(new RoverExploreCategory(title, imageResId, category));
         }
         return exploreCategoriesList;
     }

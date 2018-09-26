@@ -19,6 +19,7 @@
     <dimen name="rover_explore_cardview_height">300dp</dimen>
     <dimen name="rover_explore_cardview_margin_top_bottom">40dp</dimen>
     <dimen name="rover_explore_cardview_margin_start_end">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
     <!-- Explore Details -->
 
 

@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.data;
+package com.curtisgetz.marsexplorer.ui.main;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

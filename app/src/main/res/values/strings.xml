@@ -10,7 +10,6 @@
     <string name="rover_string">Rover</string>
 
 
-
     <string name="mission_status_label">Mission Status:</string>
     <string name="launch_date_label">Launch Date:</string>
     <string name="landing_date_label">Landing Date:</string>
@@ -21,15 +20,10 @@
     <string name="unknown">Unknown</string>
 
 
-
-
     <!-- Rover Categories Title Texts-->
     <string name="rover_picture_category_title">Pictures Taken By This Rover</string>
     <string name="rover_information_category_title">Rover Information</string>
     <string name="rover_science_category_title">Rover Science Instruments</string>
-
-
-
 
 
     <!-- Information Dialog Texts -->
@@ -44,6 +38,11 @@
     <string name="photos_category_res_prefix" translatable="false">photos_</string>
     <string name="info_category_res_prefix" translatable="false">info_</string>
     <string name="science_category_res_prefix" translatable="false">science_</string>
+    <string name="title_activity_explore_detail">ExploreDetailActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

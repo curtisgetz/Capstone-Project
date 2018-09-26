@@ -1,12 +1,11 @@
-package com.curtisgetz.marsexplorer.data.rover_manifest;
+package com.curtisgetz.marsexplorer.ui.explore;
 
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.curtisgetz.marsexplorer.data.room.AppDataBase;
+import com.curtisgetz.marsexplorer.ui.explore.RoverManifestViewModel;
 
 public class RoverManifestVMFactory extends ViewModelProvider.NewInstanceFactory {
 
