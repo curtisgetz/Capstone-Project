@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Mars Explorer</string>
+    <string name="main_explore_title">How would you like to explore Mars?</string>
+
+
+    <string name="explore_mars">Explore Mars</string>
+    <string name="curiosity_rover">Curiosity</string>
+    <string name="opportunity_rover">Opportunity</string>
+    <string name="spirit_rover">Spirit</string>
+    <string name="rover_string">Rover</string>
+
+
+
+    <string name="mission_status_label">Mission Status:</string>
+    <string name="launch_date_label">Launch Date:</string>
+    <string name="landing_date_label">Landing Date:</string>
+    <string name="sol_range_label">Sol Range:</string>
+    <string name="sol_range_info_CD">Click Here for information about Sol range</string>
+    <string name="explore_extra">explore_extra</string>
+
+    <string name="unknown">Unknown</string>
+
+
+
+
+    <!-- Rover Categories Title Texts-->
+    <string name="rover_picture_category_title">Pictures Taken By This Rover</string>
+    <string name="rover_information_category_title">Rover Information</string>
+    <string name="rover_science_category_title">Rover Science Instruments</string>
+
+
+
+
+
+    <!-- Information Dialog Texts -->
+    <string name="info_error_text">Error Loading Information</string>
+    <string name="sol_text_details">The term Sol is used to refer to the duration of a solar day on Mars.
+        \nA Martian solar day, or "Sol", is 24 hours, 39 minutes, and 35.244 seconds.
+        \nPhotos are organized by the Sol on which they were taken, counting up from the rover landing date. </string>
+
+
+    <string name="info_index_key" translatable="false">info_index_key</string>
+
+    <string name="photos_category_res_prefix" translatable="false">photos_</string>
+    <string name="info_category_res_prefix" translatable="false">info_</string>
+    <string name="science_category_res_prefix" translatable="false">science_</string>
+
+
+</resources>
