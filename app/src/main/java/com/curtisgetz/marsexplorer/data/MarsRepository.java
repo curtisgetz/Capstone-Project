@@ -2,36 +2,42 @@ package com.curtisgetz.marsexplorer.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.room.MarsDao;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
+import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.IndexUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
 public class MarsRepository {
 
     private MarsDao mMarsDao;
-    //private LiveData<List<RoverManifest>> mAllManifest;
+
+    private MutableLiveData<Cameras> mCameras;
     //private LiveData<RoverManifest> mRoverManifest;
     private final static int[] ROVER_INDICES = IndexUtils.ROVER_INDICES;
 
     public MarsRepository(Application application){
-        mMarsDao = AppDataBase.getInstance(application).marsDao();
+        AppDataBase dataBase = AppDataBase.getInstance(application);
+        mMarsDao = dataBase.marsDao();
+
     }
 
 
-    public LiveData<RoverManifest> getRoverManifest(final int roverIndex){
-        return mMarsDao.loadRoverManifestByIndex(roverIndex);
-        //return mRoverManifest;
+
+    public LiveData<RoverManifest> getRoverManifest(int index){
+        return mMarsDao.loadRoverManifestByIndex(index);
     }
 
     public void insertManifest(final RoverManifest roverManifest){
@@ -62,15 +68,33 @@ public class MarsRepository {
                         String jsonResponse = NetworkUtils.getResponseFromHttpUrl(manifestUrl);
                         RoverManifest manifest = JsonUtils.getRoverManifest(roverIndex, jsonResponse);
                         Log.d(TAG, "Adding Manifest To Database");
-                         mMarsDao.insertRoverManifest(manifest);
+                        mMarsDao.insertRoverManifest(manifest);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        return;
                     }
                 }
             }
         });
     }
 
+
+    public LiveData<Cameras> getCameras(final Context context, final int index, final String sol){
+        mCameras = new MutableLiveData<>();
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL solRequestUrl = NetworkUtils.buildPhotosUrl(context, index, sol);
+                    String jsonResponse = NetworkUtils.getResponseFromHttpUrl(solRequestUrl);
+                    mCameras.postValue(JsonUtils.getCameraUrls(index, jsonResponse));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        return mCameras;
+    }
 
 
 

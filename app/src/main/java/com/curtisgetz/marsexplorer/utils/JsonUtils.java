@@ -2,10 +2,15 @@ package com.curtisgetz.marsexplorer.utils;
 
 import android.util.Log;
 
+import com.curtisgetz.marsexplorer.data.Cameras;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class JsonUtils {
 
@@ -43,6 +48,9 @@ public final class JsonUtils {
             ROVER_MARDI ="MARDI",ROVER_NAVCAM ="NAVCAM",
             ROVER_PANCAM ="PANCAM", ROVER_MINITES ="MINITES";
 
+    //if it jason parse fails, use "unknown"  if parsing the image url then Picasso will load the 'error' image specified.
+    private final static String FALLBACK_STRING = "unknown";
+
 //JSON keys---------------------------------
 
 
@@ -58,19 +66,130 @@ public final class JsonUtils {
         if(manifestObject.length() > 0){
             String name, launch, land, status, maxSol, maxDate, totalPhotos;
 
-            name = manifestObject.getString(NASA_NAME);
-            launch = manifestObject.getString(ROVER_LAUNCH_DATE);
-            land = manifestObject.getString(ROVER_LAND_DATE);
-            status = manifestObject.getString(ROVER_STATUS);
-            maxSol = manifestObject.getString(ROVER_MAX_SOL);
-            maxDate = manifestObject.getString(ROVER_MAX_DATE);
-            totalPhotos = manifestObject.getString(ROVER_TOTAL_PHOTOS);
+            name = manifestObject.optString(NASA_NAME, FALLBACK_STRING);
+            launch = manifestObject.optString(ROVER_LAUNCH_DATE, FALLBACK_STRING);
+            land = manifestObject.optString(ROVER_LAND_DATE, FALLBACK_STRING);
+            status = manifestObject.optString(ROVER_STATUS, FALLBACK_STRING);
+            maxSol = manifestObject.optString(ROVER_MAX_SOL, FALLBACK_STRING);
+            maxDate = manifestObject.optString(ROVER_MAX_DATE, FALLBACK_STRING);
+            totalPhotos = manifestObject.optString(ROVER_TOTAL_PHOTOS, FALLBACK_STRING);
             Log.i(TAG, status);
             return new RoverManifest(roverIndex, name, launch, land, status, maxSol, maxDate, totalPhotos);
         }
         return null;
     }
 
+    public static Cameras getCameraUrls(int roverIndex, String url) throws JSONException {
 
+        List<String> fhaz = new ArrayList<>(),
+                rhaz = new ArrayList<>(), mast = new ArrayList<>(),
+                chemcam = new ArrayList<>(), mahli  = new ArrayList<>(),
+                mardi = new ArrayList<>(), navcam  = new ArrayList<>(),
+                pancam = new ArrayList<>(), minites = new ArrayList<>();
+
+        String earthDate= "";
+
+        JSONObject cameraJSON = new JSONObject(url);
+        //Check for 'photos' key to see if there are any results
+        if(!cameraJSON.has(NASA_PHOTOS)) return null;
+
+        JSONArray jsonArray = cameraJSON.getJSONArray(NASA_PHOTOS);
+        if(jsonArray.length() > 0){
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                JSONObject cameraObject = jsonObject.getJSONObject(NASA_PHOTO_CAMERA);
+                String cameraName = cameraObject.optString(NASA_NAME);
+                String imgSrcString = jsonObject.optString(NASA_IMAGE);
+                earthDate = getDateString(jsonObject.optString(NASA_DATE));
+                //ADD img src to matching camera ArrayList
+                switch (cameraName){
+                    case ROVER_FHAZ:
+                        fhaz.add(imgSrcString);
+                        break;
+                    case ROVER_RHAZ:
+                        rhaz.add(imgSrcString);
+                        break;
+                    case ROVER_MAST:
+                        mast.add(imgSrcString);
+                        break;
+                    case ROVER_CHEMCAM:
+                        chemcam.add(imgSrcString);
+                        break;
+                    case ROVER_MAHLI:
+                        mahli.add(imgSrcString);
+                        break;
+                    case ROVER_MARDI:
+                        mardi.add(imgSrcString);
+                        break;
+                    case ROVER_NAVCAM:
+                        navcam.add(imgSrcString);
+                        break;
+                    case ROVER_PANCAM:
+                        pancam.add(imgSrcString);
+                        break;
+                    case ROVER_MINITES:
+                        minites.add(imgSrcString);
+                        break;
+                }
+
+            }
+
+        }
+        return new Cameras(roverIndex, fhaz, rhaz, navcam, mast, chemcam, mahli, mardi,  pancam,
+                minites, earthDate);
+
+    }
+
+
+
+    //todo change maybe
+    public static String getDateString(String earthDate) throws ArrayIndexOutOfBoundsException{
+        String[] dateStrings = earthDate.split("-");
+        String year = dateStrings[0];
+        String monthNumber = dateStrings[1];
+        String monthName = dateStrings[1];
+        String  day= dateStrings[2];
+        switch (monthNumber){
+            case "01":
+                monthName = "January ";
+                break;
+            case "02":
+                monthName = "February ";
+                break;
+            case "03":
+                monthName = "March ";
+                break;
+            case "04":
+                monthName = "April ";
+                break;
+            case "05":
+                monthName = "May ";
+                break;
+            case "06":
+                monthName = "June ";
+                break;
+            case "07":
+                monthName = "July ";
+                break;
+            case "08":
+                monthName = "August ";
+                break;
+            case "09":
+                monthName = "September ";
+                break;
+            case "10":
+                monthName = "October ";
+                break;
+            case "11":
+                monthName = "November ";
+                break;
+            case "12":
+                monthName = "December ";
+                break;
+
+        }
+        return  monthName  + day + ", " + year;
+
+    }
 
 }

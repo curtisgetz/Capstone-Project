@@ -70,7 +70,7 @@
         <EditText
             android:id="@+id/sol_edit_text"
             android:layout_width="60dp"
-            android:layout_height="0dp" 
+            android:layout_height="0dp"
             android:inputType="number"
             android:background="@color/lightText"
             android:layout_marginStart="20dp"

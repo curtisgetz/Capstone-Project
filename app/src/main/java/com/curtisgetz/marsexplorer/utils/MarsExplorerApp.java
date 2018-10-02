@@ -18,8 +18,8 @@ public class MarsExplorerApp extends Application{
     private final static String TAG = MarsExplorerApp.class.getSimpleName();
     //todo change times after testing
     private FirebaseJobDispatcher mJobDispatcher;
-    private final static int MANIFEST_JOB_MIN = 60;
-    private final static int MANIFEST_JOB_MAX= 240;
+    private final static int MANIFEST_JOB_MIN = 30;
+    private final static int MANIFEST_JOB_MAX= 360;
 
 
     public MarsExplorerApp() {

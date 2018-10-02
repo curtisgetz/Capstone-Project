@@ -41,8 +41,29 @@
     <string name="title_activity_explore_detail">ExploreDetailActivity</string>
     <string name="action_settings">Settings</string>
 
+
+    <!-- Camera Names -->
+    <string name="FHAZ">Front Hazard Avoidance Camera</string>
+    <string name="RHAZ">Rear Hazard Avoidance Camera</string>
+    <string name="MAST">Mast Camera</string>
+    <string name="CHEMCAM">Chemistry and Camera Complex</string>
+    <string name="MAHLI">Mars Hand Lens Imager</string>
+    <string name="MARDI">Mars Descent Imager</string>
+    <string name="NAVCAM">Navigation Camera</string>
+    <string name="PANCAM">Panoramic Camera</string>
+    <string name="MINITES">Miniature Thermal Emission Spectrometer (Mini-TES)</string>
+    <string name="rover_photo_cd">Photo from Mars rover.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sol_number_extra_key">sol_number_extra</string>
+    <string name="rover_index_extra_key">rover_index_extra</string>
+    <string name="rover_index_saved_key">rover_index_saved_key</string>
+    <string name="sol_number_saved_key">sol_number_saved_key</string>
+    <string name="photo_url_extra">photo_url_extra</string>
+    <string name="photo_url_saved_key">photo_url_saved_key</string>
+    <string name="rover_photo_transition">rover_photo_transition</string>
+    <string name="share_photo_cd">Share Photo</string>
 
 
 </resources>

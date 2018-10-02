@@ -16,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverCategoryAdapter;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
+import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
+import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.IndexUtils;
 import com.curtisgetz.marsexplorer.utils.InformationUtils;
 
@@ -37,9 +40,11 @@ public class RoverExploreActivity extends AppCompatActivity implements
 
     private RoverCategoryAdapter mAdapter;
     private int mRoverIndex;
+    //todo set up two pane logic
     private boolean isTwoPane;
     private RoverManifestViewModel mViewModel;
     private static boolean hasDownloadedManifests = false;
+    private boolean toggle;
 
     @BindView(R.id.rover_options_recycler) RecyclerView mCategoryRecycler;
     @BindView(R.id.explore_master_title_text) TextView mTitleText;
@@ -136,9 +141,48 @@ public class RoverExploreActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onSolButtonClick(int pos) {
-        String toast = "Button Clicked " + String.valueOf(pos);
-        Toast.makeText(this, toast , Toast.LENGTH_SHORT).show();
+    private boolean checkSolInput(String solInput){
+        if(solInput.isEmpty()){
+            return false;
+        }else {
+            try{
+                Integer.parseInt(solInput);
+                return true;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+                return false;
+            }
+        }
+
     }
+
+
+    @Override
+    public void onSolButtonClick(String solNumber) {
+        //confirm sol input is a number
+        if(!checkSolInput(solNumber)){
+            Toast.makeText(this, "Please Enter a valid number", Toast.LENGTH_SHORT).show();
+        }else {
+            String toast = "Button Clicked " + String.valueOf(solNumber);
+            Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+
+        }
+        Intent intent = new Intent(this, ExploreDetailActivity.class);
+        intent.putExtra("rover_index_extra", mRoverIndex);
+        intent.putExtra("sol_number_extra", solNumber);
+        startActivity(intent);
+
+       /*if (!toggle) {
+*
+                RoverManifest newManifest = new RoverManifest(1, "Test", "11-15-1982",
+                        "01-12-1984", "acTIve", "666", "09-11-2018", "2313");
+                mViewModel.updateManifest(newManifest);
+                toggle = true;
+            } else {
+                toggle = false;
+                mViewModel.downloadNewManifests(getApplicationContext());
+            }*/
+    }
+
+
 }

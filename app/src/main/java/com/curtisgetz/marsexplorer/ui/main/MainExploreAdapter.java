@@ -46,8 +46,7 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
 
     public void clearData(){
         this.mExploreList.clear();
-        //TODO not sure if itemrangeremoved is correct. size 0 after clear?
-        notifyItemRangeRemoved(mExploreList.size(),mExploreList.size());
+        notifyDataSetChanged();
     }
 
 

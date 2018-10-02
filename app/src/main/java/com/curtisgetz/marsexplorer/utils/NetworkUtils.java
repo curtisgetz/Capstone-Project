@@ -46,7 +46,8 @@ public final class NetworkUtils {
 
 
     //add int sol maybe
-    public static URL buildPhotosUrl(String rover, String sol){
+    public static URL buildPhotosUrl(Context context,int roverIndex, String sol){
+        String rover = IndexUtils.getRoverNameByIndex(context, roverIndex);
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(ROVERS)
                 .appendPath(rover)

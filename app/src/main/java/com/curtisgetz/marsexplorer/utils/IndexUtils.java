@@ -14,6 +14,8 @@ public final class IndexUtils {
 
     private final static String TAG = IndexUtils.class.getSimpleName();
 
+    public final static String DEFAULT_SOL_NUMBER = "200";
+
     //EXPLORE INDICES
     public final static int MARS_EXPLORE_INDEX = 0;
     public final static int CURIOSITY_ROVER_INDEX = 1;
@@ -27,19 +29,62 @@ public final class IndexUtils {
     private final static int ROVER_INFO_CAT_INDEX = 1;
     private final static int ROVER_SCIENCE_CAT_INDEX = 2;
 
-
     //Set available categories for each rover
     private final static int[] CURIOSITY_CATEGORIES = {0,1,2};
     private final static int[] OPPORTUNITY_CATEGORIES = {0,1,2};
     private final static int[] SPIRIT_CATEGORIES = {0,1,2};
 
-
     //Sol start for each rover
     public final static int CURIOSITY_SOL_START = 0;
     public final static int OPPORTUNITY_SOL_START = 1;
     public final static int SPIRIT_SOL_START = 1;
+    //CAMERA INDICES
+    public final static int CAM_FHAZ_INDEX = 0;
+    public final static int CAM_RHAZ_INDEX = 1;
+    public final static int CAM_MAST_INDEX = 2;
+    public final static int CAM_CHEMCAM_INDEX = 3;
+    public final static int CAM_MAHLI_INDEX = 4;
+    public final static int CAM_MARDI_INDEX = 5;
+    public final static int CAM_NAVCAM_INDEX = 6;
+    public final static int CAM_PANCAM_INDEX = 7;
+    public final static int CAM_MINITES_INDEX = 8;
+
+    public final static int[] All_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
+            CAM_MAST_INDEX, CAM_CHEMCAM_INDEX, CAM_MAHLI_INDEX, CAM_MARDI_INDEX, CAM_NAVCAM_INDEX,
+            CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
+
+    public final static int[] CURIOSITY_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
+            CAM_MAST_INDEX, CAM_CHEMCAM_INDEX, CAM_MAHLI_INDEX, CAM_MARDI_INDEX, CAM_NAVCAM_INDEX};
+    public final static int[] OPPORTUNITY_CAMREA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
+            CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
+    public final static int[] SPIRIT_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
+            CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
 
 
+    public static String getCameraNameByIndex(Context context, int camIndex){
+        switch (camIndex){
+            case CAM_FHAZ_INDEX:
+                return context.getResources().getString(R.string.FHAZ);
+            case CAM_RHAZ_INDEX:
+                return context.getResources().getString(R.string.RHAZ);
+            case CAM_MAST_INDEX:
+                return context.getResources().getString(R.string.MAST);
+            case CAM_CHEMCAM_INDEX:
+                return context.getResources().getString(R.string.CHEMCAM);
+            case CAM_MAHLI_INDEX:
+                return context.getResources().getString(R.string.MAHLI);
+            case CAM_MARDI_INDEX:
+                return context.getResources().getString(R.string.MARDI);
+            case CAM_NAVCAM_INDEX:
+                return context.getResources().getString(R.string.NAVCAM);
+            case CAM_PANCAM_INDEX:
+                return context.getResources().getString(R.string.PANCAM);
+            case CAM_MINITES_INDEX:
+                return context.getResources().getString(R.string.MINITES);
+            default:
+                return context.getResources().getString(R.string.unknown);
+        }
+    }
 
     public static String getRoverNameByIndex(Context context, int roverIndex){
 
@@ -54,8 +99,6 @@ public final class IndexUtils {
                 return null;
         }
     }
-
-
 
 
     public static List<RoverExploreCategory> getExploreCategories(int exploreIndex){
@@ -180,13 +223,6 @@ public final class IndexUtils {
         return text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
 
     }
-
-
-
-
-
-
-
 
 
 

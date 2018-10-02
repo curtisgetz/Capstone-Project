@@ -2,6 +2,7 @@ package com.curtisgetz.marsexplorer.data.rover_explore;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 
 public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
+    private final static String TAG = RoverCategoryAdapter.class.getSimpleName();
 
     private List<RoverExploreCategory> mCategoryList;
     private CategoryClickListener mClickListener;
@@ -35,7 +37,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         void onCategoryClick(int clickedPos);
     }
     public interface SolClickListener {
-        void onSolButtonClick(int clickedPos);
+        void onSolButtonClick(String solNumber);
     }
 
 
@@ -96,13 +98,15 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         //if views are visible then set click listeners
         if(((CategoryViewHolder) holder).mSolEdit.getVisibility() == View.VISIBLE){
             //click submit button when 'Done' is pressed on soft keyboard
+
+            //confirm input is a number, if not set it to 200
+
             ((CategoryViewHolder) holder).mSolEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
                     if(action == EditorInfo.IME_ACTION_DONE){
-                        String input = ((CategoryViewHolder) holder).mSolEdit.getText().toString();
-                        if(input.isEmpty()) input = "2";
-                        mSolButtonClick.onSolButtonClick(Integer.parseInt(input));
+
+                        mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
                     }
                     return false;
                 }
@@ -110,21 +114,21 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
             ((CategoryViewHolder) holder).mSolSeachBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String input = ((CategoryViewHolder) holder).mSolEdit.getText().toString();
-                    if(input.isEmpty()) input = "2";
-                    mSolButtonClick.onSolButtonClick(Integer.parseInt(input));
+
+                    mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
                 }
             });
             ((CategoryViewHolder) holder).mSolRandBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String input = ((CategoryViewHolder) holder).mSolEdit.getText().toString();
-                    if(input.isEmpty()) input = "2";
-                    mSolButtonClick.onSolButtonClick(Integer.parseInt(input));
+
+                    mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
                 }
             });
         }
     }
+
+
 
     class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

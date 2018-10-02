@@ -9,7 +9,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;
-import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
 
@@ -24,9 +23,10 @@ public class RoverManifestViewModel extends ViewModel {
 
 
 
-    public RoverManifestViewModel(int roverIndex, Application application){
+    RoverManifestViewModel(int roverIndex, Application application){
         Log.i(TAG, "Loading RoverManifest from database by index");
-        this.mRepository = new MarsRepository(application);
+       // this.mRepository = new MarsRepository(application);
+        this.mRepository =  new MarsRepository(application );
         this.mManifest = mRepository.getRoverManifest(roverIndex);
     }
 
@@ -45,10 +45,16 @@ public class RoverManifestViewModel extends ViewModel {
         mRepository.downloadManifestsFromNetwork(context);
     }
 
+    public void updateManifest(RoverManifest roverManifest){
+        mRepository.updateManifest(roverManifest);
+    }
 
     @Override
     protected void onCleared() {
         Log.d(TAG, "ViewModel Cleared");
         super.onCleared();
     }
+
+
+
 }
