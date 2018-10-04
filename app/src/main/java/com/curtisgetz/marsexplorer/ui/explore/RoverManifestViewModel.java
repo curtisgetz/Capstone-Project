@@ -10,6 +10,9 @@ import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class RoverManifestViewModel extends ViewModel {
@@ -48,6 +51,40 @@ public class RoverManifestViewModel extends ViewModel {
     public void updateManifest(RoverManifest roverManifest){
         mRepository.updateManifest(roverManifest);
     }
+
+
+    public String validateSolInRange(String solInput){
+        if(mManifest.getValue() == null) return HelperUtils.DEFAULT_SOL_NUMBER;
+        int solInputNumber;
+        try {
+            solInputNumber = Integer.parseInt(solInput);
+        }catch (NumberFormatException e){
+            return HelperUtils.DEFAULT_SOL_NUMBER;
+        }
+        int maxSol = mManifest.getValue().getMaxSolint();
+        int minSol = mManifest.getValue().getMinSolInt();
+        if(solInputNumber < minSol){
+            //if entered sol is lower than min, set it to the min
+            return String.valueOf(minSol);
+        }else if(solInputNumber > maxSol){
+            //if entered sol is greater than max sol, set to max
+            return String.valueOf(maxSol);
+        }else {
+            //if sol is in range, return the same sol back
+            return solInput;
+        }
+    }
+
+    public String getRandomSol(){
+        if(mManifest.getValue() == null) return HelperUtils.DEFAULT_SOL_NUMBER;
+        int minSol = mManifest.getValue().getMinSolInt();
+        int maxSol = mManifest.getValue().getMaxSolint();
+        int random = ThreadLocalRandom.current().nextInt((minSol), (maxSol+1));
+        return String.valueOf(random);
+    }
+
+
+
 
     @Override
     protected void onCleared() {

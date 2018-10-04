@@ -3,12 +3,11 @@ package com.curtisgetz.marsexplorer.data.rover_manifest;
 
 
 import android.content.Context;
-import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 import com.firebase.jobdispatcher.JobService;
@@ -21,7 +20,7 @@ import java.net.URL;
 public class RoverManifestJobService extends JobService   {
 
     private final static String TAG = RoverManifestJobService.class.getSimpleName();
-    private final static int[] mRoverIndices = IndexUtils.ROVER_INDICES;
+    private final static int[] mRoverIndices = HelperUtils.ROVER_INDICES;
 
     private AppDataBase mDb;
 

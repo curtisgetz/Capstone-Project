@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.List;
 
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
         setupViewModel();
         //getExploreTypes();
+        Toast.makeText(this, getPackageName(), Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
         Intent intent = new Intent(getApplicationContext(), RoverExploreActivity.class);
         MainExploreType exploreType = mAdapter.getExploreType(clickedPos);
         int exploreIndex = exploreType.getTypeIndex();
-        if(exploreIndex == IndexUtils.MARS_EXPLORE_INDEX){
+        if(exploreIndex == HelperUtils.MARS_EXPLORE_INDEX){
             Toast.makeText(this, "Explore Screen Coming Soon", Toast.LENGTH_SHORT).show();
         }else {
             intent.putExtra(getString(R.string.explore_extra), exploreIndex);

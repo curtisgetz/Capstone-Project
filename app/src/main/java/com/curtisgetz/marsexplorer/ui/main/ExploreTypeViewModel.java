@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +36,8 @@ public class ExploreTypeViewModel  extends AndroidViewModel {
 
 
     public void addExploreTypesToDB(Context context){
-        //get explore types in IndexUtils.
-        final List<MainExploreType> mainExploreTypeList = new ArrayList<>(IndexUtils.getAllExploreTypes(context));
+        //get explore types in HelperUtils.
+        final List<MainExploreType> mainExploreTypeList = new ArrayList<>(HelperUtils.getAllExploreTypes(context));
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override

@@ -1,9 +1,10 @@
 package com.curtisgetz.marsexplorer.data;
 
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Cameras {
     private final static String TAG = Cameras.class.getSimpleName();
 
     private int mRoverIndex;
+    @NonNull
     private List<String> mFHAZ, mRHAZ, mNAVCAM, mMAST, mCHEMCAM, mMAHLI, mMARDI, mPANCAM, mMINITES;
     private String mEarthDate;
 
@@ -115,24 +117,24 @@ public class Cameras {
     public boolean isCameraActive(int cameraIndex){
 
         switch (cameraIndex){
-            case IndexUtils.CAM_FHAZ_INDEX:
+            case HelperUtils.CAM_FHAZ_INDEX:
                 return (mFHAZ.size() > 0);
-            case IndexUtils.CAM_RHAZ_INDEX:
+            case HelperUtils.CAM_RHAZ_INDEX:
                 Log.d(TAG, String.valueOf(mRHAZ.size()));
                 return (mRHAZ.size() > 0);
-            case IndexUtils.CAM_MAST_INDEX:
+            case HelperUtils.CAM_MAST_INDEX:
                 return (mMAST.size() > 0);
-            case IndexUtils.CAM_CHEMCAM_INDEX:
+            case HelperUtils.CAM_CHEMCAM_INDEX:
                 return (mCHEMCAM.size() > 0);
-            case IndexUtils.CAM_MAHLI_INDEX:
+            case HelperUtils.CAM_MAHLI_INDEX:
                 return (mMAHLI.size() > 0);
-            case IndexUtils.CAM_MARDI_INDEX:
+            case HelperUtils.CAM_MARDI_INDEX:
                 return (mMARDI.size() > 0);
-            case IndexUtils.CAM_NAVCAM_INDEX:
+            case HelperUtils.CAM_NAVCAM_INDEX:
                 return (mNAVCAM.size() > 0);
-            case IndexUtils.CAM_PANCAM_INDEX:
+            case HelperUtils.CAM_PANCAM_INDEX:
                 return (mPANCAM.size() > 0);
-            case IndexUtils.CAM_MINITES_INDEX:
+            case HelperUtils.CAM_MINITES_INDEX:
                 return (mMINITES.size() > 0);
             default:
                 return false;

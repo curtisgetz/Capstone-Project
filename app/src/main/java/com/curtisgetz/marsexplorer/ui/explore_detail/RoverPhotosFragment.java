@@ -6,13 +6,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +20,10 @@ import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Cameras;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
-import com.curtisgetz.marsexplorer.utils.JsonUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +72,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private RoverPhotosAdapter mPancamAdapter;
     private RoverPhotosAdapter mMinitesAdapter;
 
+
     //private RecyclerView.RecycledViewPool mViewPool;
 
     public RoverPhotosFragment() {
@@ -96,9 +96,9 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mRoverIndex = bundle.getInt(getString(R.string.rover_index_extra_key));
         }else {
             mSol = savedInstanceState.getString(getString(R.string.sol_number_saved_key),
-                    IndexUtils.DEFAULT_SOL_NUMBER);
+                    HelperUtils.DEFAULT_SOL_NUMBER);
             mRoverIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key),
-                    IndexUtils.CURIOSITY_ROVER_INDEX);
+                    HelperUtils.CURIOSITY_ROVER_INDEX);
         }
 
         setRoverTitle();
@@ -136,75 +136,77 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private void setupUI(){
         //if camera has any images then setup adapter and show views.
 
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_FHAZ_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX) != null){
             mFhazAdapter = new RoverPhotosAdapter(this);
             mFhazRecyclerView.setLayoutManager(createLayoutManager());
             mFhazRecyclerView.setAdapter(mFhazAdapter);
-            mFhazAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_FHAZ_INDEX));
+            mFhazAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX));
             mFhazRecyclerView.setVisibility(View.VISIBLE);
             mFhazLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_RHAZ_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_RHAZ_INDEX) != null){
             mRhazAdapter = new RoverPhotosAdapter(this);
             mRhazRecyclerView.setLayoutManager(createLayoutManager());
             mRhazRecyclerView.setAdapter(mRhazAdapter);
-            mRhazAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_RHAZ_INDEX));
+            mRhazAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_RHAZ_INDEX));
             mRhazRecyclerView.setVisibility(View.VISIBLE);
             mRhazLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MAST_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAST_INDEX) != null){
             mMastAdapter = new RoverPhotosAdapter(this);
             mMastRecyclerView.setLayoutManager(createLayoutManager());
             mMastRecyclerView.setAdapter(mMastAdapter);
-            mMastAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MAST_INDEX));
+            mMastAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAST_INDEX));
             mMastRecyclerView.setVisibility(View.VISIBLE);
             mMastLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_CHEMCAM_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_CHEMCAM_INDEX) != null){
             mChemcamAdapter = new RoverPhotosAdapter(this);
             mChemcamRecyclerView.setLayoutManager(createLayoutManager());
             mChemcamRecyclerView.setAdapter(mChemcamAdapter);
-            mChemcamAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_CHEMCAM_INDEX));
+            mChemcamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_CHEMCAM_INDEX));
             mChemcamRecyclerView.setVisibility(View.VISIBLE);
             mChemcamLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MAHLI_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAHLI_INDEX) != null){
             mMahliAdapter = new RoverPhotosAdapter(this);
             mMahliRecyclerView.setLayoutManager(createLayoutManager());
             mMahliRecyclerView.setAdapter(mMahliAdapter);
-            mMahliAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MAHLI_INDEX));
+            mMahliAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAHLI_INDEX));
             mMahliRecyclerView.setVisibility(View.VISIBLE);
-            mMahliRecyclerView.setVisibility(View.VISIBLE);
+            mMahliLabel.setVisibility(View.VISIBLE);
+
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MARDI_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MARDI_INDEX) != null){
             mMardiAdapter = new RoverPhotosAdapter(this);
             mMardiRecyclerView.setLayoutManager(createLayoutManager());
             mMardiRecyclerView.setAdapter(mMardiAdapter);
-            mMardiAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MARDI_INDEX));
+            mMardiAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MARDI_INDEX));
             mMardiRecyclerView.setVisibility(View.VISIBLE);
             mMardiLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_NAVCAM_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_NAVCAM_INDEX) != null){
             mNavcamAdapter = new RoverPhotosAdapter(this);
             mNavcamRecyclerView.setLayoutManager(createLayoutManager());
             mNavcamRecyclerView.setAdapter(mNavcamAdapter);
-            mNavcamAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_NAVCAM_INDEX));
+            mNavcamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_NAVCAM_INDEX));
             mNavcamRecyclerView.setVisibility(View.VISIBLE);
             mNavcamLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_PANCAM_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_PANCAM_INDEX) != null){
             mPancamAdapter = new RoverPhotosAdapter(this);
             mPancamRecyclerView.setLayoutManager(createLayoutManager());
             mPancamRecyclerView.setAdapter(mPancamAdapter);
-            mPancamAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_PANCAM_INDEX));
+            mPancamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_PANCAM_INDEX));
             mPancamRecyclerView.setVisibility(View.VISIBLE);
             mPancamLabel.setVisibility(View.VISIBLE);
         }
-        if(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MINITES_INDEX) != null){
+        if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX) != null){
             mMinitesAdapter = new RoverPhotosAdapter(this);
             mMinitesRecyclerView.setLayoutManager(createLayoutManager());
-            mMinitesRecyclerView.setAdapter(mMardiAdapter);
-            mMinitesAdapter.setData(mViewModel.getImageUrlsForCamera(IndexUtils.CAM_MINITES_INDEX));
+            mMinitesRecyclerView.setAdapter(mMinitesAdapter);
+            mMinitesAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX));
+            Log.d(TAG, mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX).get(0));
             mMinitesRecyclerView.setVisibility(View.VISIBLE);
             mMinitesLabel.setVisibility(View.VISIBLE);
         }
@@ -213,12 +215,12 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     }
 
     private void setRoverTitle(){
-        String roverName = IndexUtils.getRoverNameByIndex(getContext(), mRoverIndex);
+        String roverName = HelperUtils.getRoverNameByIndex(getContext(), mRoverIndex);
         mTitleText.setText(roverName);
     }
 
     private void updateTitleText(){
-        String roverName = IndexUtils.getRoverNameByIndex(getContext(), mRoverIndex);
+        String roverName = HelperUtils.getRoverNameByIndex(getContext(), mRoverIndex);
         Cameras cameras = mViewModel.getCameras().getValue();
         String earthDate = cameras.getEarthDate();
         String title = TextUtils.join(" - ", new String[] {roverName, mSol, earthDate});
@@ -277,20 +279,28 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     }
 
     @Override
-    public void onPhotoClick(String url, View view) {
+    public void onPhotoClick(List<String> url, View view, int clickedPos) {
+        ArrayList<String> urls = new ArrayList<>(url);
 
         FullPhotoFragment photoFragment = new FullPhotoFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(getString(R.string.photo_url_extra), url);
+        bundle.putStringArrayList(getString(R.string.url_list_extra),urls);
+        bundle.putInt(getString(R.string.clicked_photo_pos_extra), clickedPos);
+       // bundle.putString(getString(R.string.photo_url_extra), url);
         photoFragment.setArguments(bundle);
+       /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSharedElementReturnTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        }
+.addSharedElement(view, ViewCompat.getTransitionName(view))
+*/
+
         getActivity().getSupportFragmentManager().beginTransaction()
-                .addSharedElement(view, ViewCompat.getTransitionName(view))
                 .replace(R.id.explore_detail_container, photoFragment,
                         FullPhotoFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
 
 
-        Toast.makeText(getActivity(), String.valueOf(url), Toast.LENGTH_SHORT).show();
+
     }
 }

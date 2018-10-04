@@ -4,9 +4,11 @@
 
 
     <string name="explore_mars">Explore Mars</string>
-    <string name="curiosity_rover">Curiosity</string>
-    <string name="opportunity_rover">Opportunity</string>
-    <string name="spirit_rover">Spirit</string>
+
+<!-- Do Not Translate Rover Names-->
+    <string name="curiosity_rover" translatable="false">Curiosity</string>
+    <string name="opportunity_rover" translatable="false">Opportunity</string>
+    <string name="spirit_rover" translatable="false">Spirit</string>
     <string name="rover_string">Rover</string>
 
 
@@ -15,7 +17,7 @@
     <string name="landing_date_label">Landing Date:</string>
     <string name="sol_range_label">Sol Range:</string>
     <string name="sol_range_info_CD">Click Here for information about Sol range</string>
-    <string name="explore_extra">explore_extra</string>
+
 
     <string name="unknown">Unknown</string>
 
@@ -25,6 +27,9 @@
     <string name="rover_information_category_title">Rover Information</string>
     <string name="rover_science_category_title">Rover Science Instruments</string>
 
+    <string name="mars_weather_category_title">Weather On Mars</string>
+    <string name="mars_facts_category_title">Mars Facts</string>
+    <string name="mars_user_favorites">Your Favorites</string>
 
     <!-- Information Dialog Texts -->
     <string name="info_error_text">Error Loading Information</string>
@@ -35,9 +40,15 @@
 
     <string name="info_index_key" translatable="false">info_index_key</string>
 
+    <!-- image resource prefix -->
     <string name="photos_category_res_prefix" translatable="false">photos_</string>
     <string name="info_category_res_prefix" translatable="false">info_</string>
     <string name="science_category_res_prefix" translatable="false">science_</string>
+    <string name="tweets_category_res_prefix" translatable="false">tweets_</string>
+    <string name="mars_weather_res_prefix" translatable="false">weather_</string>
+    <string name="mars_facts_res_prefix" translatable="false">facts_</string>
+    <string name="mars_favorites_res_prefix" translatable="false">favorites_</string>
+
     <string name="title_activity_explore_detail">ExploreDetailActivity</string>
     <string name="action_settings">Settings</string>
 
@@ -56,14 +67,28 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sol_number_extra_key">sol_number_extra</string>
-    <string name="rover_index_extra_key">rover_index_extra</string>
-    <string name="rover_index_saved_key">rover_index_saved_key</string>
-    <string name="sol_number_saved_key">sol_number_saved_key</string>
-    <string name="photo_url_extra">photo_url_extra</string>
-    <string name="photo_url_saved_key">photo_url_saved_key</string>
-    <string name="rover_photo_transition">rover_photo_transition</string>
-    <string name="share_photo_cd">Share Photo</string>
 
+
+    <!-- Keys for extras and savedInstances -->
+    <string name="explore_extra" translatable="false">explore_extra</string>
+    <string name="sol_number_extra_key" translatable="false">sol_number_extra</string>
+    <string name="rover_index_extra_key" translatable="false">rover_index_extra</string>
+    <string name="rover_index_saved_key" translatable="false">rover_index_saved_key</string>
+    <string name="sol_number_saved_key" translatable="false">sol_number_saved_key</string>
+    <string name="photo_url_extra" translatable="false">photo_url_extra</string>
+    <string name="photo_url_saved_key" translatable="false">photo_url_saved_key</string>
+    <string name="rover_photo_transition" translatable="false">rover_photo_transition</string>
+    <string name="share_photo_cd" translatable="false">Share Photo</string>
+    <string name="enter_valid_num_toast" translatable="false">Please Enter a valid number</string>
+    <string name="starting_pos_saved" translatable="false">starting_pos_saved</string>
+    <string name="url_list_saved" translatable="false">url_list_saved</string>
+
+    <string name="clicked_photo_pos_extra" translatable="false">clicked_photo_position_extra</string>
+    <string name="url_list_extra" translatable="false">url_list_extra</string>
+
+
+    <!--  Snackbar Strings -->
+    <string name="internet_required">This Feature Requires Internet Connection</string>
+    <string name="snackbar_dismiss">OK</string>
 
 </resources>

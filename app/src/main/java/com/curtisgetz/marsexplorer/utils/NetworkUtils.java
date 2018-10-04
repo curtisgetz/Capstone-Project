@@ -47,7 +47,7 @@ public final class NetworkUtils {
 
     //add int sol maybe
     public static URL buildPhotosUrl(Context context,int roverIndex, String sol){
-        String rover = IndexUtils.getRoverNameByIndex(context, roverIndex);
+        String rover = HelperUtils.getRoverNameByIndex(context, roverIndex);
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(ROVERS)
                 .appendPath(rover)
@@ -71,7 +71,7 @@ public final class NetworkUtils {
 
 
     public static URL buildManifestUrl(Context context, int roverIndex){
-        String roverName = IndexUtils.getRoverNameByIndex(context,roverIndex);
+        String roverName = HelperUtils.getRoverNameByIndex(context,roverIndex);
         Log.d(TAG, roverName);
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(MANIFEST_URL)
@@ -111,6 +111,13 @@ public final class NetworkUtils {
         }
 
     }
+
+
+
+
+
+
+
 
 
 }

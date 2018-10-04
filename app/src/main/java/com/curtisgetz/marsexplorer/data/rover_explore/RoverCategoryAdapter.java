@@ -2,7 +2,6 @@ package com.curtisgetz.marsexplorer.data.rover_explore;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,22 +27,25 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     private final static String TAG = RoverCategoryAdapter.class.getSimpleName();
 
     private List<RoverExploreCategory> mCategoryList;
+   // private CategoryClickListener mClickListener;
+    //private SolClickListener mSolButtonClick;
     private CategoryClickListener mClickListener;
-    private SolClickListener mSolButtonClick;
-    private final static int PHOTO_CATEGORY = IndexUtils.ROVER_PICTURES_CAT_INDEX;
+    private LayoutInflater mInflater;
+    private final static int PHOTO_CATEGORY = HelperUtils.ROVER_PICTURES_CAT_INDEX;
 
 
     public interface CategoryClickListener{
         void onCategoryClick(int clickedPos);
-    }
-    public interface SolClickListener {
-        void onSolButtonClick(String solNumber);
+        void onSolSearchClick(String solNumber);
+        void onRandomSolClick();
     }
 
 
-    public RoverCategoryAdapter(CategoryClickListener clickListener, SolClickListener solClickListener){
-        this.mClickListener = clickListener;
-        this.mSolButtonClick = solClickListener;
+
+    public RoverCategoryAdapter(LayoutInflater inflater, CategoryClickListener clickListener){
+       this.mClickListener = clickListener;
+       this.mInflater = inflater;
+       // this.mSolButtonClick = solClickListener;
     }
 
     public void setData(List<RoverExploreCategory> categories){
@@ -61,25 +63,30 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.rover_explore_list_item, parent,  false);
+        View view = mInflater.inflate(R.layout.rover_explore_list_item, parent,  false);
 
-        return new CategoryViewHolder(view);
+        return new CategoryViewHolder(view, mClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //if view is for photos, then show the edit text and buttons
+        CategoryViewHolder viewHolder = (CategoryViewHolder) holder;
+        viewHolder.setItem(mCategoryList.get(position));
+
+
+
+
         RoverExploreCategory category = mCategoryList.get(position);
-        int photoVis;
+       /* int photoVis;
         if(category.getmCatIndex() == PHOTO_CATEGORY){
             photoVis = View.VISIBLE;
         }else {
             photoVis = View.GONE;
         }
-        setupSolSearchViews(photoVis, holder);
-        ((CategoryViewHolder) holder).mTextView.setText(category.getmTitleText());
-        Picasso.get().load(category.getmImageResId()).into(((CategoryViewHolder) holder).mImageView);
+        setupSolSearchViews(photoVis, holder);*/
+        /*((CategoryViewHolder) holder).mTextView.setText(category.getmTitleText());
+        Picasso.get().load(category.getmImageResId()).into(((CategoryViewHolder) holder).mImageView);*/
     }
 
     @Override
@@ -88,45 +95,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         return mCategoryList.size();
     }
 
-    private void setupSolSearchViews(int visibility, final RecyclerView.ViewHolder holder){
-        //todo get edittext input properly
-        //set visibility of Views for searching pictures
-        ((CategoryViewHolder) holder).mSolEdit.setVisibility(visibility);
-        ((CategoryViewHolder) holder).mSolRandBtn.setVisibility(visibility);
-        ((CategoryViewHolder) holder).mSolSeachBtn.setVisibility(visibility);
-        ((CategoryViewHolder) holder).mSolSearchLabel.setVisibility(visibility);
-        //if views are visible then set click listeners
-        if(((CategoryViewHolder) holder).mSolEdit.getVisibility() == View.VISIBLE){
-            //click submit button when 'Done' is pressed on soft keyboard
 
-            //confirm input is a number, if not set it to 200
-
-            ((CategoryViewHolder) holder).mSolEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
-                    if(action == EditorInfo.IME_ACTION_DONE){
-
-                        mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
-                    }
-                    return false;
-                }
-            });
-            ((CategoryViewHolder) holder).mSolSeachBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
-                }
-            });
-            ((CategoryViewHolder) holder).mSolRandBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    mSolButtonClick.onSolButtonClick(((CategoryViewHolder) holder).mSolEdit.getText().toString());
-                }
-            });
-        }
-    }
 
 
 
@@ -139,23 +108,81 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         @BindView(R.id.sol_edit_text)
         EditText mSolEdit;
         @BindView(R.id.search_sol_button)
-        Button mSolSeachBtn;
+        Button mSolSearchBtn;
         @BindView(R.id.random_sol_button)
         Button mSolRandBtn;
         @BindView(R.id.sol_search_label)
         TextView mSolSearchLabel;
 
-        CategoryViewHolder(View itemView){
+        public CategoryClickListener mCatClickListener;
+        public RoverExploreCategory mCategory;
+
+        public CategoryViewHolder(View itemView, CategoryClickListener listener){
             super(itemView);
+            this.mCatClickListener = listener;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+
         }
 
 
         @Override
         public void onClick(View v) {
-            mClickListener.onCategoryClick(getAdapterPosition());
+            mCatClickListener.onCategoryClick(getAdapterPosition());
         }
+
+
+        void setItem(RoverExploreCategory category){
+            this.mCategory = category;
+            mTextView.setText(category.getmTitleText());
+            Picasso.get().load(category.getmImageResId()).into(mImageView);
+            int photoVis;
+            if(category.getmCatIndex() == PHOTO_CATEGORY){
+                photoVis = View.VISIBLE;
+            }else {
+                photoVis = View.GONE;
+            }
+            setupSolSearchViews(photoVis);
+        }
+
+
+        private void setupSolSearchViews(int visibility){
+            //todo get edittext input properly
+            //set visibility of Views for searching pictures
+            mSolEdit.setVisibility(visibility);
+            mSolRandBtn.setVisibility(visibility);
+            mSolSearchBtn.setVisibility(visibility);
+            mSolSearchLabel.setVisibility(visibility);
+            //if views are visible then set click listeners
+            if(mSolEdit.getVisibility() == View.VISIBLE){
+                //click submit button when 'Done' is pressed on soft keyboard
+                //confirm input is a number, if not set it to 200
+                mSolEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
+                        if(action == EditorInfo.IME_ACTION_DONE){
+                            mCatClickListener.onSolSearchClick(mSolEdit.getText().toString());
+                        }
+                        return false;
+                    }
+                });
+                mSolSearchBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mCatClickListener.onSolSearchClick(mSolEdit.getText().toString());
+                    }
+                });
+                mSolRandBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mCatClickListener.onRandomSolClick();
+                    }
+                });
+            }
+        }
+
+
+
     }
 
 

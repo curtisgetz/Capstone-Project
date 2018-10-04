@@ -1,10 +1,9 @@
 package com.curtisgetz.marsexplorer.data.rover_manifest;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 @Entity(tableName = "roverManifest")
 public class RoverManifest {
@@ -33,19 +32,35 @@ public class RoverManifest {
         this.mTotalPhotos = mTotalPhotos;
     }
 
-    public String getSolRange(){
-        String minSol = "";
+    private int getMinSol(){
         switch(mRoverIndex){
-            case IndexUtils.CURIOSITY_ROVER_INDEX:
-                minSol = String.valueOf(IndexUtils.CURIOSITY_SOL_START);
-                break;
-            case IndexUtils.OPPORTUNITY_ROVER_INDEX:
-                minSol = String.valueOf(IndexUtils.OPPORTUNITY_SOL_START);
-                break;
-            case IndexUtils.SPIRIT_ROVER_INDEX:
-                minSol = String.valueOf(IndexUtils.SPIRIT_SOL_START);
-                break;
+            case HelperUtils.CURIOSITY_ROVER_INDEX:
+                return HelperUtils.CURIOSITY_SOL_START;
+            case HelperUtils.OPPORTUNITY_ROVER_INDEX:
+                return HelperUtils.OPPORTUNITY_SOL_START;
+            case HelperUtils.SPIRIT_ROVER_INDEX:
+                 return HelperUtils.SPIRIT_SOL_START;
+            default:
+                //if no match then use 1 as sol start to be safe
+                return HelperUtils.OPPORTUNITY_SOL_START;
         }
+    }
+
+
+
+    public String getSolRange(){
+        String minSol = String.valueOf(getMinSol());
+        /*switch(mRoverIndex){
+            case HelperUtils.CURIOSITY_ROVER_INDEX:
+                minSol = String.valueOf(HelperUtils.CURIOSITY_SOL_START);
+                break;
+            case HelperUtils.OPPORTUNITY_ROVER_INDEX:
+                minSol = String.valueOf(HelperUtils.OPPORTUNITY_SOL_START);
+                break;
+            case HelperUtils.SPIRIT_ROVER_INDEX:
+                minSol = String.valueOf(HelperUtils.SPIRIT_SOL_START);
+                break;
+        }*/
         return minSol + " - " + mMaxSol;
     }
 
@@ -114,4 +129,21 @@ public class RoverManifest {
     public void setTotalPhotos(String mTotalPhotos) {
         this.mTotalPhotos = mTotalPhotos;
     }
+
+    public int getMinSolInt(){
+        return  getMinSol();
+    }
+
+    public int getMaxSolint(){
+        int maxSol;
+        try{
+            maxSol = Integer.parseInt(mMaxSol);
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            return HelperUtils.DEFAULT_MAX_SOL;
+        }
+        return maxSol;
+    }
+
+
 }

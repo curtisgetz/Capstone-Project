@@ -7,12 +7,15 @@ import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class IndexUtils {
+public final class HelperUtils {
 
-    private final static String TAG = IndexUtils.class.getSimpleName();
+    private final static String TAG = HelperUtils.class.getSimpleName();
+
+    public final static String PHOTO_PAGER_URL_EXTRA = "photo_url_extra";
 
     public final static String DEFAULT_SOL_NUMBER = "200";
 
@@ -24,10 +27,19 @@ public final class IndexUtils {
 
     public final static int[] ROVER_INDICES = {CURIOSITY_ROVER_INDEX, OPPORTUNITY_ROVER_INDEX, SPIRIT_ROVER_INDEX};
 
+    //MARS EXPLORE CATEGORY INDICES
+    public final static int MARS_WEATHER_CAT_INDEX = 100;
+    public final static int MARS_FACTS_CAT_INDEX = 101;
+    public final static int MARS_FAVORITES_CAT_INDEX = 102;
+
+    public final static int[] MARS_EXPLORE_CATEGORIES =
+            {MARS_WEATHER_CAT_INDEX, MARS_FACTS_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
+
     //ROVER CATEGORY INDICES
     public final static int ROVER_PICTURES_CAT_INDEX = 0;
-    private final static int ROVER_INFO_CAT_INDEX = 1;
-    private final static int ROVER_SCIENCE_CAT_INDEX = 2;
+    public final static int ROVER_INFO_CAT_INDEX = 1;
+    public final static int ROVER_SCIENCE_CAT_INDEX = 2;
+    public final static int ROVER_TWEETS_CAT_INDEX = 3;
 
     //Set available categories for each rover
     private final static int[] CURIOSITY_CATEGORIES = {0,1,2};
@@ -38,6 +50,9 @@ public final class IndexUtils {
     public final static int CURIOSITY_SOL_START = 0;
     public final static int OPPORTUNITY_SOL_START = 1;
     public final static int SPIRIT_SOL_START = 1;
+    //all rovers have at least 2000 sols. use if any errors getting true max sol
+    public final static int DEFAULT_MAX_SOL = 2000;
+
     //CAMERA INDICES
     public final static int CAM_FHAZ_INDEX = 0;
     public final static int CAM_RHAZ_INDEX = 1;
@@ -101,13 +116,18 @@ public final class IndexUtils {
     }
 
 
-    public static List<RoverExploreCategory> getExploreCategories(int exploreIndex){
-        return null;
+    public static List<RoverExploreCategory> getExploreCategories(Context context, int exploreIndex){
+        return setupCategories(context, MARS_EXPLORE_CATEGORIES, MARS_EXPLORE_INDEX);
+
+
     }
 
-    public static List<RoverExploreCategory> getRoverCategories(Context context, int roverIndex){
+    public static List<RoverExploreCategory> getRoverCategories(Context context, int exploreIndex){
         int[] categories;
-        switch (roverIndex){
+        switch (exploreIndex){
+            case MARS_EXPLORE_INDEX:
+                categories = MARS_EXPLORE_CATEGORIES;
+                break;
             case CURIOSITY_ROVER_INDEX:
                 categories = CURIOSITY_CATEGORIES;
                 break;
@@ -121,17 +141,17 @@ public final class IndexUtils {
                 return null;
         }
 
-        return setupCategories(context, categories, roverIndex);
+        return setupCategories(context, categories, exploreIndex);
     }
 
 
-    private static List<RoverExploreCategory> setupCategories(Context context, int[] categories, int roverIndex){
+    private static List<RoverExploreCategory> setupCategories(Context context, int[] categories, int exploreIndex){
         List<RoverExploreCategory> exploreCategoriesList = new ArrayList<>();
 
 
         for (int category : categories) {
             String title = getCategoryTitle(context, category);
-            int imageResId = getCategoryImgResId(context, roverIndex, category);
+            int imageResId = getCategoryImgResId(context, exploreIndex, category);
             exploreCategoriesList.add(new RoverExploreCategory(title, imageResId, category));
         }
         return exploreCategoriesList;
@@ -141,6 +161,15 @@ public final class IndexUtils {
     private static String getCategoryTitle(Context context, int categoryIndex){
         String title  = "";
         switch (categoryIndex){
+            case MARS_WEATHER_CAT_INDEX:
+                title = context.getString(R.string.mars_weather_category_title);
+                break;
+            case MARS_FACTS_CAT_INDEX:
+                title = context.getString(R.string.mars_facts_category_title);
+                break;
+            case MARS_FAVORITES_CAT_INDEX:
+                title = context.getString(R.string.mars_user_favorites);
+                break;
             case ROVER_PICTURES_CAT_INDEX:
                 title = context.getString(R.string.rover_picture_category_title);
                 break;
@@ -149,6 +178,7 @@ public final class IndexUtils {
                 break;
             case ROVER_SCIENCE_CAT_INDEX:
                 title = context.getString(R.string.rover_science_category_title);
+
         }
         return title;
     }
@@ -160,6 +190,17 @@ public final class IndexUtils {
         String resourcePrefix;
         //todo update images
         switch (categoryIndex){
+            case MARS_WEATHER_CAT_INDEX:
+                resourcePrefix = "photos_";
+//                resourcePrefix = context.getString(R.string.mars_weather_res_prefix);
+                break;
+            case MARS_FACTS_CAT_INDEX:
+                resourcePrefix = "photos_";
+//                resourcePrefix = context.getString(R.string.mars_facts_res_prefix);
+                break;
+            case MARS_FAVORITES_CAT_INDEX:
+                resourcePrefix = "photos_";
+//                resourcePrefix = context.getString(R.string.mars_favorites_res_prefix);
             case ROVER_PICTURES_CAT_INDEX:
                 resourcePrefix = context.getString(R.string.photos_category_res_prefix);
                 break;

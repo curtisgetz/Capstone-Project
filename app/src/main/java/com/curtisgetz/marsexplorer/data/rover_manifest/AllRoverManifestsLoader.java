@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 
@@ -17,8 +17,8 @@ public class AllRoverManifestsLoader extends AsyncTaskLoader<List<RoverManifest>
 
     private final static String TAG = AllRoverManifestsLoader.class.getSimpleName();
 
-    private final static int[] mRoverIndices = {IndexUtils.CURIOSITY_ROVER_INDEX,
-            IndexUtils.OPPORTUNITY_ROVER_INDEX, IndexUtils.SPIRIT_ROVER_INDEX};
+    private final static int[] mRoverIndices = {HelperUtils.CURIOSITY_ROVER_INDEX,
+            HelperUtils.OPPORTUNITY_ROVER_INDEX, HelperUtils.SPIRIT_ROVER_INDEX};
 
 
 

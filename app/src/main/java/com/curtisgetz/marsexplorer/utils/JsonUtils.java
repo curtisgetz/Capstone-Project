@@ -1,5 +1,6 @@
 package com.curtisgetz.marsexplorer.utils;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.Cameras;
@@ -100,6 +101,7 @@ public final class JsonUtils {
                 JSONObject cameraObject = jsonObject.getJSONObject(NASA_PHOTO_CAMERA);
                 String cameraName = cameraObject.optString(NASA_NAME);
                 String imgSrcString = jsonObject.optString(NASA_IMAGE);
+
                 earthDate = getDateString(jsonObject.optString(NASA_DATE));
                 //ADD img src to matching camera ArrayList
                 switch (cameraName){
@@ -129,6 +131,8 @@ public final class JsonUtils {
                         break;
                     case ROVER_MINITES:
                         minites.add(imgSrcString);
+                        break;
+                    default:
                         break;
                 }
 

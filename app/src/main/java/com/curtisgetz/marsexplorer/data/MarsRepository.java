@@ -9,13 +9,13 @@ import android.util.Log;
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.room.MarsDao;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
-import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
-import com.curtisgetz.marsexplorer.utils.IndexUtils;
+import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
@@ -26,7 +26,7 @@ public class MarsRepository {
 
     private MutableLiveData<Cameras> mCameras;
     //private LiveData<RoverManifest> mRoverManifest;
-    private final static int[] ROVER_INDICES = IndexUtils.ROVER_INDICES;
+    private final static int[] ROVER_INDICES = HelperUtils.ROVER_INDICES;
 
     public MarsRepository(Application application){
         AppDataBase dataBase = AppDataBase.getInstance(application);
@@ -81,6 +81,12 @@ public class MarsRepository {
 
     public LiveData<Cameras> getCameras(final Context context, final int index, final String sol){
         mCameras = new MutableLiveData<>();
+        List<String> list = new ArrayList<>();
+        list.add("Asd");
+        list.add("unknown");
+        list.add("23");
+        //todo testing parsing erros
+       // mCameras.postValue(new Cameras(2, list, list, list, null, list, null, list, list, list, null));
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {

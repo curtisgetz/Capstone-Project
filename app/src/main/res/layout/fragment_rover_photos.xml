@@ -45,10 +45,7 @@
             android:id="@+id/photos_fhaz_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/FHAZ"
             app:layout_constraintTop_toBottomOf="@id/rover_photos_title"/>
 
@@ -73,9 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/RHAZ"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_1"/>
 
@@ -103,9 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/MAST"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_2"/>
 
@@ -133,9 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/CHEMCAM"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_3"/>
 
@@ -163,9 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/MAHLI"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_4"/>
 
@@ -193,9 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/MARDI"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_5"/>
 
@@ -224,9 +211,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/NAVCAM"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_6"/>
 
@@ -255,9 +240,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/PANCAM"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_7"/>
 
@@ -287,9 +270,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textSize="14sp"
-            android:gravity="center_horizontal"
+            style="@style/CameraTextLabel"
             android:text="@string/MINITES"
             app:layout_constraintTop_toBottomOf="@id/barrier_top_8"/>
 
