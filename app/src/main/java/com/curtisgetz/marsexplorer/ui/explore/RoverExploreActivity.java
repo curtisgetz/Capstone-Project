@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
@@ -20,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverCategoryAdapter;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
@@ -136,7 +136,7 @@ public class RoverExploreActivity extends AppCompatActivity implements
     private void startExploreDetailActivity(String solNumber){
         if(isNetworkAvailable()) {
             Intent intent = new Intent(this, ExploreDetailActivity.class);
-            intent.putExtra(getString(R.string.rover_index_extra_key), mRoverIndex);
+            intent.putExtra(getString(R.string.explore_index_extra_key), mRoverIndex);
             intent.putExtra(getString(R.string.sol_number_extra_key), solNumber);
             startActivity(intent);
         }
@@ -147,11 +147,14 @@ public class RoverExploreActivity extends AppCompatActivity implements
 
     @OnClick(R.id.sol_info_clickbox)
     public void solInfo(){
-        Bundle bundle = new Bundle();
+        /*Bundle bundle = new Bundle();
         bundle.putInt(getString(R.string.info_index_key), InformationUtils.SOL_RANGE_INFO);
         InfoDialogFragment infoDialogFragment = new InfoDialogFragment();
         infoDialogFragment.setArguments(bundle);
-        infoDialogFragment.show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
+        infoDialogFragment.show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());*/
+        InformationUtils.getInfoFragment(InformationUtils.SOL_RANGE_INFO)
+                .show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
+
     }
 
     private void populateManifestUI(){

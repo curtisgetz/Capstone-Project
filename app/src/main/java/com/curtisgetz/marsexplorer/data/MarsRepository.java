@@ -4,11 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.room.MarsDao;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
+import com.curtisgetz.marsexplorer.ui.explore_detail.MarsWeatherFragment;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
@@ -19,12 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
+import static android.view.View.generateViewId;
 
 public class MarsRepository {
 
     private MarsDao mMarsDao;
 
     private MutableLiveData<Cameras> mCameras;
+    private MutableLiveData<List<WeatherDetail>> mWeather;
     //private LiveData<RoverManifest> mRoverManifest;
     private final static int[] ROVER_INDICES = HelperUtils.ROVER_INDICES;
 
@@ -103,6 +107,23 @@ public class MarsRepository {
     }
 
 
+    public LiveData<List<WeatherDetail>> getLatestWeather(final Context context){
+        mWeather = new MutableLiveData<>();
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    URL weatherUrl = NetworkUtils.buildWeatherUrl();
+                    String jsonResponse = NetworkUtils.getResponseFromHttpUrl(weatherUrl);
+                    mWeather.postValue(JsonUtils.getWeatherDetail(context, jsonResponse));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        if(mWeather == null) mWeather = new MutableLiveData<>();
+        return mWeather;
+    }
 
 
 

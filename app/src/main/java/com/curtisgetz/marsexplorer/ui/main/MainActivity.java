@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
+import com.curtisgetz.marsexplorer.ui.explore.MarsExploreActivity;
 import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
@@ -45,9 +47,6 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
         mExploreRecyclerView.setAdapter(mAdapter);
 
         setupViewModel();
-        //getExploreTypes();
-        Toast.makeText(this, getPackageName(), Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -69,15 +68,18 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
     @Override
     public void onExploreClick(int clickedPos) {
-        Intent intent = new Intent(getApplicationContext(), RoverExploreActivity.class);
+
         MainExploreType exploreType = mAdapter.getExploreType(clickedPos);
         int exploreIndex = exploreType.getTypeIndex();
+        Intent intent;
         if(exploreIndex == HelperUtils.MARS_EXPLORE_INDEX){
-            Toast.makeText(this, "Explore Screen Coming Soon", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "Explore Screen Coming Soon", Toast.LENGTH_SHORT).show();
+            intent = new Intent(getApplicationContext(), MarsExploreActivity.class);
         }else {
-            intent.putExtra(getString(R.string.explore_extra), exploreIndex);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), RoverExploreActivity.class);
         }
+        intent.putExtra(getString(R.string.explore_extra), exploreIndex);
+        startActivity(intent);
     }
 
 

@@ -15,10 +15,17 @@ import static com.curtisgetz.marsexplorer.utils.Config.MY_API;
 
 public final class NetworkUtils {
 
-
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
+    //Use 'DEMO_KEY' for limited use.  If you reach limits you can apply for a key at
+    //https://api.nasa.gov/index.html#apply-for-an-api-key
+
+    private static final String NASA_API = Config.MY_API;
+    //private static final String NASA_API = "DEMO_KEY";
+
+    //todo use FB remote config for future changes
     private static final String BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/";
+    private static final String WEATHER_BASE_URL= "https://api.maas2.jiinxt.com/";
 
 
     //query parameters.
@@ -36,11 +43,9 @@ public final class NetworkUtils {
 
     //manifest + rover
     //api.nasa.gov/mars-photos/api/v1/manifests/curiosity?
-
     private static final String MANIFEST_URL = "manifests";
 
     // photos - base + 'rovers' + rover + 'photos' + ?
-
     private static final String ROVERS  = "rovers";
     private static final String  PHOTOS = "photos";
 
@@ -54,7 +59,7 @@ public final class NetworkUtils {
                 .appendPath(PHOTOS)
                 .appendQueryParameter(SOL, sol)
                 .appendQueryParameter(PAGE, String.valueOf(1))
-                .appendQueryParameter(API_KEY, MY_API)
+                .appendQueryParameter(API_KEY, NASA_API)
                 .build();
 
         URL url = null;
@@ -76,7 +81,7 @@ public final class NetworkUtils {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath(MANIFEST_URL)
                 .appendPath(roverName)
-                .appendQueryParameter(API_KEY, MY_API)
+                .appendQueryParameter(API_KEY, NASA_API)
                 .build();
 
         URL url = null;
@@ -90,6 +95,23 @@ public final class NetworkUtils {
         Log.v(TAG, "Built MANIFEST URI " + url );
         return url;
 
+    }
+
+    public static URL buildWeatherUrl(){
+        Uri builtUrl = Uri.parse(WEATHER_BASE_URL);
+        URL url = null;
+        try{
+            url = new URL(builtUrl.toString());
+        }catch (MalformedURLException e){
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildWeatherUrl(int sol){
+        //todo get weather within range (maybe can wait)
+        URL url = buildWeatherUrl();
+        return null;
     }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {

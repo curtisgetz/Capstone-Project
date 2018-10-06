@@ -57,7 +57,7 @@ public class InfoDialogFragment extends DialogFragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        int infoIndex = bundle.getInt(getString(R.string.info_index_key), -1);
+        int infoIndex = bundle.getInt(InformationUtils.INFO_INDEX_EXTRA, -1);
         String text = InformationUtils.getInformationText(getActivity(), infoIndex);
         Log.i(TAG, text);
         mInfoText.setText(text);

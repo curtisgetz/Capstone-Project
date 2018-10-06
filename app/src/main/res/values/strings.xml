@@ -5,11 +5,12 @@
 
     <string name="explore_mars">Explore Mars</string>
 
-<!-- Do Not Translate Rover Names-->
+    <!-- Do Not Translate Rover Names-->
     <string name="curiosity_rover" translatable="false">Curiosity</string>
     <string name="opportunity_rover" translatable="false">Opportunity</string>
     <string name="spirit_rover" translatable="false">Spirit</string>
     <string name="rover_string">Rover</string>
+    <string name="sol">Sol</string>
 
 
     <string name="mission_status_label">Mission Status:</string>
@@ -33,9 +34,25 @@
 
     <!-- Information Dialog Texts -->
     <string name="info_error_text">Error Loading Information</string>
-    <string name="sol_text_details">The term Sol is used to refer to the duration of a solar day on Mars.
+    <string name="info_sol_text_details">The term Sol is used to refer to the duration of a solar day on Mars.
         \nA Martian solar day, or "Sol", is 24 hours, 39 minutes, and 35.244 seconds.
         \nPhotos are organized by the Sol on which they were taken, counting up from the rover landing date. </string>
+    <string name="info_air_temp">Mars is farther from the Sun than Earth. Because of this,  Mars is colder than our planet.
+        Moreover, Martian atmosphere, which is extremely tenuous, does not retain the heat; hence
+        the difference between day and night's temperatures is more pronounced than in our planet.</string>
+    <string name="info_ground_temp">Martian atmosphere is extremely tenuous, about 160 times
+        thinner than Earth\'s, so heat from the Sun can easily escape. Because of this,  there are big
+        differences between ground temperature and air temperature.</string>
+    <string name="info_weather">This weather data is obtained from the Rover Environmental
+        Monitoring Station (REMS) on board the Curiosity Rover.</string>
+    <string name="info_sunrise_sunset">The duration of a Martian day, or Sol, is about 24 hours and
+        40 minutes. The duration of daylight varies along the Martian year, as on Earth</string>
+    <string name="info_atmo">Weather on Mars is more extreme than Earth\'s. Mars is cooler and with
+        bigger differences between day and night temperatures. Moreover, dust storms lash its surface.
+        However, Mars\' and Earth\'s climates have important similarities, such as the polar ice
+        caps and seasonal changes. As on Earth, on Mars we can have sunny, cloudy or windy days, for example.</string>
+
+
 
 
     <string name="info_index_key" translatable="false">info_index_key</string>
@@ -72,7 +89,7 @@
     <!-- Keys for extras and savedInstances -->
     <string name="explore_extra" translatable="false">explore_extra</string>
     <string name="sol_number_extra_key" translatable="false">sol_number_extra</string>
-    <string name="rover_index_extra_key" translatable="false">rover_index_extra</string>
+    <string name="explore_index_extra_key" translatable="false">explore_index_extra</string>
     <string name="rover_index_saved_key" translatable="false">rover_index_saved_key</string>
     <string name="sol_number_saved_key" translatable="false">sol_number_saved_key</string>
     <string name="photo_url_extra" translatable="false">photo_url_extra</string>
@@ -90,5 +107,24 @@
     <!--  Snackbar Strings -->
     <string name="internet_required">This Feature Requires Internet Connection</string>
     <string name="snackbar_dismiss">OK</string>
+
+    <!--  Weather Detail Labels -->
+    <string name="weather_season">Season</string>
+    <string name="weather_min_air_temp">Min Air Temp</string>
+    <string name="weather_max_air_temp">Max Air Temp</string>
+    <string name="weather_atmo">Atmospheric Opacity</string>
+    <string name="weather_sunset">Sunset</string>
+    <string name="weather_sunrise">Sunrise</string>
+    <string name="weather_min_ground_temp">Min Ground Temp</string>
+    <string name="weather_max_ground_temp">Max Ground Temp</string>
+
+
+    <string name="weather_on_mars">Weather On Mars</string>
+    <string name="mars_weather_info">Click here for information about weather on Mars</string>
+    <string name="weather_detail_info">Click here for weather detail information</string>
+
+    <!-- Units of measure strings -->
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
 
 </resources>

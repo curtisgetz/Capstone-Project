@@ -5,6 +5,7 @@ public class RoverExploreCategory {
     private int mCatIndex;
     private String mTitleText;
     private int mImageResId;
+    private String mContentDescription = "";
 
     public RoverExploreCategory(){
 
@@ -14,6 +15,13 @@ public class RoverExploreCategory {
         this.mTitleText = mTitleText;
         this.mImageResId = mImageResId;
         this.mCatIndex = catIndex;
+    }
+
+    public RoverExploreCategory(String mTitleText, int mImageResId, int catIndex, String contentDescription) {
+        this.mTitleText = mTitleText;
+        this.mImageResId = mImageResId;
+        this.mCatIndex = catIndex;
+        this.mContentDescription = contentDescription;
     }
 
 
@@ -40,4 +48,15 @@ public class RoverExploreCategory {
     public void setmCatIndex(int mCatIndex) {
         this.mCatIndex = mCatIndex;
     }
+
+    public void setContentDescription(String contentDescription){
+        this.mContentDescription = contentDescription;
+
+    }
+
+    public String getContentDescription(){
+        return mContentDescription;
+    }
+
+
 }

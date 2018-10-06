@@ -72,6 +72,8 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private RoverPhotosAdapter mPancamAdapter;
     private RoverPhotosAdapter mMinitesAdapter;
 
+    //TODO Try moving more logic into ViewModels
+
 
     //private RecyclerView.RecycledViewPool mViewPool;
 
@@ -93,7 +95,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         if(savedInstanceState == null){
             Bundle bundle = getArguments();
             mSol = bundle.getString(getString(R.string.sol_number_extra_key));
-            mRoverIndex = bundle.getInt(getString(R.string.rover_index_extra_key));
+            mRoverIndex = bundle.getInt(getString(R.string.explore_index_extra_key));
         }else {
             mSol = savedInstanceState.getString(getString(R.string.sol_number_saved_key),
                     HelperUtils.DEFAULT_SOL_NUMBER);

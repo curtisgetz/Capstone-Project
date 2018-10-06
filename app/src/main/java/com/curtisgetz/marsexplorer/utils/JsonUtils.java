@@ -1,9 +1,13 @@
 package com.curtisgetz.marsexplorer.utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Helper;
 import android.util.Log;
 
+import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Cameras;
+import com.curtisgetz.marsexplorer.data.WeatherDetail;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
 import org.json.JSONArray;
@@ -52,10 +56,93 @@ public final class JsonUtils {
     //if it jason parse fails, use "unknown"  if parsing the image url then Picasso will load the 'error' image specified.
     private final static String FALLBACK_STRING = "unknown";
 
+
+    //weather json keys
+    public final static String WEATHER_MAIN_KEY = "JSON";
+    public final static String WEATHER_STATUS = "status";
+    public final static String WEATHER_SOL = "sol";
+    public final static String WEATHER_SEASON = "season";
+    public final static String WEATHER_MIN_TEMP = "min_temp";
+    public final static String WEATHER_MAX_TEMP = "max_temp";
+    public final static String WEATHER_ATMO_OPACITY = "atmo_opacity";
+    public final static String WEATHER_SUNSET = "sunset";
+    public final static String WEATHER_SUNRISE = "sunrise";
+    public final static String WEATHER_MIN_GROUND_TEMP = "min_gts_temp";
+    public final static String WEATHER_MAX_GROUND_TEMP = "max_gts_temp";
+    public final static String WEATHER_UNIT_OF_MEASURE = "unitOfMeasure";
+    //array of which weather details to display
+    private final static String[] WEATHER_DETAILS_TO_DISPLAY = {WEATHER_MIN_TEMP,WEATHER_MAX_TEMP,
+            WEATHER_ATMO_OPACITY,WEATHER_SUNSET,WEATHER_SUNRISE,WEATHER_MIN_GROUND_TEMP,
+            WEATHER_MAX_GROUND_TEMP};
+    private final static int FALLBACK_INT = -9999;
+
 //JSON keys---------------------------------
 
 
 
+    public static List<WeatherDetail> getWeatherDetail(Context context, String url) throws JSONException{
+        JSONObject mainObject = new JSONObject(url);
+        /*if(!mainObject.has(WEATHER_MAIN_KEY)) {
+            Log.e(TAG, "No MAIN KEY found in Weather JSON");
+            return null;
+        }*/
+        int status = mainObject.optInt(WEATHER_STATUS, 0);
+        if(status != 200) {
+            Log.e(TAG, "HTTP STATUS NOT 200");
+            return null;
+        }
+        List<WeatherDetail> weatherDetails = new ArrayList<>();
+        for(String jsonKey : WEATHER_DETAILS_TO_DISPLAY){
+            String sol = mainObject.optString(WEATHER_SOL, FALLBACK_STRING);
+            int weatherIndex = getWeatherIndexByJsonKey(jsonKey);
+            int infoIndex = HelperUtils.getWeatherInfoIndex(weatherIndex);
+            String label = HelperUtils.getWeatherLabel(context, weatherIndex);
+            String value = mainObject.optString(jsonKey, FALLBACK_STRING);
+            value = addTempUnit(context, jsonKey, value);
+            Log.d(TAG, label + " _ " + value);
+            weatherDetails.add(new WeatherDetail(label, value, infoIndex, sol));
+        }
+
+       /* String minTemp = String.valueOf(mainObject.optInt(WEATHER_MIN_TEMP, FALLBACK_INT));
+        String minTempLabel = HelperUtils.getWeatherLabel(context,getWeatherIndexByJsonKey(WEATHER_MIN_TEMP));
+        weatherDetails.add(new WeatherDetail(minTempLabel, minTemp));*/
+        return weatherDetails;
+    }
+
+
+    private static int getWeatherIndexByJsonKey(String jsonKey){
+        switch (jsonKey){
+            case WEATHER_MIN_TEMP:
+                return HelperUtils.WEATHER_MIN_TEMP_INDEX;
+            case WEATHER_MAX_TEMP:
+                return HelperUtils.WEATHER_MAX_TEMP_INDEX;
+            case WEATHER_ATMO_OPACITY:
+                return HelperUtils.WEATHER_ATMO_INDEX;
+            case WEATHER_SUNSET:
+                return HelperUtils.WEATHER_SUNSET_INDEX;
+            case WEATHER_SUNRISE:
+                return HelperUtils.WEATHER_SUNRISE_INDEX;
+            case WEATHER_MIN_GROUND_TEMP:
+                return HelperUtils.WEATHER_MIN_GRND_TMP_INDEX;
+            case WEATHER_MAX_GROUND_TEMP:
+                return HelperUtils.WEATHER_MAX_GRND_TMP_INDEX;
+            default:
+                return -1;
+        }
+
+    }
+
+    private static String addTempUnit(Context context, String jsonKey, String value){
+        switch (jsonKey){
+            case WEATHER_MIN_TEMP:
+            case WEATHER_MAX_TEMP:
+            case WEATHER_MIN_GROUND_TEMP:
+            case WEATHER_MAX_GROUND_TEMP:
+                return value + " " + context.getString(R.string.celsius);
+            default:
+                return value;
+        }
+    }
     public static RoverManifest getRoverManifest(int roverIndex, String url) throws JSONException {
 
         JSONObject mainObject = new JSONObject(url);

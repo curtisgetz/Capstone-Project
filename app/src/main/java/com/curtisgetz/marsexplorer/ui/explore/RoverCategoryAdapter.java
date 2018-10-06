@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.data.rover_explore;
+package com.curtisgetz.marsexplorer.ui.explore;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +31,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
    // private CategoryClickListener mClickListener;
     //private SolClickListener mSolButtonClick;
     private CategoryClickListener mClickListener;
-    private LayoutInflater mInflater;
+   // private LayoutInflater mInflater;
     private final static int PHOTO_CATEGORY = HelperUtils.ROVER_PICTURES_CAT_INDEX;
 
 
@@ -44,7 +45,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
     public RoverCategoryAdapter(LayoutInflater inflater, CategoryClickListener clickListener){
        this.mClickListener = clickListener;
-       this.mInflater = inflater;
+       //this.mInflater = inflater;
        // this.mSolButtonClick = solClickListener;
     }
 
@@ -63,7 +64,8 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = mInflater.inflate(R.layout.rover_explore_list_item, parent,  false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.rover_explore_list_item, parent,  false);
 
         return new CategoryViewHolder(view, mClickListener);
     }
@@ -77,7 +79,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
 
 
-        RoverExploreCategory category = mCategoryList.get(position);
+        //RoverExploreCategory category = mCategoryList.get(position);
        /* int photoVis;
         if(category.getmCatIndex() == PHOTO_CATEGORY){
             photoVis = View.VISIBLE;
@@ -114,10 +116,10 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         @BindView(R.id.sol_search_label)
         TextView mSolSearchLabel;
 
-        public CategoryClickListener mCatClickListener;
-        public RoverExploreCategory mCategory;
+        CategoryClickListener mCatClickListener;
+        RoverExploreCategory mCategory;
 
-        public CategoryViewHolder(View itemView, CategoryClickListener listener){
+        CategoryViewHolder(View itemView, CategoryClickListener listener){
             super(itemView);
             this.mCatClickListener = listener;
             ButterKnife.bind(this, itemView);
@@ -128,7 +130,8 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            mCatClickListener.onCategoryClick(getAdapterPosition());
+
+            mCatClickListener.onCategoryClick(mCategory.getmCatIndex());
         }
 
 
@@ -136,18 +139,23 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
             this.mCategory = category;
             mTextView.setText(category.getmTitleText());
             Picasso.get().load(category.getmImageResId()).into(mImageView);
-            int photoVis;
-            if(category.getmCatIndex() == PHOTO_CATEGORY){
+            //if the cateogry is PHOTO_CATEGORY, then show buttons and edit text for user input.
+            setupSolSearchViews(category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE);
+
+
+            //int photoVis = category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE;
+
+           /* if(category.getmCatIndex() == PHOTO_CATEGORY){
                 photoVis = View.VISIBLE;
             }else {
                 photoVis = View.GONE;
-            }
-            setupSolSearchViews(photoVis);
+            }*/
+            //setupSolSearchViews(photoVis);
         }
 
 
         private void setupSolSearchViews(int visibility){
-            //todo get edittext input properly
+
             //set visibility of Views for searching pictures
             mSolEdit.setVisibility(visibility);
             mSolRandBtn.setVisibility(visibility);

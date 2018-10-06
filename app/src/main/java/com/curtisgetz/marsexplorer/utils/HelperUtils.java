@@ -1,6 +1,8 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
+import android.icu.text.IDNA;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.R;
@@ -74,6 +76,22 @@ public final class HelperUtils {
             CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
     public final static int[] SPIRIT_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
             CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
+
+
+    //WEATHER DETAILS INDICES
+    public final static int WEATHER_STATUS_INDEX = 0;
+    public final static int WEATHER_SOL_INDEX = 1;
+    public final static int WEATHER_SEASON_INDEX = 2;
+    public final static int WEATHER_MIN_TEMP_INDEX = 3;
+    public final static int WEATHER_MAX_TEMP_INDEX = 4;
+    public final static int WEATHER_ATMO_INDEX = 5;
+    public final static int WEATHER_SUNSET_INDEX = 6;
+    public final static int WEATHER_SUNRISE_INDEX = 7;
+    public final static int WEATHER_MIN_GRND_TMP_INDEX = 9;
+    public final static int WEATHER_MAX_GRND_TMP_INDEX = 10;
+    public final static int WEATHER_UNIT_OF_MEASURE_INDEX = 11;
+    public final static int WEATHER_TZ_DATA_INDEX = 12;
+
 
 
     public static String getCameraNameByIndex(Context context, int camIndex){
@@ -178,10 +196,11 @@ public final class HelperUtils {
                 break;
             case ROVER_SCIENCE_CAT_INDEX:
                 title = context.getString(R.string.rover_science_category_title);
-
         }
         return title;
     }
+
+
 
     private static int getCategoryImgResId(Context context, int exploreIndex, int categoryIndex){
         // Images will have the format = CATEGORY_INDEX
@@ -256,6 +275,47 @@ public final class HelperUtils {
                 break;
         }
         return mainExploreTitle;
+    }
+
+
+    public static String getWeatherLabel(Context context, int weatherIndex){
+        switch (weatherIndex){
+            case WEATHER_MIN_TEMP_INDEX:
+                return context.getString(R.string.weather_min_air_temp);
+            case WEATHER_MAX_TEMP_INDEX:
+                return context.getString(R.string.weather_max_air_temp);
+            case WEATHER_ATMO_INDEX:
+                return context.getString(R.string.weather_atmo);
+            case WEATHER_SUNSET_INDEX:
+                return context.getString(R.string.weather_sunset);
+            case WEATHER_SUNRISE_INDEX:
+                return context.getString(R.string.weather_sunrise);
+            case WEATHER_MIN_GRND_TMP_INDEX:
+                return context.getString(R.string.weather_min_ground_temp);
+            case WEATHER_MAX_GRND_TMP_INDEX:
+                return context.getString(R.string.weather_max_ground_temp);
+            default:
+                return context.getString(R.string.unknown);
+
+        }
+    }
+
+    public static int getWeatherInfoIndex(int weatherIndex){
+        switch (weatherIndex){
+            case WEATHER_MIN_TEMP_INDEX:
+            case WEATHER_MAX_TEMP_INDEX:
+                return InformationUtils.AIR_TEMP_INFO;
+            case WEATHER_MIN_GRND_TMP_INDEX:
+            case WEATHER_MAX_GRND_TMP_INDEX:
+                return InformationUtils.GROUND_TEMP_INFO;
+            case WEATHER_ATMO_INDEX:
+                return InformationUtils.ATMO_INFO;
+            case WEATHER_SUNRISE_INDEX:
+            case WEATHER_SUNSET_INDEX:
+                return InformationUtils.SUNRISE_SUNSET_INFO;
+            default:
+                return InformationUtils.ERROR_LOADING_INFO;
+        }
     }
 
 
