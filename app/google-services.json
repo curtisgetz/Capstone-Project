@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "904772385871",
+    "firebase_url": "https://marsexplorer-ebe49.firebaseio.com",
+    "project_id": "marsexplorer-ebe49",
+    "storage_bucket": "marsexplorer-ebe49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904772385871:android:f187d76243a70096",
+        "android_client_info": {
+          "package_name": "com.curtisgetz.marsexplorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904772385871-126oinpenavjdh2k2tvmtg04j3qp760r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM5EhHxYFzCnaTRwt3k5Aor_zZ8Qd6sVQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

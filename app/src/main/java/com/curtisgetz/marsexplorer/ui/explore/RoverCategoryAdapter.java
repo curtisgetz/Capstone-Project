@@ -37,8 +37,8 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
     public interface CategoryClickListener{
         void onCategoryClick(int clickedPos);
-        void onSolSearchClick(String solNumber);
-        void onRandomSolClick();
+        void onSolSearchClick(String solNumber, int exploreIndex);
+        void onRandomSolClick(int catIndex);
     }
 
 
@@ -169,7 +169,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
                     @Override
                     public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
                         if(action == EditorInfo.IME_ACTION_DONE){
-                            mCatClickListener.onSolSearchClick(mSolEdit.getText().toString());
+                            mCatClickListener.onSolSearchClick(mSolEdit.getText().toString(), mCategory.getmCatIndex());
                         }
                         return false;
                     }
@@ -177,13 +177,13 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
                 mSolSearchBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mCatClickListener.onSolSearchClick(mSolEdit.getText().toString());
+                        mCatClickListener.onSolSearchClick(mSolEdit.getText().toString(), mCategory.getmCatIndex());
                     }
                 });
                 mSolRandBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mCatClickListener.onRandomSolClick();
+                        mCatClickListener.onRandomSolClick(mCategory.getmCatIndex());
                     }
                 });
             }

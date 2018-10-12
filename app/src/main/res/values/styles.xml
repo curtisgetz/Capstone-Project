@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/marsYellow</item>
     </style>
 
+    <style name="RoverScienceScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
 
     <style name="MainTitleText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@android:color/black</item>

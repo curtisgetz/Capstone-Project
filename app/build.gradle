@@ -30,6 +30,8 @@ dependencies {
     implementation "com.android.support:design:$androidSupportVersion"
 
 
+
+
     def room_version = "1.1.1"
 
 
@@ -43,10 +45,10 @@ dependencies {
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.2'
-    implementation 'com.google.firebase:firebase-messaging:17.3.2'
-    implementation 'com.google.firebase:firebase-config:16.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation 'com.google.firebase:firebase-config:16.0.1'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
 
@@ -65,3 +67,4 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
 }
+apply plugin: 'com.google.gms.google-services'

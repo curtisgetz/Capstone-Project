@@ -53,8 +53,6 @@
         caps and seasonal changes. As on Earth, on Mars we can have sunny, cloudy or windy days, for example.</string>
 
 
-
-
     <string name="info_index_key" translatable="false">info_index_key</string>
 
     <!-- image resource prefix -->
@@ -82,8 +80,34 @@
     <string name="MINITES">Miniature Thermal Emission Spectrometer (Mini-TES)</string>
     <string name="rover_photo_cd">Photo from Mars rover.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Science instrument names for TABs-->
+    <string name="science_mast" translatable="false">MAST</string>
+    <string name="science_chemcam" translatable="false">ChemCam</string>
+    <string name="science_rems" translatable="false">REMS</string>
+    <string name="science_hazcam" translatable="false">HAZCAM</string>
+    <string name="science_navcam" translatable="false">NAVCAM</string>
+    <string name="science_mahli" translatable="false">MAHLI</string>
+    <string name="science_apxs" translatable="false">APXS</string>
+    <string name="science_chemin" translatable="false">CheMin</string>
+    <string name="science_sam" translatable="false">SAM</string>
+    <string name="science_drt" translatable="false">DRT</string>
+    <string name="science_rad" translatable="false">RAD</string>
+    <string name="science_dan" translatable="false">DAN</string>
+    <string name="science_mardi" translatable="false">MARDI</string>
+    <string name="science_arm" translatable="false">Arm</string>
+    <string name="science_legs" translatable="false">Legs</string>
+    <string name="science_power" translatable="false">Power</string>
+    <string name="science_antenna" translatable="false">Antenna</string>
+    <string name="science_brains" translatable="false">Brains</string>
+    <string name="science_pancam" translatable="false">PanCam</string>
+    <string name="science_minites" translatable="false">MiniTes</string>
+    <string name="science_mb" translatable="false">MB</string>
+    <string name="science_mi" translatable="false">MI</string>
+    <string name="science_rat" translatable="false">RAT</string>
+    <string name="science_magnet" translatable="false">Magnets</string>
+    <string name="science_solar" translatable="false">Solar Panel</string>
+    <string name="science_body" translatable="false">Body</string>
+    <string name="science_temp" translatable="false">Temp</string>
 
 
     <!-- Keys for extras and savedInstances -->
@@ -126,5 +150,6 @@
     <!-- Units of measure strings -->
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
+    <string name="rover_index_extra">rover_index_extra</string>
 
 </resources>

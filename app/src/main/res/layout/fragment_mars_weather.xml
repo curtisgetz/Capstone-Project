@@ -1,96 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blackBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.explore_detail.MarsWeatherFragment">
+    android:id="@+id/mars_weather_coordinatorlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blackBackground"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.explore_detail.MarsWeatherFragment">
 
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/weather_title_cardview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="26dp"
-        app:cardCornerRadius="@dimen/default_cardview_corner_radius"
-        android:elevation="@dimen/default_cardview_elevation"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            android:id="@+id/weather_title_cardview"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_margin="26dp"
+            app:cardCornerRadius="@dimen/default_cardview_corner_radius"
+            android:elevation="@dimen/default_cardview_elevation"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-                <ImageView
-                    android:contentDescription="@string/mars_weather_info"
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_information"
-                    android:layout_height="0dp"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
-                    app:layout_constraintStart_toStartOf="@id/mars_weather_title_text"
-                    app:layout_constraintTop_toTopOf="@id/mars_weather_title_text"
-                    app:layout_constraintBottom_toBottomOf="@id/mars_weather_title_text"/>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
 
-                <TextView
-                    android:id="@+id/mars_weather_title_text"
-                    android:text="@string/weather_on_mars"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center_horizontal"
-                    style="@style/TextAppearance.AppCompat.Title"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    <ImageView
+                        android:contentDescription="@string/mars_weather_info"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/ic_information"
+                        android:layout_height="0dp"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        app:layout_constraintStart_toStartOf="@id/mars_weather_title_text"
+                        app:layout_constraintTop_toTopOf="@id/mars_weather_title_text"
+                        app:layout_constraintBottom_toBottomOf="@id/mars_weather_title_text"/>
 
-                <TextView
-                    android:id="@+id/sol_and_date_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    tools:text="Sol 2121 - 2018-03-21"
-                    android:gravity="center_horizontal"
-                    android:textSize="16sp"
-                    style="@style/Base.TextAppearance.AppCompat.Display1"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/mars_weather_title_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/mars_weather_title_text"
+                        android:text="@string/weather_on_mars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center_horizontal"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
 
-    <ProgressBar
-        android:id="@+id/weather_progress"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:elevation="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView
+                        android:id="@+id/sol_and_date_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        tools:text="Sol 2121 - 2018-03-21"
+                        android:gravity="center_horizontal"
+                        android:textSize="16sp"
+                        style="@style/Base.TextAppearance.AppCompat.Display1"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/mars_weather_title_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/weather_detail_recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@id/weather_title_cardview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <ProgressBar
+            android:id="@+id/weather_progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </android.support.v7.widget.RecyclerView>
-    
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/weather_detail_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/weather_title_cardview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </android.support.v7.widget.RecyclerView>
 
 
 
-</android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

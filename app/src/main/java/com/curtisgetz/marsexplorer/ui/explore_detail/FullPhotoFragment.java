@@ -38,7 +38,7 @@ public class FullPhotoFragment extends Fragment {
 
     private final static String TAG = FullPhotoFragment.class.getSimpleName();
 
-    private String mPhotoUrl;
+
     private ArrayList<String> mUrls;
 
     @Nullable
@@ -56,7 +56,7 @@ public class FullPhotoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postponeEnterTransition();
+        //postponeEnterTransition();
         //mPhotoUrl = getArguments().getString("url_page");
 
        /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

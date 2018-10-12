@@ -62,6 +62,10 @@ public class MarsExploreActivity extends AppCompatActivity implements ExploreCat
                 intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
                 startActivity(intent);
                 break;
+            case HelperUtils.MARS_FACTS_CAT_INDEX:
+                intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
+                startActivity(intent);
+                break;
         }
 
     }

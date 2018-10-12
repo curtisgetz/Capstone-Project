@@ -117,26 +117,33 @@ public class RoverExploreActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCategoryClick(int clickedPos) {
-
+    public void onCategoryClick(int catIndex) {
+        switch (catIndex){
+            case HelperUtils.ROVER_SCIENCE_CAT_INDEX:
+                Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
+                intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
+                intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
+                startActivity(intent);
+        }
     }
 
     @Override
-    public void onSolSearchClick(String solNumber) {
+    public void onSolSearchClick(String solNumber, int catIndex) {
            String validatedSol = mViewModel.validateSolInRange(solNumber);
-           startExploreDetailActivity(validatedSol);
+           startExploreDetailActivity(validatedSol, catIndex);
     }
 
     @Override
-    public void onRandomSolClick() {
-        startExploreDetailActivity(mViewModel.getRandomSol());
+    public void onRandomSolClick(int catIndex) {
+        startExploreDetailActivity(mViewModel.getRandomSol(), catIndex);
     }
 
 
-    private void startExploreDetailActivity(String solNumber){
+    private void startExploreDetailActivity(String solNumber, int catIndex){
         if(isNetworkAvailable()) {
             Intent intent = new Intent(this, ExploreDetailActivity.class);
-            intent.putExtra(getString(R.string.explore_index_extra_key), mRoverIndex);
+            intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
+            intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
             intent.putExtra(getString(R.string.sol_number_extra_key), solNumber);
             startActivity(intent);
         }

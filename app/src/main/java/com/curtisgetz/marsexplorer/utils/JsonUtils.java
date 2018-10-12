@@ -87,6 +87,7 @@ public final class JsonUtils {
             return null;
         }*/
         int status = mainObject.optInt(WEATHER_STATUS, 0);
+        Log.d(TAG, String.valueOf(status));
         if(status != 200) {
             Log.e(TAG, "HTTP STATUS NOT 200");
             return null;

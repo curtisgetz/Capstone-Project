@@ -6,6 +6,8 @@ import android.content.Context;
 import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +47,8 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
     TextView mSolTitle;
     @BindView(R.id.weather_progress)
     ProgressBar mWeatherProgress;
+    @BindView(R.id.mars_weather_coordinatorlayout)
+    CoordinatorLayout mCoordinatorLayout;
     private WeatherDetailsAdapter mAdapter;
     private Unbinder mUnBinder;
 
@@ -71,8 +75,12 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         mViewModel.getWeather().observe(this, new Observer<List<WeatherDetail>>() {
             @Override
             public void onChanged(@Nullable List<WeatherDetail> weatherDetails) {
-                mAdapter.setData(weatherDetails);
-                updateTitle();
+                if(weatherDetails != null) {
+                    mAdapter.setData(weatherDetails);
+                    updateTitle();
+                }else {
+                    showLoadingError();
+                }
             }
         });
 
@@ -80,6 +88,19 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
 
 
         return view;
+    }
+
+    private void showLoadingError() {
+        hideProgress();
+        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "Error Getting Weather Data", Snackbar.LENGTH_LONG);
+        snackbar.setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+
     }
 
     private void updateTitle() {
