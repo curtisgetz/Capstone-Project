@@ -84,8 +84,8 @@
     <string name="science_mast" translatable="false">MAST</string>
     <string name="science_chemcam" translatable="false">ChemCam</string>
     <string name="science_rems" translatable="false">REMS</string>
-    <string name="science_hazcam" translatable="false">HAZCAM</string>
-    <string name="science_navcam" translatable="false">NAVCAM</string>
+    <string name="science_hazcam" translatable="false">HazCam</string>
+    <string name="science_navcam" translatable="false">NavCam</string>
     <string name="science_mahli" translatable="false">MAHLI</string>
     <string name="science_apxs" translatable="false">APXS</string>
     <string name="science_chemin" translatable="false">CheMin</string>
@@ -150,6 +150,27 @@
     <!-- Units of measure strings -->
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="rover_index_extra">rover_index_extra</string>
+    <string name="picture_of_science_instrument_cd">Picture of science instrument</string>
+    <string name="explore_option_cd">Image of explore option</string>
+    <string name="snackbar_back">Back</string>
+    <string name="no_photos">No Pictures On This Sol</string>
+    <string name="add_to_favorites_menu">Add To Favorites</string>
+
+    <string name="rover_index_extra" translatable="false">rover_index_extra</string>
+    <string name="fav_menu_boolean_saved_key" translatable="false">fav_menu_boolean_saved_key</string>
+
+    <string name="share_pic_text" formatted="false">Check out this picture from the Mars Explorer
+        app!\nTaken by %1$s Rover on %2$s.\n\n%3$s</string>
+
+
+    <string name="your_saved_photo_cd">Your saved photo</string>
+    <string name="delete_all_favorites_menu">Delete All Favorites</string>
+    <string name="photo_from_rover_cd">Photo from rover</string>
+    <string name="added_to_favorites">Added To Favorites</string>
+    <string name="removed_from_favorites">Removed From Favorites</string>
+    <string name="date_string_extra">date_string_extra</string>
+    <string name="unknown_date">unknown date</string>
+    <string name="date_on_string">on</string>
+    <string name="is_favorites_key">is_favorites_key</string>
 
 </resources>

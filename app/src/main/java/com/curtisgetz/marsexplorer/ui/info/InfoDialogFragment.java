@@ -1,6 +1,7 @@
 package com.curtisgetz.marsexplorer.ui.info;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.text.IDNA;
@@ -36,10 +37,18 @@ public class InfoDialogFragment extends DialogFragment {
 
     @BindView(R.id.information_text) TextView mInfoText;
 
+
+    public static InfoDialogFragment newInstance(Context context,int infoIndex){
+        InfoDialogFragment infoDialogFragment = new InfoDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(context.getString(R.string.info_index_key), infoIndex);
+        infoDialogFragment.setArguments(bundle);
+        return infoDialogFragment;
+    }
+
     public InfoDialogFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -57,7 +66,7 @@ public class InfoDialogFragment extends DialogFragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        int infoIndex = bundle.getInt(InformationUtils.INFO_INDEX_EXTRA, -1);
+        int infoIndex = bundle.getInt(getString(R.string.info_index_key), -1);
         String text = InformationUtils.getInformationText(getActivity(), infoIndex);
         Log.i(TAG, text);
         mInfoText.setText(text);

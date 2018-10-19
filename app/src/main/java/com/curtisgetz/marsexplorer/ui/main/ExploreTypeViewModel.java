@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.curtisgetz.marsexplorer.data.MainExploreType;
+import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
@@ -18,15 +19,13 @@ public class ExploreTypeViewModel  extends AndroidViewModel {
 
     private final static String TAG = ExploreTypeViewModel.class.getSimpleName();
 
-    private AppDataBase mDb;
+    private MarsRepository mRepository;
     private LiveData<List<MainExploreType>> mExploreTypes;
 
     public ExploreTypeViewModel(@NonNull Application application) {
         super(application);
-        AppDataBase dataBase = AppDataBase.getInstance(application);
-        mDb = dataBase;
-        mExploreTypes = dataBase.marsDao().loadAllExploreTypes();
-
+        mRepository = MarsRepository.getInstance(application);
+        mExploreTypes = mRepository.getAllExploreTypes();
     }
 
 
@@ -37,16 +36,8 @@ public class ExploreTypeViewModel  extends AndroidViewModel {
 
     public void addExploreTypesToDB(Context context){
         //get explore types in HelperUtils.
-        final List<MainExploreType> mainExploreTypeList = new ArrayList<>(HelperUtils.getAllExploreTypes(context));
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                for(MainExploreType type : mainExploreTypeList){
-                    mDb.marsDao().insertExploreType(type);
-                }
-            }
-        });
+        List<MainExploreType> mainExploreTypeList = new ArrayList<>(HelperUtils.getAllExploreTypes(context));
+        mRepository.addExploreTypesToDB(mainExploreTypeList);
     }
 
 }

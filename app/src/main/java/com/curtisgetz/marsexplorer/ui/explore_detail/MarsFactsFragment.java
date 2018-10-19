@@ -3,6 +3,7 @@ package com.curtisgetz.marsexplorer.ui.explore_detail;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,9 +59,19 @@ public class MarsFactsFragment extends Fragment {
     @BindView(R.id.fact_url_text)
     TextView mUrlText;
 
+ //   private FirebaseDatabase mFirebaseDatabase;
+  //  private DatabaseReference mFactsReference;
+
+   // private final static String DB_NODE_NAME = "facts";
+    //
     //First child in database corresponds to the day of the year.  Will try to load the fact
     // matching the current day of the year. If no matches try to load another fact.
     // Fragment will allow cycling through facts. Widget will show 'fact of the day'
+
+
+    public static MarsFactsFragment newInstance(){
+        return new MarsFactsFragment();
+    }
 
     public MarsFactsFragment() {
         // Required empty public constructor
@@ -67,13 +79,29 @@ public class MarsFactsFragment extends Fragment {
 
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        FragmentActivity activity = getActivity();
+        if(activity == null)return;
+        mViewModel = ViewModelProviders.of(activity).get(MarsFactsViewModel.class);
+        mViewModel.getFact().observe(this, new Observer<MarsFact>() {
+            @Override
+            public void onChanged(@Nullable MarsFact marsFact) {
+                displayResults();
+            }
+        });
+    }
+
+
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get db reference
-    /*    mFirebaseDatabase = RealtimeDatabaseUtils.getDatabase();
+      // mFirebaseDatabase = RealtimeDatabaseUtils.getDatabase();
         //get reference to facts node
-        mFactsReference = mFirebaseDatabase.getReference(DB_NODE_NAME);
-    */}
+       // mFactsReference = mFirebaseDatabase.getReference(DB_NODE_NAME);
+    /* */}
 
     //todo finish facts
     @Override
@@ -89,14 +117,6 @@ public class MarsFactsFragment extends Fragment {
         /*int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
         Toast.makeText(getContext(), String.valueOf(dayOfYear), Toast.LENGTH_LONG).show();
         getFactFromDb(dayOfYear);*/
-
-        mViewModel = ViewModelProviders.of(this).get(MarsFactsViewModel.class);
-        mViewModel.getFact().observe(this, new Observer<MarsFact>() {
-            @Override
-            public void onChanged(@Nullable MarsFact marsFact) {
-                displayResults();
-            }
-        });
 
         return view;
 

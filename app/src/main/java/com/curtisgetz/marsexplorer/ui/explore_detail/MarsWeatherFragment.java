@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -126,27 +127,21 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
 
     @OnClick(R.id.weather_title_cardview)
     public void onTitleInfoClick(){
-        InformationUtils.getInfoFragment(InformationUtils.WEATHER_INFO)
-                .show(getActivity().getSupportFragmentManager(), InformationUtils.class.getSimpleName());
+        FragmentActivity activity = getActivity();
+        if(activity == null) return;
+        InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(activity, InformationUtils.WEATHER_INFO);
+        infoDialogFragment.show(activity.getSupportFragmentManager(), InformationUtils.class.getSimpleName());
+
+      /*  InformationUtils.getInfoFragment(InformationUtils.WEATHER_INFO)
+                .show(getActivity().getSupportFragmentManager(), InformationUtils.class.getSimpleName());*/
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-   /* public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }*/
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-       /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
@@ -156,26 +151,13 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
     }
 
     @Override
-    public void onDetailInfoClick(int inforIndex) {
-        Log.d(TAG, String.valueOf(inforIndex));
-        InformationUtils.getInfoFragment(inforIndex).show(
-                getActivity().getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
+    public void onDetailInfoClick(int infoIndex) {
+        FragmentActivity activity = getActivity();
+        if(activity == null) return;
+        InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(activity, infoIndex);
+        infoDialogFragment.show(activity.getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-   /* public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 
     @Override
     public void onDestroyView() {

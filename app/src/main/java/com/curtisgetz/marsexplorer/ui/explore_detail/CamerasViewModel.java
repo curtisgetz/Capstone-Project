@@ -20,7 +20,8 @@ public class CamerasViewModel extends  ViewModel {
 
 
     public CamerasViewModel(Application application, int roverIndex, String solNumber) {
-        mRepository = new MarsRepository(application);
+//        mRepository = new MarsRepository(application);
+        mRepository = MarsRepository.getInstance(application);
         mCameras = mRepository.getCameras(application.getApplicationContext(), roverIndex, solNumber);
 
     }
@@ -32,7 +33,7 @@ public class CamerasViewModel extends  ViewModel {
 
     @Override
     protected void onCleared() {
-        Log.d(TAG, "ViewModel Cleared");
+        Log.i(TAG, "ViewModel Cleared");
         super.onCleared();
     }
 

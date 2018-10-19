@@ -18,26 +18,26 @@ import com.curtisgetz.marsexplorer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FullPhotoAdapter extends FragmentPagerAdapter{
 
-    private Context mContext;
-    private ArrayList<String> mUrls;
-    private int mStartingPos;
-    LayoutInflater layoutInflater;
+  //  private Context mContext;
+    private List<String> mUrls;
+
 
     @BindView(R.id.rover_photo_full_imageview)
      ImageView mImageView;
 
     public FullPhotoAdapter(FragmentManager fm, Context context) {
         super(fm);
-        this.mContext = context;
+       // this.mContext = context;
     }
 
-    public void setData(ArrayList<String> urls){
+    public void setData(List<String> urls){
         this.mUrls = urls;
         notifyDataSetChanged();
     }
@@ -56,6 +56,11 @@ public class FullPhotoAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
         String url = mUrls.get(position);
         return FullPhotoPagerFragment.newInstance(url);
+    }
+
+
+    public String getUrl(int position){
+        return mUrls.get(position);
     }
 
 

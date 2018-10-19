@@ -10,7 +10,7 @@
     <dimen name="main_cardview_height">200dp</dimen>
     <dimen name="main_cardview_text_size">22sp</dimen>
     <dimen name="main_cardview_text_padding_btm">8dp</dimen>
-
+    <dimen name="main_card_start_end_margin">8dp</dimen>
 
     <!-- Explore Master -->
     <dimen name="mission_manifest_text_size">14dp</dimen>
@@ -21,12 +21,28 @@
     <dimen name="rover_explore_cardview_margin_start_end">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
+
+    <dimen name="mars_explore_title_text_padding">6dp</dimen>
     <!-- Explore Details -->
 
 
     <!-- Rover Photos -->
-    <dimen name="camera_label_test_size">16sp</dimen>
+    <dimen name="camera_label_text_size">16sp</dimen>
     <dimen name="camera_label_margin">10dp</dimen>
+    <dimen name="photos_title_text_size">18sp</dimen>
+    <dimen name="photos_title_top_margin">4dp</dimen>
+    <dimen name="photos_card_height">200dp</dimen>
 
+    <!-- Rover Science-->
+    <dimen name="rover_science_text_size">16sp</dimen>
+    <dimen name="rover_science_text_margin">4sp</dimen>
+
+    <!-- Mars Weather -->
+    <dimen name="mars_weather_label_text_size">18sp</dimen>
+    <dimen name="mars_weather_detail_text_size">16sp</dimen>
+    <dimen name="mars_weather_label_margin_start">6dp</dimen>
+    <dimen name="mars_weather_detail_margin_start">6dp</dimen>
+    <dimen name="favorite_photo_card_width">100dp</dimen>
+    <dimen name="favorite_photo_card_height">100dp</dimen>
 
 </resources>

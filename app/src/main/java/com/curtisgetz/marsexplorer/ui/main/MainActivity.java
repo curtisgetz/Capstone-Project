@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MainExploreAdapter.ExploreClickListener {
 
 
-//todo set to 2-4 times a day in final version
 
 
     private MainExploreAdapter mAdapter;

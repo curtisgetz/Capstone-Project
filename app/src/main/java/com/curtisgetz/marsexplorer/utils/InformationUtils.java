@@ -8,6 +8,7 @@ import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 
 public final class InformationUtils {
 
+//class for getting correct text for Info Dialog
 
     public final static int ERROR_LOADING_INFO = -1;
     public final static int SOL_RANGE_INFO = 0;
@@ -16,8 +17,6 @@ public final class InformationUtils {
     public final static int GROUND_TEMP_INFO = 3;
     public final static int SUNRISE_SUNSET_INFO = 4;
     public final static int ATMO_INFO = 5;
-
-    public final static String INFO_INDEX_EXTRA = "info_index_extra";
 
 
     public static String getInformationText(Context context,  int infoIndex){
@@ -40,15 +39,6 @@ public final class InformationUtils {
         }
     }
 
-
-
-    public static InfoDialogFragment getInfoFragment(int infoIndex){
-        InfoDialogFragment infoDialogFragment = new InfoDialogFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(INFO_INDEX_EXTRA, infoIndex);
-        infoDialogFragment.setArguments(bundle);
-        return infoDialogFragment;
-    }
 
 
 }

@@ -18,11 +18,31 @@ public class Cameras {
 
     private int mRoverIndex;
     @NonNull
-    private List<String> mFHAZ, mRHAZ, mNAVCAM, mMAST, mCHEMCAM, mMAHLI, mMARDI, mPANCAM, mMINITES;
+    private List<String> mFHAZ;
+    @NonNull
+    private List<String> mRHAZ;
+    @NonNull
+    private List<String> mNAVCAM;
+    @NonNull
+    private List<String> mMAST;
+    @NonNull
+    private List<String> mCHEMCAM;
+    @NonNull
+    private List<String> mMAHLI;
+    @NonNull
+    private List<String> mMARDI;
+    @NonNull
+    private List<String> mPANCAM;
+    @NonNull
+    private List<String> mMINITES;
+    @NonNull
     private String mEarthDate;
 
-    public Cameras(int index, List<String> fhaz, List<String> rhaz, List<String> navcam, List<String> mast, List<String> chemcam, List<String> mahli,
-                   List<String> mardi, List<String> pancam, List<String> minites, String earthDate){
+    public Cameras(int index, @NonNull List<String> fhaz, @NonNull List<String> rhaz,
+                   @NonNull List<String> navcam, @NonNull List<String> mast,
+                   @NonNull List<String> chemcam, @NonNull List<String> mahli,
+                   @NonNull List<String> mardi, @NonNull List<String> pancam,
+                   @NonNull List<String> minites, @NonNull String earthDate){
         mRoverIndex = index;
         mFHAZ = fhaz;
         mRHAZ = rhaz;
@@ -64,58 +84,49 @@ public class Cameras {
         this.mRoverIndex = mRoverIndex;
     }
 
-    public void setmFHAZ(List<String> mFHAZ) {
+    public void setmFHAZ(@NonNull List<String> mFHAZ) {
         this.mFHAZ = mFHAZ;
     }
 
-    public void setmRHAZ(List<String> mRHAZ) {
+    public void setmRHAZ(@NonNull List<String> mRHAZ) {
         this.mRHAZ = mRHAZ;
     }
 
-    public void setmNAVCAM(List<String> mNAVCAM) {
+    public void setmNAVCAM(@NonNull List<String> mNAVCAM) {
         this.mNAVCAM = mNAVCAM;
     }
 
-    public void setmMAST(List<String> mMAST) {
+    public void setmMAST(@NonNull List<String> mMAST) {
         this.mMAST = mMAST;
     }
 
-    public void setmCHEMCAM(List<String> mCHEMCAM) {
+    public void setmCHEMCAM(@NonNull List<String> mCHEMCAM) {
         this.mCHEMCAM = mCHEMCAM;
     }
 
-    public void setmMAHLI(List<String> mMAHLI) {
+    public void setmMAHLI(@NonNull List<String> mMAHLI) {
         this.mMAHLI = mMAHLI;
     }
 
-    public void setmMARDI(List<String> mMARDI) {
+    public void setmMARDI(@NonNull List<String> mMARDI) {
         this.mMARDI = mMARDI;
     }
 
-    public void setmPANCAM(List<String> mPANCAM) {
+    public void setmPANCAM(@NonNull List<String> mPANCAM) {
         this.mPANCAM = mPANCAM;
     }
 
-    public void setmMINITES(List<String> mMINITES) {
+    public void setmMINITES(@NonNull List<String> mMINITES) {
         this.mMINITES = mMINITES;
     }
 
-    public void setEarthDate(String mEarthDate) {
+    public void setEarthDate(@NonNull String mEarthDate) {
         this.mEarthDate = mEarthDate;
     }
 
-    public int[] getActiveCameras(){
-
-        int number = 0;
-        if(mFHAZ.size() > 0) {
-            number++;
-
-        }
-        return null;
-    }
 
     public boolean isCameraActive(int cameraIndex){
-
+        //if list has a size greater than 0, the camera has images and is considered 'active'
         switch (cameraIndex){
             case HelperUtils.CAM_FHAZ_INDEX:
                 return (mFHAZ.size() > 0);
@@ -140,28 +151,5 @@ public class Cameras {
                 return false;
         }
     }
-
-    boolean[] getEmptyCameras(int size){
-        boolean[] emptyCamIndex = new boolean[size];
-        //Check each camera list size. If 0 then mark index as 'true'
-        if (mFHAZ.size() == 0) emptyCamIndex[0] = true;
-        if (mRHAZ.size() == 0) emptyCamIndex[1] = true;
-        if (mNAVCAM.size() == 0) emptyCamIndex[2] = true;
-        if (size == 7) {
-            //For Curiosity Rover Cameras
-            if (mMAST.size() == 0) emptyCamIndex[3] = true;
-            if (mCHEMCAM.size() == 0) emptyCamIndex[4] = true;
-            if (mMAHLI.size() == 0) emptyCamIndex[5] = true;
-            if (mMARDI.size() == 0) emptyCamIndex[6] = true;
-        } else {
-            //For other rovers
-            if (mPANCAM.size() == 0) emptyCamIndex[3] = true;
-            if (mMINITES.size() == 0) emptyCamIndex[4] = true;
-        }
-
-        return emptyCamIndex;
-    }
-
-
 
 }

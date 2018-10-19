@@ -5,7 +5,7 @@
     <string name="curiosity_mast_camera_details">
         The MastCam (Mast Camera) system provides multiple spectra and true-color imaging with two cameras. The cameras can take true-color images at 1600×1200 pixels and up to 10 frames per second hardware-compressed video at 720p (1280×720).\n
         One MastCam camera is the Medium Angle Camera (MAC), which has a 34 mm (1.3 in) focal length, a 15° field of view, and can yield 22 cm/pixel (8.7 in/pixel) scale at 1 km (0.62 mi). The other camera in the MastCam is the Narrow Angle Camera (NAC), which has a 100 mm (3.9 in) focal length, a 5.1° field of view, and can yield 7.4 cm/pixel (2.9 in/pixel) scale at 1 km (0.62 mi).\n
-        Each camera has eight gigabytes of flash memory, which is capable of storing over 5,500 raw images, and can apply real time lossless data compression.[62] The cameras have an autofocus capability that allows them to focus on objects from 2.1 m (6 ft 11 in) to infinity.
+        Each camera has eight gigabytes of flash memory, which is capable of storing over 5,500 raw images, and can apply real time lossless data compression. The cameras have an autofocus capability that allows them to focus on objects from 2.1 m (6 ft 11 in) to infinity.
     </string>
 
     <string name="curiosity_chemcam_details">ChemCam (Chemistry and Camera Complex) is a suite of remote sensing instruments, and as the name implies, ChemCam is actually two different instruments combined as one:
@@ -21,7 +21,7 @@
     <string name="curiosity_rems_details">REMS (Rover Environmental Monitoring Station) comprises instruments to measure the Mars environment: humidity, pressure, temperatures, wind speeds, and ultraviolet radiation.
         It is a meteorological package that includes an ultraviolet sensor provided by the Spanish Ministry of Education and Science. The investigative team is led by
         Javier Gómez-Elvira of the Center for Astrobiology (Madrid) and includes the Finnish Meteorological Institute as a partner. All sensors are located around three elements:
-        two booms attached to the rover's mast, the Ultraviolet Sensor (UVS) assembly located on the rover top deck, and the Instrument Control Unit (ICU) inside the rover body.
+        two booms attached to the rover\'s mast, the Ultraviolet Sensor (UVS) assembly located on the rover top deck, and the Instrument Control Unit (ICU) inside the rover body.
         \nREMS will provide new clues about the Martian general circulation, micro scale weather systems, local hydrological cycle, destructive potential of UV radiation, and subsurface
         habitability based on ground-atmosphere interaction</string>
 
@@ -38,8 +38,8 @@
 
 
     <string name="curiosity_mahli_details">MAHLI (Mars Hand Lens Imager) is a camera on the rover\'s robotic arm, and acquires microscopic images of rock and soil. MAHLI can take true-color images at 1600×1200 pixels with
-        a resolution as high as 14.5 micrometers per pixel. MAHLI has an 18.3 to 21.3 mm (0.72 to 0.84 in) focal length and a 33.8–38.5° field of view.[63] MAHLI has both white and ultraviolet
-        LED illumination for imaging in darkness or fluorescence imaging. MAHLI also has mechanical focusing in a range from infinite to millimetre distances.[63] This system can make some images
+        a resolution as high as 14.5 micrometers per pixel. MAHLI has an 18.3 to 21.3 mm (0.72 to 0.84 in) focal length and a 33.8–38.5° field of view. MAHLI has both white and ultraviolet
+        LED illumination for imaging in darkness or fluorescence imaging. \nMAHLI also has mechanical focusing in a range from infinite to millimetre distances. This system can make some images
         with focus stacking processing. MAHLI can store either the raw images or do real time lossless predictive or JPEG compression. The calibration target for MAHLI includes color references,
         a metric bar graphic, a 1909 VDB Lincoln penny, and a stairstep pattern for depth calibration</string>
 

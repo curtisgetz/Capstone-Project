@@ -52,8 +52,10 @@ public class RoverScienceFragment extends Fragment{
 
         if(savedInstanceState == null){
             Bundle bundle = getArguments();
+            //get rover and category index. Use these to get correct list of science or rover info.
             int roverIndex = bundle.getInt(getString(R.string.rover_index_extra));
-            mScienceList = new ArrayList<>(HelperUtils.getScienceList(getContext(), roverIndex));
+            int exploreCat = bundle.getInt(getString(R.string.explore_index_extra_key));
+            mScienceList = new ArrayList<>(HelperUtils.getScienceList(getContext(), roverIndex,exploreCat));
 
         }
         if(!(mScienceList == null || mScienceList.size() == 0)){
@@ -63,19 +65,6 @@ public class RoverScienceFragment extends Fragment{
             mTabLayout.setupWithViewPager(mViewPager);
         }
 
-
-
-//        mScienceText.setText(getString(R.string.mast_camera_details));
-        //create clickable image
-       // ClickableAreasImage clickableAreasImage = new ClickableAreasImage(new PhotoViewAttacher(mCuriosityImage), this);
-        //initialize clickable area list
-      //  List<ClickableArea> clickableAreas = new ArrayList<>();
-      //  RoverScience roverScience = new RoverScience("Test Data", "Test details");
-        //define clickable areas
-        //parameter values (pixels): (x coordinate, width, height) and assign an object to it
-       // clickableAreas.add(new ClickableArea(500, 200, 125, 200, roverScience));
-
-      //  clickableAreasImage.setClickableAreas(clickableAreas);
         return view;
     }
 

@@ -1,22 +1,32 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/marsOrange</item>
         <item name="colorPrimaryDark">@color/marsOrangeDark</item>
         <item name="colorAccent">@color/marsYellow</item>
+        <item name="android:windowBackground">@color/blackBackground</item>
+        <item name="android:textColor">@color/lightText</item>
     </style>
 
-    <style name="RoverScienceScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
 
     <style name="MainTitleText" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/lightText</item>
         <item name="android:textSize">@dimen/main_title_text_size</item>
     </style>
 
@@ -35,29 +45,65 @@
 
     <style name="MissionManifestText" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textSize">@dimen/mission_manifest_text_size</item>
+        <item name="android:textColor">@color/lightText</item>
 
     </style>
 
     <style name="MissionManifestTextLabel" parent="MissionManifestText">
         <item name="android:textStyle">bold</item>
         <item name="android:paddingEnd">@dimen/manifest_label_padding_end</item>
+        <item name="android:textColor">@color/lightText</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
     <style name="CameraTextLabel" parent="TextAppearance.AppCompat.Display1">
-        <item name="android:textSize">@dimen/camera_label_test_size</item>
+        <item name="android:textSize">@dimen/camera_label_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_margin">@dimen/camera_label_margin</item>
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="RoverPhotosTitle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/photos_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/photos_title_top_margin</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="ScienceTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/ScienceTabTextAppearance</item>
+    </style>
+
+    <style name="ScienceTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="RoverSciencePagerText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/rover_science_text_size</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="MarsExploreTitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:padding">@dimen/mars_explore_title_text_padding</item>
+    </style>
+
+    <style name="MarsWeatherText" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/blackBackground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MarsWeatherText.Label" parent="MarsWeatherText">
+        <item name="android:textSize">@dimen/mars_weather_label_text_size</item>
+        <item name="android:layout_marginStart">@dimen/mars_weather_label_margin_start</item>
+    </style>
+
+    <style name="MarsWeatherText.Detail" parent="MarsWeatherText">
+        <item name="android:textSize">@dimen/mars_weather_detail_text_size</item>
+        <item name="android:layout_marginStart">@dimen/mars_weather_detail_margin_start</item>
     </style>
 
 

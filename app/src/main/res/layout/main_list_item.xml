@@ -3,21 +3,25 @@
     android:layout_height="@dimen/main_cardview_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="1dp"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="4dp"
+    android:layout_marginStart="@dimen/main_card_start_end_margin"
+    android:layout_marginEnd="@dimen/main_card_start_end_margin"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="@dimen/default_cardview_corner_radius"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
 
-
-
     <ImageView
+        android:contentDescription="@string/explore_option_cd"
         android:id="@+id/main_cardview_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/explore_main"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
+
         android:background="@android:color/black"/>
+
 
     <TextView
         android:id="@+id/main_cardview_text"
@@ -26,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         tools:text="Explore Mars"/>
-
 
 
 

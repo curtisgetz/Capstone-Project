@@ -4,13 +4,11 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.room.MarsDao;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
-import com.curtisgetz.marsexplorer.ui.explore_detail.MarsWeatherFragment;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.JsonUtils;
@@ -20,25 +18,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
-import static android.view.View.generateViewId;
+
 
 public class MarsRepository {
 
+    private final static String TAG = MarsRepository.class.getSimpleName();
+
     private MarsDao mMarsDao;
+    private static MarsRepository sInstance;
 
-    private MutableLiveData<Cameras> mCameras;
-    private MutableLiveData<List<WeatherDetail>> mWeather;
-    //private LiveData<RoverManifest> mRoverManifest;
-    private final static int[] ROVER_INDICES = HelperUtils.ROVER_INDICES;
-
-    public MarsRepository(Application application){
-        AppDataBase dataBase = AppDataBase.getInstance(application);
-        mMarsDao = dataBase.marsDao();
-
+    public static MarsRepository getInstance(Application application){
+        if(sInstance == null){
+            sInstance = new MarsRepository(application);
+        }
+        return sInstance;
     }
 
 
+    private MarsRepository(Application application){
+        AppDataBase dataBase = AppDataBase.getInstance(application);
+        mMarsDao = dataBase.marsDao();
+    }
 
     public LiveData<RoverManifest> getRoverManifest(int index){
         return mMarsDao.loadRoverManifestByIndex(index);
@@ -66,7 +66,7 @@ public class MarsRepository {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                for(int roverIndex : ROVER_INDICES) {
+                for(int roverIndex : HelperUtils.ROVER_INDICES) {
                     try {
                         URL manifestUrl = NetworkUtils.buildManifestUrl(context, roverIndex);
                         String jsonResponse = NetworkUtils.getResponseFromHttpUrl(manifestUrl);
@@ -84,46 +84,100 @@ public class MarsRepository {
 
 
     public LiveData<Cameras> getCameras(final Context context, final int index, final String sol){
-        mCameras = new MutableLiveData<>();
-        List<String> list = new ArrayList<>();
-        list.add("Asd");
-        list.add("unknown");
-        list.add("23");
-        //todo testing parsing erros
-       // mCameras.postValue(new Cameras(2, list, list, list, null, list, null, list, list, list, null));
+       // mCameras = new MutableLiveData<>();
+        Log.d(TAG, "Get Cameras from repository");
+        final MutableLiveData<Cameras> cameras = new MutableLiveData<>();
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     URL solRequestUrl = NetworkUtils.buildPhotosUrl(context, index, sol);
                     String jsonResponse = NetworkUtils.getResponseFromHttpUrl(solRequestUrl);
-                    mCameras.postValue(JsonUtils.getCameraUrls(index, jsonResponse));
+                    cameras.postValue(JsonUtils.getCameraUrls(index, jsonResponse));
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         });
-        return mCameras;
+        return cameras;
     }
 
 
     public LiveData<List<WeatherDetail>> getLatestWeather(final Context context){
-        mWeather = new MutableLiveData<>();
+        final MutableLiveData<List<WeatherDetail>> weatherDetail = new MutableLiveData<>();
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
                 try{
                     URL weatherUrl = NetworkUtils.buildWeatherUrl();
                     String jsonResponse = NetworkUtils.getResponseFromHttpUrl(weatherUrl);
-                    mWeather.postValue(JsonUtils.getWeatherDetail(context, jsonResponse));
+                    weatherDetail.postValue(JsonUtils.getWeatherDetail(context, jsonResponse));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         });
-        if(mWeather == null) mWeather = new MutableLiveData<>();
-        return mWeather;
+        return weatherDetail;
     }
+
+
+
+
+
+    public void addExploreTypesToDB(final List<MainExploreType> exploreTypes){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMarsDao.insertExploreTypeList(exploreTypes);
+
+                /*for(MainExploreType type : exploreTypes){
+                    mMarsDao.insertExploreType(type);
+                }*/
+            }
+        });
+    }
+
+    public void saveFavoritePhoto(final FavoriteImage image){
+        Log.d(TAG, "Save Favorite Photo");
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMarsDao.insertFavoriteImage(image);
+            }
+        });
+    }
+    public LiveData<List<MainExploreType>> getAllExploreTypes(){
+        return mMarsDao.loadAllExploreTypes();
+    }
+
+
+    public void deleteFavoriteImage(final FavoriteImage favoriteImage){
+        Log.d(TAG, "Delete Favorite Photo");
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMarsDao.deleteFavorite(favoriteImage);
+            }
+        });
+    }
+
+    public LiveData<List<FavoriteImage>> getAllFavorites(){
+        Log.d(TAG, "Fetch Favorites From Database");
+        return mMarsDao.loadAllFavorites();
+    }
+
+    public void deleteAllFavorites(){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMarsDao.deleteAllFavorites();
+            }
+        });
+    }
+
+
+
 
 
 

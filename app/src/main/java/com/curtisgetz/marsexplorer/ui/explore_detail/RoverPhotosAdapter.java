@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
     }
 
 
-    public RoverPhotosAdapter(PhotoClickListener listener) {
+    RoverPhotosAdapter(PhotoClickListener listener) {
         this.mClickListener = listener;
     }
 
@@ -64,10 +65,6 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
                     .fit()
                     .into(((RoverPhotosViewHolder) holder).mPhotoIv);
         }
-        //TODO add error and default photos
-
-
-
     }
 
     @Override
@@ -91,9 +88,8 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
 
         @BindView(R.id.rover_photo_imageview)
         ImageView mPhotoIv;
-        /*@BindView(R.id.photo_cardview)
-        CardView mCardView;*/
-        public RoverPhotosViewHolder(@NonNull View itemView) {
+
+        RoverPhotosViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -102,12 +98,9 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View view) {
-            int pos = getAdapterPosition();
-            String url = mPhotoUrls.get(pos);
             //ViewCompat.setTransitionName(view, url);
-
-            //todo Changed to List for pager test
-            mClickListener.onPhotoClick(mPhotoUrls, view, pos);
+            //Send full list and clicked position for ViewPager use
+            mClickListener.onPhotoClick(mPhotoUrls, view, getAdapterPosition());
         }
 
 

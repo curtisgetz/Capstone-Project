@@ -33,9 +33,8 @@
         </service>
 
         <activity
-            android:name=".ui.explore_detail.ExploreDetailActivity"
-            android:label="@string/title_activity_explore_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".ui.explore_detail.ExploreDetailActivity"/>
+
         <activity android:name=".ui.explore.MarsExploreActivity"></activity>
     </application>
 

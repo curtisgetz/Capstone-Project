@@ -1,21 +1,31 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.FavoriteImage;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.OnSwipeListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +37,22 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
     @BindView(R.id.rover_photo_full_imageview)
     ImageView mImageView;
+   /* @BindView(R.id.full_photo_coordinator_layout)
+    CoordinatorLayout mCoordinator;*/
 
     private GestureDetectorCompat mGestureDetector;
+    private FavoriteViewModel mViewModel;
+    private String mUrl;
+    private boolean isAlreadyFavorite;
+    private FullPhotoPagerInteraction mListener;
+
+    //Interface for activity callback
+    public interface FullPhotoPagerInteraction{
+        void callDisplaySnack(String message);
+        String getDateString();
+        int getRoverIndex();
+    }
+
 
 
 //todo animate swipe up to close
@@ -43,15 +67,49 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
     public FullPhotoPagerFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof FullPhotoPagerInteraction){
+            mListener = (FullPhotoPagerInteraction) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    + " must implement FullPhotoPagerInteraction");
+        }
+        FragmentActivity activity = getActivity();
+        if(activity != null){
+            mViewModel = ViewModelProviders.of(activity).get(FavoriteViewModel.class);
+            mViewModel.getFavorites().observe(this, new Observer<List<FavoriteImage>>() {
+                @Override
+                public void onChanged(@Nullable List<FavoriteImage> favoriteImages) {
+                    updateMenu();
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        Log.d(TAG, "onDetach");
+        super.onDetach();
+        setHasOptionsMenu(false);
+        mListener = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+
+        if(getArguments() != null) {
+            mUrl = getArguments().getString(HelperUtils.PHOTO_PAGER_URL_EXTRA);
+        }
+        //Allow user to swipe photo up to close
         mGestureDetector = new GestureDetectorCompat(getContext(), new OnSwipeListener(){
             @Override
             public boolean onSwipe(Direction direction) {
                 if(direction == Direction.up){
-                 //todo have fragment go back on up swipe
                     //mImageView.animate().translationY(mImageView.getHeight());
                     getActivity().onBackPressed();
                     Log.d(TAG, "SWIPED UP");
@@ -67,6 +125,9 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         }*/
     }
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,24 +137,19 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mImageView.setTransitionName(url);
         }*/
-
-        Bundle bundle = getArguments();
-        if(bundle == null) {
+        //enable options menu from thi fragment (Star for adding to/removing from favorites)
+        setHasOptionsMenu(true);
+        //Picasso will throw exception with empty string. Should never be empty but do final check
+        if(mUrl == null || mUrl.isEmpty()) {
             displayErrorImage();
         }else {
-            String url = bundle.getString(HelperUtils.PHOTO_PAGER_URL_EXTRA);
-            //Picasso will throw exception with empty string. Should never be empty but do final check
-            if(url == null || url.isEmpty()){
-                displayErrorImage();
-            }else {
-                Picasso.get().load(url)
-                        .error(R.drawable.marsimageerror)
-                        .placeholder(R.drawable.marsplaceholderfull)
-                        .noFade()
-                        .into(mImageView);
-            }
+           // mInteractionListener.setCurrentUrl(url);
+            Picasso.get().load(mUrl)
+                    .error(R.drawable.marsimageerror)
+                    .placeholder(R.drawable.marsplaceholderfull)
+                    .noFade()
+                    .into(mImageView);
         }
-
         return view;
     }
 
@@ -108,7 +164,70 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         return true;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_favorite_image, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_add_favorite:
+                clickFavoriteMenu();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        //get add favorite menu item
+        MenuItem menuItem = menu.findItem(R.id.action_add_favorite);
+
+        if(isAlreadyFavorite){
+            //if photo is already a favorite, then show filled in star.
+            menuItem.setIcon(R.drawable.ic_saved_favorite);
+        }else {
+            menuItem.setIcon(R.drawable.ic_save_favorite);
+        }
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    private void clickFavoriteMenu(){
+
+        if(isAlreadyFavorite){
+            mViewModel.removeAlreadyFavorite(mUrl);
+            isAlreadyFavorite = false;
+        }else {
+            //set isAlreadyFavorite to true because saving to DB is asynchronous and ViewModel may not
+            //be current when menu is prepared again!
+            String dateString = mListener.getDateString();
+            int roverIndex = mListener.getRoverIndex();
+            mViewModel.saveFavoriteImage(mUrl, dateString, roverIndex);
+            isAlreadyFavorite = true;
+        }
+        displaySnack();
+        getActivity().invalidateOptionsMenu();
+    }
+
+    private void displaySnack() {
+        String message;
+        if(isAlreadyFavorite){
+            message = getString(R.string.added_to_favorites);
+        }else {
+            message = getString(R.string.removed_from_favorites);
+        }
+        mListener.callDisplaySnack(message);
+    }
+
+
+    private void updateMenu(){
+        //Find if current url is already a favorite and update menu
+        isAlreadyFavorite = mViewModel.isAlreadyFavorite(mUrl);
+        getActivity().invalidateOptionsMenu();
+    }
 
 
 }

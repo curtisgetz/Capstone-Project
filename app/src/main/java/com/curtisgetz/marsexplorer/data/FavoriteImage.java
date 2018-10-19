@@ -1,19 +1,26 @@
 package com.curtisgetz.marsexplorer.data;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index(
+        value = {"mImageUrl"},
+        unique = true)
+        })
 public class FavoriteImage {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int mId;
+
     private String mImageUrl;
+    private String mDateString;
+    private int mRoverIndex;
 
-
-    public FavoriteImage(int id, String imageUrl) {
-        this.mId = id;
+    public FavoriteImage(String imageUrl, String dateString, int roverIndex) {
         this.mImageUrl = imageUrl;
+        this.mDateString = dateString;
+        this.mRoverIndex = roverIndex;
     }
 
 
@@ -34,4 +41,19 @@ public class FavoriteImage {
     }
 
 
+    public String getDateString() {
+        return mDateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.mDateString = dateString;
+    }
+
+    public int getRoverIndex() {
+        return mRoverIndex;
+    }
+
+    public void setRoverIndex(int mRoverIndex) {
+        this.mRoverIndex = mRoverIndex;
+    }
 }

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity"
+
     android:layout_margin="4dp"
     >
 
     <TextView
         style="@style/MainTitleText"
-        android:elevation="2dp"
         android:id="@+id/main_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

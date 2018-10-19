@@ -51,9 +51,12 @@ public final class HelperUtils {
     public final static int ROVER_TWEETS_CAT_INDEX = 3;
 
     //Set available categories for each rover
-    private final static int[] CURIOSITY_CATEGORIES = {0,1,2};
-    private final static int[] OPPORTUNITY_CATEGORIES = {0,1,2};
-    private final static int[] SPIRIT_CATEGORIES = {0,1,2};
+    private final static int[] CURIOSITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
+    private final static int[] OPPORTUNITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX};
+    private final static int[] SPIRIT_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX};
 
     //Sol start for each rover
     public final static int CURIOSITY_SOL_START = 0;
@@ -100,62 +103,89 @@ public final class HelperUtils {
     public final static int WEATHER_TZ_DATA_INDEX = 12;
 
 
-    //SCIENCE INSTRUMENT INDICES
+    //ROVER INFO INDICES
     public final static int SCIENCE_MASTCAM_INDEX = 200;
-    public final static int SCIENCE_CHEMCAM_INDEX = 201;
     public final static int SCIENCE_PANCAM_INDEX = 202;
-    public final static int SCIENCE_NAVCAM_INDEX = 203;
     public final static int SCIENCE_HAZCAM_INDEX = 204;
+    public final static int SCIENCE_NAVCAM_INDEX = 203;
+    public final static int SCIENCE_DRT_INDEX = 211;
+    public final static int SCIENCE_ROBOTIC_ARM_INDEX = 215;
+    public final static int SCIENCE_LEGS_WHEELS_INDEX = 216;
+    public final static int SCIENCE_POWER_INDEX = 217;
+    public final static int SCIENCE_ANTENNA_INDEX = 218;
+    public final static int SCIENCE_BRAINS_INDEX = 219;
+    public final static int SCIENCE_MAGNET_INDEX = 223;
+    public final static int SCIENCE_SOLAR_INDEX = 224;
+    public final static int SCIENCE_BODY_INDEX = 225;
+    public final static int SCIENCE_TEMP_INDEX = 226;
+    public final static int SCIENCE_MARDI_INDEX = 214;
+    public final static int SCIENCE_RAT_INDEX = 222;
+
+
+    private final static int[] CURIOSITY_ROVER_INFO_INDICES = {SCIENCE_MASTCAM_INDEX,
+            SCIENCE_HAZCAM_INDEX, SCIENCE_NAVCAM_INDEX,SCIENCE_DRT_INDEX, SCIENCE_MARDI_INDEX,
+            SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_POWER_INDEX,
+            SCIENCE_ANTENNA_INDEX, SCIENCE_BRAINS_INDEX };
+
+    private final static int[] OPPORTUNITY_ROVER_INFO_INDICES = {SCIENCE_PANCAM_INDEX,
+            SCIENCE_NAVCAM_INDEX,SCIENCE_RAT_INDEX,SCIENCE_MAGNET_INDEX, SCIENCE_SOLAR_INDEX,
+            SCIENCE_BODY_INDEX, SCIENCE_BRAINS_INDEX, SCIENCE_TEMP_INDEX,
+            SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_ANTENNA_INDEX };
+
+    private final static int[] SPIRIT_ROVER_INFO_INDICES = {SCIENCE_PANCAM_INDEX,
+            SCIENCE_NAVCAM_INDEX,SCIENCE_RAT_INDEX,SCIENCE_MAGNET_INDEX, SCIENCE_SOLAR_INDEX,
+            SCIENCE_BODY_INDEX, SCIENCE_BRAINS_INDEX, SCIENCE_TEMP_INDEX,
+            SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_ANTENNA_INDEX };
+
+
+    //SCIENCE INSTRUMENT INDICES
+    public final static int SCIENCE_CHEMCAM_INDEX = 201;
     public final static int SCIENCE_MAHLI_INDEX = 205;
     public final static int SCIENCE_MINITES_INDEX = 206;
     public final static int SCIENCE_REMS_INDEX = 207;
     public final static int SCIENCE_APXS_INDEX = 208;
     public final static int SCIENCE_CHEMIN_INDEX = 209;
     public final static int SCIENCE_SAM_INDEX = 210;
-    public final static int SCIENCE_DRT_INDEX = 211;
     public final static int SCIENCE_RAD_INDEX = 212;
     public final static int SCIENCE_DAN_INDEX = 213;
-    public final static int SCIENCE_MARDI_INDEX = 214;
-    public final static int SCIENCE_ROBOTIC_ARM_INDEX = 215;
-    public final static int SCIENCE_LEGS_WHEELS_INDEX = 216;
-    public final static int SCIENCE_POWER_INDEX = 217;
-    public final static int SCIENCE_ANTENNA_INDEX = 218;
-    public final static int SCIENCE_BRAINS_INDEX = 219;
     public final static int SCIENCE_MB_INDEX = 220;
     public final static int SCIENCE_MI_INDEX = 221;
-    public final static int SCIENCE_RAT_INDEX = 222;
-    public final static int SCIENCE_MAGNET_INDEX = 223;
-    public final static int SCIENCE_SOLAR_INDEX = 224;
-    public final static int SCIENCE_BODY_INDEX = 225;
-    public final static int SCIENCE_TEMP_INDEX = 226;
 
 
+    public final static int[] CURIOSITY_SCIENCE_INDICES = {SCIENCE_CHEMCAM_INDEX,
+            SCIENCE_REMS_INDEX,  SCIENCE_MAHLI_INDEX, SCIENCE_APXS_INDEX,
+            SCIENCE_CHEMIN_INDEX, SCIENCE_SAM_INDEX, SCIENCE_RAD_INDEX, SCIENCE_DAN_INDEX };
 
-    public final static int[] CURIOSITY_SCIENCE_INDICES = {SCIENCE_MASTCAM_INDEX, SCIENCE_CHEMCAM_INDEX,
-            SCIENCE_REMS_INDEX, SCIENCE_HAZCAM_INDEX, SCIENCE_NAVCAM_INDEX, SCIENCE_MAHLI_INDEX, SCIENCE_APXS_INDEX,
-            SCIENCE_CHEMIN_INDEX, SCIENCE_SAM_INDEX, SCIENCE_DRT_INDEX, SCIENCE_RAD_INDEX, SCIENCE_DAN_INDEX,
-            SCIENCE_MARDI_INDEX, SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_POWER_INDEX,
-            SCIENCE_ANTENNA_INDEX, SCIENCE_BRAINS_INDEX};
-    public static final int[] OPPORTUNITY_SCIENCE_INDICES = {SCIENCE_PANCAM_INDEX, SCIENCE_NAVCAM_INDEX,
-            SCIENCE_MINITES_INDEX, SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX, SCIENCE_RAT_INDEX,
-            SCIENCE_MAGNET_INDEX, SCIENCE_SOLAR_INDEX, SCIENCE_BODY_INDEX, SCIENCE_BRAINS_INDEX, SCIENCE_TEMP_INDEX,
-            SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_ANTENNA_INDEX};
-    public static final int[] SPIRIT_SCIENCE_INDICES = {SCIENCE_PANCAM_INDEX, SCIENCE_NAVCAM_INDEX,
-            SCIENCE_MINITES_INDEX, SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX, SCIENCE_RAT_INDEX,
-            SCIENCE_MAGNET_INDEX, SCIENCE_SOLAR_INDEX, SCIENCE_BODY_INDEX, SCIENCE_BRAINS_INDEX, SCIENCE_TEMP_INDEX,
-            SCIENCE_ROBOTIC_ARM_INDEX, SCIENCE_LEGS_WHEELS_INDEX, SCIENCE_ANTENNA_INDEX};
+    public static final int[] OPPORTUNITY_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
+            SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX};
 
-    public static List<RoverScience> getScienceList(Context context, int roverIndex){
+    public static final int[] SPIRIT_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
+            SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX};
+
+    public static List<RoverScience> getScienceList(Context context, int roverIndex, int roverCatIndex){
         int[] indices;
         switch (roverIndex){
             case CURIOSITY_ROVER_INDEX:
-                indices = CURIOSITY_SCIENCE_INDICES;
+                if(roverCatIndex == ROVER_SCIENCE_CAT_INDEX) {
+                    indices = CURIOSITY_SCIENCE_INDICES;
+                }else {
+                    indices = CURIOSITY_ROVER_INFO_INDICES;
+                }
                 break;
             case OPPORTUNITY_ROVER_INDEX:
-                indices = OPPORTUNITY_SCIENCE_INDICES;
+                if(roverCatIndex == ROVER_SCIENCE_CAT_INDEX) {
+                    indices = OPPORTUNITY_SCIENCE_INDICES;
+                }else {
+                    indices = OPPORTUNITY_ROVER_INFO_INDICES;
+                }
                 break;
             case SPIRIT_ROVER_INDEX:
-                indices = SPIRIT_SCIENCE_INDICES;
+                if(roverCatIndex == ROVER_SCIENCE_CAT_INDEX) {
+                    indices = SPIRIT_SCIENCE_INDICES;
+                }else {
+                    indices = SPIRIT_ROVER_INFO_INDICES;
+                }
+                break;
             default:
                 indices = new int[0];
         }
@@ -327,6 +357,7 @@ public final class HelperUtils {
         return null;
     }
 
+    //get image resId for science instrument or rover part info
     private static int getCuriosityScienceImageId(int scienceIndex){
         switch (scienceIndex){
             case SCIENCE_MASTCAM_INDEX:
@@ -363,6 +394,8 @@ public final class HelperUtils {
                 return R.drawable.curiosity_power;
             case SCIENCE_ANTENNA_INDEX:
                 return R.drawable.curiosity_antenna;
+            case SCIENCE_BRAINS_INDEX:
+                return R.drawable.curiosity_body;
 
             default:
                 return R.drawable.curiosity_selfie;
@@ -370,8 +403,37 @@ public final class HelperUtils {
 
     }
 
+    //get image resId for science instrument or rover part info
     private static int getOppSpiritScienceImageId(int scienceIndex){
-        return 9;
+        switch (scienceIndex){
+            case SCIENCE_PANCAM_INDEX:
+                return R.drawable.opp_spirit_pancam;
+            case SCIENCE_NAVCAM_INDEX:
+                return R.drawable.opp_spirit_navcam;
+            case SCIENCE_MINITES_INDEX:
+                return R.drawable.opp_spirit_minites;
+            case SCIENCE_MB_INDEX:
+            case SCIENCE_MI_INDEX:
+            case SCIENCE_APXS_INDEX:
+            case SCIENCE_RAT_INDEX:
+                return R.drawable.opp_spirit_mb_mi_apxs_rat;
+            case SCIENCE_MAGNET_INDEX:
+                return R.drawable.opp_spirit_magnets;
+            case SCIENCE_SOLAR_INDEX:
+                return R.drawable.opp_spirit_solar;
+            case SCIENCE_BODY_INDEX:
+            case SCIENCE_TEMP_INDEX:
+            case SCIENCE_BRAINS_INDEX:
+                return R.drawable.opp_spirit_body_temp;
+            case SCIENCE_ROBOTIC_ARM_INDEX:
+                return R.drawable.opp_spirit_arm;
+            case SCIENCE_LEGS_WHEELS_INDEX:
+                return R.drawable.opp_spirit_legs_wheels;
+            case SCIENCE_ANTENNA_INDEX:
+                return R.drawable.opp_spirit_antenna;
+            default:
+                return R.drawable.opp_spirit_main;
+        }
     }
 
     public static String getCameraNameByIndex(Context context, int camIndex){
@@ -416,11 +478,10 @@ public final class HelperUtils {
 
     public static List<RoverExploreCategory> getExploreCategories(Context context, int exploreIndex){
         return setupCategories(context, MARS_EXPLORE_CATEGORIES, MARS_EXPLORE_INDEX);
-
-
     }
 
     public static List<RoverExploreCategory> getRoverCategories(Context context, int exploreIndex){
+        //set up categories for selected rover
         int[] categories;
         switch (exploreIndex){
             case MARS_EXPLORE_INDEX:
@@ -438,15 +499,13 @@ public final class HelperUtils {
             default:
                 return null;
         }
-
+        //return list of categories.
         return setupCategories(context, categories, exploreIndex);
     }
 
 
     private static List<RoverExploreCategory> setupCategories(Context context, int[] categories, int exploreIndex){
         List<RoverExploreCategory> exploreCategoriesList = new ArrayList<>();
-
-
         for (int category : categories) {
             String title = getCategoryTitle(context, category);
             int imageResId = getCategoryImgResId(context, exploreIndex, category);
@@ -524,13 +583,6 @@ public final class HelperUtils {
     }
 
 
-    private static List<RoverExploreCategory> setupOpportunityCategories(){
-        return null;
-    }
-
-    private static List<RoverExploreCategory> setupSpiritCategories(){
-        return null;
-    }
 
     private static String getMainExploreOptionTitle(Context context, int exploreIndex){
         String mainExploreTitle = "";
@@ -627,17 +679,17 @@ public final class HelperUtils {
 
     private static   MainExploreType createCuriosityExploreType(Context context){
         return new MainExploreType(CURIOSITY_ROVER_INDEX,
-                getMainExploreOptionTitle(context, CURIOSITY_ROVER_INDEX), R.drawable.photos_1);
+                getMainExploreOptionTitle(context, CURIOSITY_ROVER_INDEX), R.drawable.curiosity_selfie);
     }
 
     private static MainExploreType createOpportunityExploreType(Context context){
         return new MainExploreType(OPPORTUNITY_ROVER_INDEX,
-                getMainExploreOptionTitle(context, OPPORTUNITY_ROVER_INDEX), R.drawable.photos_1);
+                getMainExploreOptionTitle(context, OPPORTUNITY_ROVER_INDEX), R.drawable.opp_spirit_main);
     }
 
     private static MainExploreType createSpiritExploreType(Context context){
         return new MainExploreType(SPIRIT_ROVER_INDEX,
-                getMainExploreOptionTitle(context, SPIRIT_ROVER_INDEX), R.drawable.curiosity_main);
+                getMainExploreOptionTitle(context, SPIRIT_ROVER_INDEX), R.drawable.opp_spirit_main);
     }
 
 

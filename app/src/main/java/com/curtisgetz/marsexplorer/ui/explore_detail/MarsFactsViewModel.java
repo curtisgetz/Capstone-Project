@@ -62,10 +62,11 @@ public class MarsFactsViewModel extends AndroidViewModel {
     }
 
     private String getCurrentDay(){
-        String dayOfYear = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1);
+        String dayOfYear = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
         return dayOfYear;
     }
 
+    //todo finish logic for random day and handling empty days
     private String getRandomDay(){
         //bound is exclusive so set to 366 to include 365
         int random = ThreadLocalRandom.current().nextInt(1, 366);

@@ -1,10 +1,16 @@
 package com.curtisgetz.marsexplorer.ui.explore;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
@@ -22,9 +28,10 @@ public class MarsExploreActivity extends AppCompatActivity implements ExploreCat
 
     @BindView(R.id.mars_explore_categories_recycler)
     RecyclerView mRecyclerView;
-
     @BindView(R.id.explore_mars_title)
     TextView mTitleText;
+    @BindView(R.id.mars_explore_coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
 
     private ExploreCategoryAdapter mAdapter;
     //private int mExploreIndex;
@@ -56,17 +63,42 @@ public class MarsExploreActivity extends AppCompatActivity implements ExploreCat
 
     @Override
     public void onCategoryClick(int categoryIndex) {
-        Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class);
-        switch (categoryIndex){
-            case HelperUtils.MARS_WEATHER_CAT_INDEX:
-                intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
-                startActivity(intent);
-                break;
-            case HelperUtils.MARS_FACTS_CAT_INDEX:
-                intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
-                startActivity(intent);
-                break;
+        if(isNetworkAvailable()){
+            Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class);
+            intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
+            startActivity(intent);
+
+            /*
+            switch (categoryIndex){
+                case HelperUtils.MARS_WEATHER_CAT_INDEX:
+                    intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
+                    startActivity(intent);
+                    break;
+                case HelperUtils.MARS_FACTS_CAT_INDEX:
+                    intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
+                    startActivity(intent);
+                    break;
+            }*/
         }
 
+    }
+
+    private boolean isNetworkAvailable()  {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)  getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if((networkInfo != null && networkInfo.isConnected())){
+            return true;
+        }else {
+            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.internet_required, Snackbar.LENGTH_LONG);
+            snackbar.setAction(getString(R.string.snackbar_dismiss), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.show();
+            return false;
+        }
     }
 }

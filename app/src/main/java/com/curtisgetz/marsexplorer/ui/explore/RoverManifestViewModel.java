@@ -12,6 +12,7 @@ import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -28,8 +29,8 @@ public class RoverManifestViewModel extends ViewModel {
 
     RoverManifestViewModel(int roverIndex, Application application){
         Log.i(TAG, "Loading RoverManifest from database by index");
-       // this.mRepository = new MarsRepository(application);
-        this.mRepository =  new MarsRepository(application );
+        //this.mRepository =  new MarsRepository(application );
+        this.mRepository = MarsRepository.getInstance(application);
         this.mManifest = mRepository.getRoverManifest(roverIndex);
     }
 
@@ -79,8 +80,10 @@ public class RoverManifestViewModel extends ViewModel {
         if(mManifest.getValue() == null) return HelperUtils.DEFAULT_SOL_NUMBER;
         int minSol = mManifest.getValue().getMinSolInt();
         int maxSol = mManifest.getValue().getMaxSolint();
-        int random = ThreadLocalRandom.current().nextInt((minSol), (maxSol+1));
-        return String.valueOf(random);
+        Random randomRand = new Random();
+        int randomNum = randomRand.nextInt((maxSol - minSol) + 1) + minSol;
+        //int random = ThreadLocalRandom.current().nextInt((minSol), (maxSol+1));
+        return String.valueOf(randomNum);
     }
 
 

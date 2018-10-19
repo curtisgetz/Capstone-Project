@@ -3,10 +3,14 @@ package com.curtisgetz.marsexplorer.ui.explore_detail;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,6 +42,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private String mSol;
     private int mRoverIndex;
     private CamerasViewModel mViewModel;
+    private String mDateString;
 
     @BindView(R.id.photos_fhaz_recyclerview) RecyclerView mFhazRecyclerView;
     @BindView(R.id.photos_rhaz_recyclerview) RecyclerView mRhazRecyclerView;
@@ -61,6 +66,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
 
     @BindView(R.id.rover_photos_main_progress) ProgressBar mMainProgress;
     @BindView(R.id.rover_photos_title) TextView mTitleText;
+    @BindView(R.id.rover_photos_coordinator_layout) CoordinatorLayout mCoordinatorLayout;
 
     private RoverPhotosAdapter mFhazAdapter;
     private RoverPhotosAdapter mRhazAdapter;
@@ -72,15 +78,37 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private RoverPhotosAdapter mPancamAdapter;
     private RoverPhotosAdapter mMinitesAdapter;
 
+
+
     //TODO Try moving more logic into ViewModels
     //todo handle sol with no pictures
 
     //private RecyclerView.RecycledViewPool mViewPool;
 
+    public static RoverPhotosFragment newInstance(Context context, int roverIndex, String sol){
+        RoverPhotosFragment fragment = new RoverPhotosFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(context.getResources().getString(R.string.rover_index_extra), roverIndex);
+        bundle.putString(context.getResources().getString(R.string.sol_number_extra_key), sol);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     public RoverPhotosFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,10 +153,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         outState.putInt(getString(R.string.rover_index_saved_key), mRoverIndex);
     }
 
-    private void updateUI(){
-        String message = mViewModel.getCameras().getValue().getMAHLI().get(0);
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
+
 
     private LinearLayoutManager createLayoutManager(){
         return new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -137,7 +162,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
 
     private void setupUI(){
         //if camera has any images then setup adapter and show views.
-
+        boolean anyCameras = false;
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX) != null){
             mFhazAdapter = new RoverPhotosAdapter(this);
             mFhazRecyclerView.setLayoutManager(createLayoutManager());
@@ -145,6 +170,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mFhazAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX));
             mFhazRecyclerView.setVisibility(View.VISIBLE);
             mFhazLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_RHAZ_INDEX) != null){
             mRhazAdapter = new RoverPhotosAdapter(this);
@@ -153,6 +179,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mRhazAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_RHAZ_INDEX));
             mRhazRecyclerView.setVisibility(View.VISIBLE);
             mRhazLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAST_INDEX) != null){
             mMastAdapter = new RoverPhotosAdapter(this);
@@ -161,6 +188,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mMastAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAST_INDEX));
             mMastRecyclerView.setVisibility(View.VISIBLE);
             mMastLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_CHEMCAM_INDEX) != null){
             mChemcamAdapter = new RoverPhotosAdapter(this);
@@ -169,6 +197,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mChemcamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_CHEMCAM_INDEX));
             mChemcamRecyclerView.setVisibility(View.VISIBLE);
             mChemcamLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAHLI_INDEX) != null){
             mMahliAdapter = new RoverPhotosAdapter(this);
@@ -177,7 +206,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mMahliAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MAHLI_INDEX));
             mMahliRecyclerView.setVisibility(View.VISIBLE);
             mMahliLabel.setVisibility(View.VISIBLE);
-
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MARDI_INDEX) != null){
             mMardiAdapter = new RoverPhotosAdapter(this);
@@ -186,6 +215,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mMardiAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MARDI_INDEX));
             mMardiRecyclerView.setVisibility(View.VISIBLE);
             mMardiLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_NAVCAM_INDEX) != null){
             mNavcamAdapter = new RoverPhotosAdapter(this);
@@ -194,6 +224,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mNavcamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_NAVCAM_INDEX));
             mNavcamRecyclerView.setVisibility(View.VISIBLE);
             mNavcamLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_PANCAM_INDEX) != null){
             mPancamAdapter = new RoverPhotosAdapter(this);
@@ -202,6 +233,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mPancamAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_PANCAM_INDEX));
             mPancamRecyclerView.setVisibility(View.VISIBLE);
             mPancamLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX) != null){
             mMinitesAdapter = new RoverPhotosAdapter(this);
@@ -211,9 +243,27 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             Log.d(TAG, mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX).get(0));
             mMinitesRecyclerView.setVisibility(View.VISIBLE);
             mMinitesLabel.setVisibility(View.VISIBLE);
+            anyCameras = true;
         }
         hideMainProgress();
-        updateTitleText();
+        if(!anyCameras){
+            displayNoCameraSnack();
+        }else {
+            updateTitleText();
+        }
+    }
+
+    private void displayNoCameraSnack() {
+        mTitleText.setText(getString(R.string.no_photos));
+        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.no_photos, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snackbar_back, new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+                snackbar.dismiss();
+            }
+        } );
+        snackbar.show();
     }
 
     private void setRoverTitle(){
@@ -224,11 +274,10 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private void updateTitleText(){
         String roverName = HelperUtils.getRoverNameByIndex(getContext(), mRoverIndex);
         Cameras cameras = mViewModel.getCameras().getValue();
-        String earthDate = cameras.getEarthDate();
-        String title = TextUtils.join(" - ", new String[] {roverName, mSol, earthDate});
+        mDateString = cameras.getEarthDate();
+        String title = TextUtils.join(" - ", new String[] {roverName, mSol, mDateString});
         mTitleText.setText(title);
     }
-
 
     private void hideAllViews(){
         mFhazLabel.setVisibility(View.GONE);
@@ -282,27 +331,18 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
 
     @Override
     public void onPhotoClick(List<String> url, View view, int clickedPos) {
+        FragmentActivity activity = getActivity();
+        if(activity == null) return;
+
         ArrayList<String> urls = new ArrayList<>(url);
-
-        FullPhotoFragment photoFragment = new FullPhotoFragment();
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList(getString(R.string.url_list_extra),urls);
-        bundle.putInt(getString(R.string.clicked_photo_pos_extra), clickedPos);
-       // bundle.putString(getString(R.string.photo_url_extra), url);
-        photoFragment.setArguments(bundle);
-       /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementReturnTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-        }
-.addSharedElement(view, ViewCompat.getTransitionName(view))
-*/
-
+        FullPhotoFragment photoFragment = FullPhotoFragment.newInstance(activity, urls,
+                clickedPos, mRoverIndex, mDateString);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.explore_detail_container, photoFragment,
                         FullPhotoFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
 
-
-
     }
+
 }

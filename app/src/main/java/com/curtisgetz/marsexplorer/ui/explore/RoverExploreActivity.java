@@ -9,6 +9,7 @@ import android.icu.text.IDNA;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
+import android.support.constraint.solver.widgets.Helper;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.InformationUtils;
+import com.curtisgetz.marsexplorer.utils.JsonUtils;
 
 
 import java.util.List;
@@ -118,19 +120,19 @@ public class RoverExploreActivity extends AppCompatActivity implements
 
     @Override
     public void onCategoryClick(int catIndex) {
-        switch (catIndex){
-            case HelperUtils.ROVER_SCIENCE_CAT_INDEX:
-                Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
-                intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
-                intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
-                startActivity(intent);
-        }
+        //Send explore index and rover index to ExploreActivity
+            Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
+            intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
+            intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
+            startActivity(intent);
+
     }
 
     @Override
     public void onSolSearchClick(String solNumber, int catIndex) {
-           String validatedSol = mViewModel.validateSolInRange(solNumber);
-           startExploreDetailActivity(validatedSol, catIndex);
+        //validate sol input is in range then start ExploreDetailActivity
+        String validatedSol = mViewModel.validateSolInRange(solNumber);
+        startExploreDetailActivity(validatedSol, catIndex);
     }
 
     @Override
@@ -141,7 +143,7 @@ public class RoverExploreActivity extends AppCompatActivity implements
 
     private void startExploreDetailActivity(String solNumber, int catIndex){
         if(isNetworkAvailable()) {
-            Intent intent = new Intent(this, ExploreDetailActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class);
             intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
             intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
             intent.putExtra(getString(R.string.sol_number_extra_key), solNumber);
@@ -154,13 +156,8 @@ public class RoverExploreActivity extends AppCompatActivity implements
 
     @OnClick(R.id.sol_info_clickbox)
     public void solInfo(){
-        /*Bundle bundle = new Bundle();
-        bundle.putInt(getString(R.string.info_index_key), InformationUtils.SOL_RANGE_INFO);
-        InfoDialogFragment infoDialogFragment = new InfoDialogFragment();
-        infoDialogFragment.setArguments(bundle);
-        infoDialogFragment.show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());*/
-        InformationUtils.getInfoFragment(InformationUtils.SOL_RANGE_INFO)
-                .show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
+        InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(this, InformationUtils.SOL_RANGE_INFO);
+        infoDialogFragment.show(getSupportFragmentManager(), InfoDialogFragment.class.getSimpleName());
 
     }
 
@@ -169,10 +166,9 @@ public class RoverExploreActivity extends AppCompatActivity implements
         RoverManifest roverManifest = mViewModel.getManifest().getValue();
         if(roverManifest == null)return;
         hideManifestProgress();
-      // todo change date to friendly String
         mMissionStatusTv.setText(HelperUtils.capitalizeFirstLetter(roverManifest.getStatus()));
-        mLandingTv.setText(roverManifest.getLandingDate());
-        mLaunchTv.setText(roverManifest.getLaunchDate());
+        mLandingTv.setText(JsonUtils.getDateString(roverManifest.getLandingDate()));
+        mLaunchTv.setText(JsonUtils.getDateString(roverManifest.getLaunchDate()));
         mSolRangeTv.setText(roverManifest.getSolRange());
     }
 

@@ -191,6 +191,7 @@ public final class JsonUtils {
                 String imgSrcString = jsonObject.optString(NASA_IMAGE);
 
                 earthDate = getDateString(jsonObject.optString(NASA_DATE));
+
                 //ADD img src to matching camera ArrayList
                 switch (cameraName){
                     case ROVER_FHAZ:
@@ -223,13 +224,10 @@ public final class JsonUtils {
                     default:
                         break;
                 }
-
             }
-
         }
         return new Cameras(roverIndex, fhaz, rhaz, navcam, mast, chemcam, mahli, mardi,  pancam,
                 minites, earthDate);
-
     }
 
 

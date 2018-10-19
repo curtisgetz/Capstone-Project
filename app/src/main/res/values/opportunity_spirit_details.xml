@@ -20,9 +20,13 @@
         ability to penetrate through the dust coatings common to the Martian surface which is usually problematic for remote sensing observations.
         There is one on each of the two Mars Exploration Rovers (Opportunity and Spirit).
         \nThe Mini-TES is used for identifying promising rocks and soils for closer examination, and to determine the processes that formed Martian rocks.
-        It measures the infrared radiation that the target rock or object emits in 167 different wavelengths, providing information about the target's composition.
+        It measures the infrared radiation that the target rock or object emits in 167 different wavelengths, providing information about the target\'s composition.
         One particular goal is to search for minerals that were formed by the action of water, such as carbonates and clays. The instrument can also look skyward to
-        provide temperature profiles of the Martian atmosphere and detect the abundance of dust and water vapor.</string>
+        provide temperature profiles of the Martian atmosphere and detect the abundance of dust and water vapor.
+        \nMini-TES weighs 2.1 kg (almost 5 lbs) and is located in the body of the rover at the bottom of the "rover neck," known as the Pancam Mast Assembly (PMA).
+        Scanning mirrors located in the Pancam Mast Assembly act like a periscope to send light down to the instrument. This structure allows Mini-TES to see the terrain around
+        the rover from the same vantage point as Pancam. Mini-TES looks one way, and the Pancams looks the other way. To make observations of the same location from
+        both of the instruments, the Pancam Mast Assembly (the rover's neck) must be commanded to swivel.</string>
 
     <string name="opp_spirit_mb_details">Many of the minerals that formed rocks on Mars contain iron, and the soil is iron-rich. The Mössbauer Spectrometer is an instrument
         that was specially designed to study iron-bearing minerals. Because this science instrument is so specialized, it can determine the composition and abundance of these

@@ -16,7 +16,7 @@ import com.firebase.jobdispatcher.Trigger;
 public class MarsExplorerApp extends Application{
 
     private final static String TAG = MarsExplorerApp.class.getSimpleName();
-    //todo change times after testing
+    //todo change times after testing = set to 2-4 times a day in final version
     private FirebaseJobDispatcher mJobDispatcher;
     private final static int MANIFEST_JOB_MIN = 30;
     private final static int MANIFEST_JOB_MAX= 360;
