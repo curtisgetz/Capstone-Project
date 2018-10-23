@@ -21,10 +21,11 @@ public final class JsonUtils {
 
     private final static String TAG = JsonUtils.class.getSimpleName();
 
+    //todo clean up unused keys
     public final static String JSON_DATE_FORMAT = "yyyy/MM/dd";
     // Add all for future use
 
-    //JSON keys---------------------------------
+//JSON keys---------------------------------
     private final static String  NASA_PHOTOS = "photos";
     //next level
     // private final static String NASA_PHOTO_ID = "id";
@@ -175,7 +176,7 @@ public final class JsonUtils {
         String earthDate= "";
 
         JSONObject cameraJSON = new JSONObject(url);
-        //Check for 'photos' key to see if there are any results
+        //Check for 'photos' key to see if there are any results, return null if no results
         if(!cameraJSON.has(NASA_PHOTOS)) return null;
 
         JSONArray jsonArray = cameraJSON.getJSONArray(NASA_PHOTOS);
