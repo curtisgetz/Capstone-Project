@@ -100,13 +100,9 @@ public final class JsonUtils {
             String label = HelperUtils.getWeatherLabel(context, weatherIndex);
             String value = mainObject.optString(jsonKey, FALLBACK_STRING);
             value = addTempUnit(context, jsonKey, value);
-            Log.d(TAG, label + " _ " + value);
             weatherDetails.add(new WeatherDetail(label, value, infoIndex, sol));
         }
 
-       /* String minTemp = String.valueOf(mainObject.optInt(WEATHER_MIN_TEMP, FALLBACK_INT));
-        String minTempLabel = HelperUtils.getWeatherLabel(context,getWeatherIndexByJsonKey(WEATHER_MIN_TEMP));
-        weatherDetails.add(new WeatherDetail(minTempLabel, minTemp));*/
         return weatherDetails;
     }
 

@@ -2,8 +2,11 @@ package com.curtisgetz.marsexplorer.utils;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.curtisgetz.marsexplorer.BuildConfig;
+import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestJobService;
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -12,6 +15,10 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MarsExplorerApp extends Application{
 
@@ -20,6 +27,8 @@ public class MarsExplorerApp extends Application{
     private FirebaseJobDispatcher mJobDispatcher;
     private final static int MANIFEST_JOB_MIN = 30;
     private final static int MANIFEST_JOB_MAX= 360;
+
+
 
 
     public MarsExplorerApp() {
@@ -34,10 +43,7 @@ public class MarsExplorerApp extends Application{
 
     private void scheduleManifestJob(){
         //todo add setting for enable/disable jobschedule
-
         mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-        //Bundle jobBundle = new Bundle();
-
         //keep manifests up to date periodically but will also update on demand
         Job manifestJob = mJobDispatcher.newJobBuilder()
                 .setService(RoverManifestJobService.class)
@@ -50,10 +56,13 @@ public class MarsExplorerApp extends Application{
                 .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING,
                         Constraint.ON_UNMETERED_NETWORK)
                 .build();
-
-        Log.d(TAG, "Trying to schedule Firebase Job" );
         mJobDispatcher.mustSchedule(manifestJob);
     }
+
+
+
+
+
 
 
 }
