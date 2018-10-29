@@ -1,6 +1,7 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail.rover_science;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -29,15 +31,26 @@ import butterknife.ButterKnife;
  */
 public class RoverScienceFragment extends Fragment{
 
-//    @BindView(R.id.science_text_view)
-//    TextView mScienceText;
-
     private List<RoverScience> mScienceList;
     private RoverSciencePagerAdapter mAdapter;
+    private Unbinder mUnBinder;
+
     @BindView(R.id.rover_science_viewpager)
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
+
+
+
+    public static RoverScienceFragment newInstance(Context context, int roverIndex, int exploreCat){
+        RoverScienceFragment scienceFragment = new RoverScienceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(context.getString(R.string.rover_index_extra), roverIndex);
+        bundle.putInt(context.getString(R.string.explore_index_extra_key), exploreCat);
+        scienceFragment.setArguments(bundle);
+        return scienceFragment;
+    }
+
     public RoverScienceFragment() {
         // Required empty public constructor
     }
@@ -48,9 +61,9 @@ public class RoverScienceFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rover_science, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
 
-        if(savedInstanceState == null){
+        if(savedInstanceState == null && getArguments() != null){
             Bundle bundle = getArguments();
             //get rover and category index. Use these to get correct list of science or rover info.
             int roverIndex = bundle.getInt(getString(R.string.rover_index_extra));
@@ -68,6 +81,9 @@ public class RoverScienceFragment extends Fragment{
         return view;
     }
 
-
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
+    }
 }

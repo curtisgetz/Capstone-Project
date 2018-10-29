@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class FullPhotoPagerFragment extends Fragment implements View.OnTouchListener {
     private final static String TAG = FullPhotoPagerFragment.class.getSimpleName();
@@ -37,14 +38,13 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
     @BindView(R.id.rover_photo_full_imageview)
     ImageView mImageView;
-   /* @BindView(R.id.full_photo_coordinator_layout)
-    CoordinatorLayout mCoordinator;*/
 
     private GestureDetectorCompat mGestureDetector;
     private FavoriteViewModel mViewModel;
     private String mUrl;
     private boolean isAlreadyFavorite;
     private FullPhotoPagerInteraction mListener;
+    private Unbinder mUnBinder;
 
     //Interface for activity callback
     public interface FullPhotoPagerInteraction{
@@ -132,7 +132,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.full_photo_pager_item, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
         view.setOnTouchListener(this);
         /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mImageView.setTransitionName(url);
@@ -151,6 +151,12 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
                     .into(mImageView);
         }
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
     }
 
     private void displayErrorImage(){

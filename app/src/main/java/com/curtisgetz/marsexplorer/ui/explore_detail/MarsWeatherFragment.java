@@ -60,6 +60,10 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         // Required empty public constructor
     }
 
+    public static MarsWeatherFragment newInstance(){
+        return new MarsWeatherFragment();
+    }
+
 //TODO Butterknife unbinders!
 
     @Override
@@ -68,6 +72,7 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mars_weather, container, false);
         mUnBinder = ButterKnife.bind(this,  view);
+
         showProgress();
         mAdapter = new WeatherDetailsAdapter(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -139,18 +144,6 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
     }
 
 
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        //mListener = null;
-    }
 
     @Override
     public void onDetailInfoClick(int infoIndex) {

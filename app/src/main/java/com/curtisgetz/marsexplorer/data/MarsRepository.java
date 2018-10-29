@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.room.AppDataBase;
 import com.curtisgetz.marsexplorer.data.room.MarsDao;
@@ -15,7 +14,6 @@ import com.curtisgetz.marsexplorer.utils.JsonUtils;
 import com.curtisgetz.marsexplorer.utils.NetworkUtils;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -71,7 +69,6 @@ public class MarsRepository {
                         URL manifestUrl = NetworkUtils.buildManifestUrl(context, roverIndex);
                         String jsonResponse = NetworkUtils.getResponseFromHttpUrl(manifestUrl);
                         RoverManifest manifest = JsonUtils.getRoverManifest(roverIndex, jsonResponse);
-                        Log.d(TAG, "Adding Manifest To Database");
                         mMarsDao.insertRoverManifest(manifest);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -84,8 +81,6 @@ public class MarsRepository {
 
 
     public LiveData<Cameras> getCameras(final Context context, final int index, final String sol){
-       // mCameras = new MutableLiveData<>();
-        Log.d(TAG, "Get Cameras from repository");
         final MutableLiveData<Cameras> cameras = new MutableLiveData<>();
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
@@ -130,16 +125,11 @@ public class MarsRepository {
             @Override
             public void run() {
                 mMarsDao.insertExploreTypeList(exploreTypes);
-
-                /*for(MainExploreType type : exploreTypes){
-                    mMarsDao.insertExploreType(type);
-                }*/
             }
         });
     }
 
     public void saveFavoritePhoto(final FavoriteImage image){
-        Log.d(TAG, "Save Favorite Photo");
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -153,7 +143,6 @@ public class MarsRepository {
 
 
     public void deleteFavoriteImage(final FavoriteImage favoriteImage){
-        Log.d(TAG, "Delete Favorite Photo");
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -163,7 +152,6 @@ public class MarsRepository {
     }
 
     public LiveData<List<FavoriteImage>> getAllFavorites(){
-        Log.d(TAG, "Fetch Favorites From Database");
         return mMarsDao.loadAllFavorites();
     }
 

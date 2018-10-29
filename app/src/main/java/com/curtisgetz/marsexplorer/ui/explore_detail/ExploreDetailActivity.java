@@ -1,19 +1,11 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail;
 
-import android.arch.lifecycle.ViewModelProviders;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.solver.widgets.Helper;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_science.RoverScienceFragment;
@@ -31,13 +23,10 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
     private int mExploreCatIndex;
     private String mCurrentSol;
     private int mRoverIndex;
-    private boolean showFavoriteMenu;
+   // private boolean showFavoriteMenu;
 
     @BindView(R.id.explore_detail_activity_coordinator)
     CoordinatorLayout mCoordinatorLayout;
-   // @BindView(R.id.explore_activity_toolbar)
-    //Toolbar mToolBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +48,8 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
                 switch (mExploreCatIndex){
                     case HelperUtils.MARS_WEATHER_CAT_INDEX:
                         //if Mars Weather was selected, create MarsWeatherFragment.
-                        MarsWeatherFragment weatherFragment = new MarsWeatherFragment();
+                        MarsWeatherFragment weatherFragment = MarsWeatherFragment.newInstance();
+                        //MarsWeatherFragment weatherFragment = new MarsWeatherFragment();
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.explore_detail_container, weatherFragment).commit();
                         break;
@@ -82,22 +72,19 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
                         mRoverIndex = intent.getIntExtra(getString(R.string.rover_index_extra), HelperUtils.CURIOSITY_ROVER_INDEX);
                         bundle.putInt(getString(R.string.rover_index_extra), mRoverIndex);
                         bundle.putInt(getString(R.string.explore_index_extra_key), mExploreCatIndex);
-                        RoverScienceFragment scienceFragment = new RoverScienceFragment();
-                        scienceFragment.setArguments(bundle);
+                        RoverScienceFragment scienceFragment = RoverScienceFragment.newInstance(this, mRoverIndex, mExploreCatIndex);
+
                         getSupportFragmentManager().beginTransaction().replace(
                                 R.id.explore_detail_container, scienceFragment).commit();
                         break;
 
                     case HelperUtils.ROVER_PICTURES_CAT_INDEX:
-
                         mCurrentSol = intent.getStringExtra(getString(R.string.sol_number_extra_key));
                         mRoverIndex = intent.getIntExtra(getString(R.string.rover_index_extra), HelperUtils.CURIOSITY_ROVER_INDEX);
                         bundle.putInt(getString(R.string.rover_index_extra), mRoverIndex);
                         bundle.putString(getString(R.string.sol_number_extra_key), mCurrentSol);
                         RoverPhotosFragment roverPhotosFragment = RoverPhotosFragment.newInstance(this, mRoverIndex, mCurrentSol);
 
-                        RoverPhotosFragment photosFragment = new RoverPhotosFragment();
-                        photosFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(
                                 R.id.explore_detail_container, roverPhotosFragment).commit();
                         break;
@@ -111,7 +98,7 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
             }else {
                 mExploreCatIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key), HelperUtils.MARS_WEATHER_CAT_INDEX);
                 mCurrentSol = savedInstanceState.getString(getString(R.string.sol_number_saved_key), HelperUtils.DEFAULT_SOL_NUMBER );
-                showFavoriteMenu = savedInstanceState.getBoolean(getString(R.string.fav_menu_boolean_saved_key), false);
+               // showFavoriteMenu = savedInstanceState.getBoolean(getString(R.string.fav_menu_boolean_saved_key), false);
                 mRoverIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key), HelperUtils.CURIOSITY_ROVER_INDEX);
             }
         }
@@ -123,11 +110,15 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
         super.onSaveInstanceState(outState);
         outState.putInt(getString(R.string.rover_index_saved_key), mExploreCatIndex);
         outState.putString(getString(R.string.sol_number_saved_key), mCurrentSol);
-        outState.putBoolean(getString(R.string.fav_menu_boolean_saved_key), showFavoriteMenu);
+       // outState.putBoolean(getString(R.string.fav_menu_boolean_saved_key), showFavoriteMenu);
         outState.putInt(getString(R.string.rover_index_saved_key), mRoverIndex);
     }
 
 
+
+
+
+    //Fragment interaction interface methods
     @Override
     public void callDisplaySnack(String message) {
         //call display snack method on FullPhotoFragment. This will allow the coordinatorlayout

@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +50,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
     private FavoriteViewModel mViewModel;
     private FavoritesAdapter mAdapter;
     private FullPhotoPagerFragment.FullPhotoPagerInteraction mListener;
+    private Unbinder mUnBinder;
 
     public FavoritePhotosFragment() {
         // Required empty public constructor
@@ -66,17 +68,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         return  new FavoritePhotosFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -114,7 +106,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite_photos, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder =  ButterKnife.bind(this, view);
         Log.d(TAG, "onCreateView");
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -170,4 +162,9 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         snackbar.show();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
+    }
 }

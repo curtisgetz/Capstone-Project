@@ -31,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +44,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private int mRoverIndex;
     private CamerasViewModel mViewModel;
     private String mDateString;
+    private Unbinder mUnBinder;
 
     @BindView(R.id.photos_fhaz_recyclerview) RecyclerView mFhazRecyclerView;
     @BindView(R.id.photos_rhaz_recyclerview) RecyclerView mRhazRecyclerView;
@@ -115,7 +117,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rover_photos, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
 
         hideAllViews();
         showMainProgress();
@@ -134,16 +136,19 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         setRoverTitle();
         CamerasVMFactory factory = new CamerasVMFactory(getActivity().getApplication(), mRoverIndex, mSol);
         mViewModel = ViewModelProviders.of(this, factory).get(CamerasViewModel.class);
-
         mViewModel.getCameras().observe(this, new Observer<Cameras>() {
             @Override
             public void onChanged(@Nullable Cameras cameras) {
                 setupUI();
             }
         });
-
-
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
     }
 
     @Override

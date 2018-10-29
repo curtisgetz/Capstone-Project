@@ -42,6 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +52,7 @@ public class MarsFactsFragment extends Fragment {
 
 
     private MarsFactsViewModel mViewModel;
+    private Unbinder mUnBinder;
 
     @BindView(R.id.fact_name_text)
     TextView mFactName;
@@ -101,7 +103,8 @@ public class MarsFactsFragment extends Fragment {
       // mFirebaseDatabase = RealtimeDatabaseUtils.getDatabase();
         //get reference to facts node
        // mFactsReference = mFirebaseDatabase.getReference(DB_NODE_NAME);
-    /* */}
+    /* */
+    }
 
     //todo finish facts
     @Override
@@ -109,7 +112,7 @@ public class MarsFactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mars_facts, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
         //loadTestData();
         MarsFact fact = new MarsFact(280, "New", "short", "full", "http:www.space-facts/Mars");
         //mFactsReference.child("2").setValue(fact);
@@ -153,8 +156,8 @@ public class MarsFactsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
     }
 }

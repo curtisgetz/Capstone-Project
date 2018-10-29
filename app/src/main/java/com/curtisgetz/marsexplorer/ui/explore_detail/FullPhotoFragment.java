@@ -36,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,17 +57,15 @@ public class FullPhotoFragment extends Fragment   {
     private int mRoverIndex;
     private String mDateString;
     private boolean mIsFavorites;
-
+    private Unbinder mUnBinder;
     private FavoriteViewModel mViewModel;
 
 
     public static FullPhotoFragment newInstance(Context context, ArrayList<String> urls, int startingPos,
                                                 int roverIndex, String dateString){
 
-        Log.d(TAG, "Getting New Instance");
         FullPhotoFragment fragment = new FullPhotoFragment();
         Bundle bundle = new Bundle();
-        //bundle.putBoolean(context.getString(R.string.is_favorites_key), isFavorites);
         bundle.putStringArrayList(context.getResources().getString(R.string.url_list_extra), urls);
         bundle.putInt(context.getString(R.string.clicked_photo_pos_extra), startingPos);
         bundle.putInt(context.getString(R.string.rover_index_extra), roverIndex);
@@ -95,8 +94,6 @@ public class FullPhotoFragment extends Fragment   {
                         for(FavoriteImage image : favoriteImages){
                             urls.add(image.getImageUrl());
                         }
-
-
                         mAdapter.setData(urls);
                     }
                 }
@@ -141,8 +138,6 @@ public class FullPhotoFragment extends Fragment   {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_full_photo, container, false);
         ButterKnife.bind(this, view);
-        Log.d(TAG, "onCreateView ");
-
 
         mAdapter = new FullPhotoAdapter(getChildFragmentManager(), getActivity());
         mViewPager.setAdapter(mAdapter);
@@ -152,6 +147,11 @@ public class FullPhotoFragment extends Fragment   {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {

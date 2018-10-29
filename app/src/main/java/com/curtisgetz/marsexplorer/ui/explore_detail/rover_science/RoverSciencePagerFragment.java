@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,8 @@ public class RoverSciencePagerFragment extends Fragment {
     TextView mScienceText;
     @BindView(R.id.science_imageview)
     ImageView mScienceImage;
+
+    private Unbinder mUnBinder;
 
     public RoverSciencePagerFragment() {
         // Required empty public constructor
@@ -58,7 +61,7 @@ public class RoverSciencePagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rover_science_pager, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
         if(bundle == null){
@@ -74,14 +77,12 @@ public class RoverSciencePagerFragment extends Fragment {
 
         }
 
-
         return view;
-
-
     }
 
-
-
-
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
+    }
 }
