@@ -12,6 +12,7 @@ import android.arch.persistence.room.Update;
 
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
+import com.curtisgetz.marsexplorer.data.Tweet;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
 import java.util.List;
@@ -68,6 +69,10 @@ public interface MarsDao {
 
     @Query("DELETE FROM favoriteimage")
     void deleteAllFavorites();
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTweet(Tweet tweet);
 
 
 }

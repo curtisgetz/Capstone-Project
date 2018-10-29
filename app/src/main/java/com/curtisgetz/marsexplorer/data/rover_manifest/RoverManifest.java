@@ -19,17 +19,17 @@ public class RoverManifest {
     private String mTotalPhotos;
 
 
-    public RoverManifest(int mRoverIndex, String mRoverName, String mLaunchDate, String mLandingDate,
-                         String mStatus, String mMaxSol, String mMaxDate, String mTotalPhotos) {
+    public RoverManifest(int roverIndex, String roverName, String launchDate, String landingDate,
+                         String status, String maxSol, String maxDate, String totalPhotos) {
 
-        this.mRoverIndex = mRoverIndex;
-        this.mRoverName = mRoverName;
-        this.mLaunchDate = mLaunchDate;
-        this.mLandingDate = mLandingDate;
-        this.mStatus = mStatus;
-        this.mMaxSol = mMaxSol;
-        this.mMaxDate = mMaxDate;
-        this.mTotalPhotos = mTotalPhotos;
+        this.mRoverIndex = roverIndex;
+        this.mRoverName = roverName;
+        this.mLaunchDate = launchDate;
+        this.mLandingDate = landingDate;
+        this.mStatus = status;
+        this.mMaxSol = maxSol;
+        this.mMaxDate = maxDate;
+        this.mTotalPhotos = totalPhotos;
     }
 
     private int getMinSol(){
@@ -50,17 +50,6 @@ public class RoverManifest {
 
     public String getSolRange(){
         String minSol = String.valueOf(getMinSol());
-        /*switch(mRoverIndex){
-            case HelperUtils.CURIOSITY_ROVER_INDEX:
-                minSol = String.valueOf(HelperUtils.CURIOSITY_SOL_START);
-                break;
-            case HelperUtils.OPPORTUNITY_ROVER_INDEX:
-                minSol = String.valueOf(HelperUtils.OPPORTUNITY_SOL_START);
-                break;
-            case HelperUtils.SPIRIT_ROVER_INDEX:
-                minSol = String.valueOf(HelperUtils.SPIRIT_SOL_START);
-                break;
-        }*/
         return minSol + " - " + mMaxSol;
     }
 
@@ -134,7 +123,7 @@ public class RoverManifest {
         return  getMinSol();
     }
 
-    public int getMaxSolint(){
+    public int getMaxSolInt(){
         int maxSol;
         try{
             maxSol = Integer.parseInt(mMaxSol);

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_science.RoverScienceFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.tweets.TweetsFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import butterknife.BindView;
@@ -100,6 +101,11 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
                         getSupportFragmentManager().beginTransaction().replace(
                                 R.id.explore_detail_container, roverPhotosFragment).commit();
                         break;
+
+                    case HelperUtils.ROVER_TWEETS_CAT_INDEX:
+                        TweetsFragment tweetsFragment = TweetsFragment.newInstance();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.explore_detail_container,
+                                tweetsFragment).commit();
                 }
 
             }else {

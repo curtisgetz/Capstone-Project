@@ -60,6 +60,7 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         // Required empty public constructor
     }
 
+//TODO Butterknife unbinders!
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +92,17 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         return view;
     }
 
+    private void updateTitle() {
+        List<WeatherDetail> weatherDetails = mViewModel.getWeather().getValue();
+        if(weatherDetails != null){
+            String curiosity = getString(R.string.curiosity_rover) + " " + getString(R.string.rover_string);
+            String solTag = getString(R.string.sol);
+            String title = ( curiosity + " - " + solTag + " - " +  mViewModel.getWeather().getValue().get(0).getmSol());
+            mSolTitle.setText(title);
+        }
+        hideProgress();
+    }
+
     private void showLoadingError() {
         hideProgress();
         final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "Error Getting Weather Data", Snackbar.LENGTH_LONG);
@@ -104,16 +116,6 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
 
     }
 
-    private void updateTitle() {
-       List<WeatherDetail> weatherDetails = mViewModel.getWeather().getValue();
-       if(weatherDetails != null){
-           String curiosity = getString(R.string.curiosity_rover) + " " + getString(R.string.rover_string);
-           String solTag = getString(R.string.sol);
-           String title = ( curiosity + " - " + solTag + " - " +  mViewModel.getWeather().getValue().get(0).getmSol());
-           mSolTitle.setText(title);
-       }
-       hideProgress();
-    }
 
 
     private void showProgress(){

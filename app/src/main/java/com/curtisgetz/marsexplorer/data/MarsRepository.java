@@ -177,6 +177,14 @@ public class MarsRepository {
     }
 
 
+    public void insertTweet(final Tweet tweet){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMarsDao.insertTweet(tweet);
+            }
+        });
+    }
 
 
 

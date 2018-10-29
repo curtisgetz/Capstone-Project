@@ -52,7 +52,7 @@ public final class HelperUtils {
 
     //Set available categories for each rover
     private final static int[] CURIOSITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
-            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX, ROVER_TWEETS_CAT_INDEX};
     private final static int[] OPPORTUNITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
             ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX};
     private final static int[] SPIRIT_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
@@ -516,27 +516,25 @@ public final class HelperUtils {
 
 
     private static String getCategoryTitle(Context context, int categoryIndex){
-        String title  = "";
         switch (categoryIndex){
             case MARS_WEATHER_CAT_INDEX:
-                title = context.getString(R.string.mars_weather_category_title);
-                break;
+                return context.getString(R.string.mars_weather_category_title);
             case MARS_FACTS_CAT_INDEX:
-                title = context.getString(R.string.mars_facts_category_title);
-                break;
+                return context.getString(R.string.mars_facts_category_title);
             case MARS_FAVORITES_CAT_INDEX:
-                title = context.getString(R.string.mars_user_favorites);
-                break;
+                return context.getString(R.string.mars_user_favorites);
             case ROVER_PICTURES_CAT_INDEX:
-                title = context.getString(R.string.rover_picture_category_title);
-                break;
+                return context.getString(R.string.rover_picture_category_title);
             case ROVER_INFO_CAT_INDEX:
-                title = context.getString(R.string.rover_information_category_title);
-                break;
+                return context.getString(R.string.rover_information_category_title);
             case ROVER_SCIENCE_CAT_INDEX:
-                title = context.getString(R.string.rover_science_category_title);
+                return context.getString(R.string.rover_science_category_title);
+            case ROVER_TWEETS_CAT_INDEX:
+                return context.getString(R.string.rover_tweets_category_title);
+            default:
+                return "";
         }
-        return title;
+
     }
 
 

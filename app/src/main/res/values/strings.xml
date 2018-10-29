@@ -27,6 +27,7 @@
     <string name="rover_picture_category_title">Pictures Taken By This Rover</string>
     <string name="rover_information_category_title">Rover Information</string>
     <string name="rover_science_category_title">Rover Science Instruments</string>
+    <string name="rover_tweets_category_title">Tweets</string>
 
     <string name="mars_weather_category_title">Weather On Mars</string>
     <string name="mars_facts_category_title">Mars Facts</string>
@@ -172,5 +173,8 @@
     <string name="unknown_date">unknown date</string>
     <string name="date_on_string">on</string>
     <string name="is_favorites_key">is_favorites_key</string>
+    <string name="curiosity_rover_tweets_title">Curiosity Rover Tweets</string>
+    <string name="twitter_profile_picture_cd">Twitter Profile Picture</string>
+
 
 </resources>

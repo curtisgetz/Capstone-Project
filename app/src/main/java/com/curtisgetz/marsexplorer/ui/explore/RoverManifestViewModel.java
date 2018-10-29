@@ -13,7 +13,6 @@ import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class RoverManifestViewModel extends ViewModel {
@@ -62,7 +61,7 @@ public class RoverManifestViewModel extends ViewModel {
         }catch (NumberFormatException e){
             return HelperUtils.DEFAULT_SOL_NUMBER;
         }
-        int maxSol = mManifest.getValue().getMaxSolint();
+        int maxSol = mManifest.getValue().getMaxSolInt();
         int minSol = mManifest.getValue().getMinSolInt();
         if(solInputNumber < minSol){
             //if entered sol is lower than min, set it to the min
@@ -79,7 +78,7 @@ public class RoverManifestViewModel extends ViewModel {
     public String getRandomSol(){
         if(mManifest.getValue() == null) return HelperUtils.DEFAULT_SOL_NUMBER;
         int minSol = mManifest.getValue().getMinSolInt();
-        int maxSol = mManifest.getValue().getMaxSolint();
+        int maxSol = mManifest.getValue().getMaxSolInt();
         Random randomRand = new Random();
         int randomNum = randomRand.nextInt((maxSol - minSol) + 1) + minSol;
         //int random = ThreadLocalRandom.current().nextInt((minSol), (maxSol+1));

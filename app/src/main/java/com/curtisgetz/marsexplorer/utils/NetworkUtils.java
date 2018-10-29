@@ -19,7 +19,6 @@ public final class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     //TODO  Use "DEMO_KEY" for limited use.  If you reach limits you can apply for a key at https://api.nasa.gov/index.html#apply-for-an-api-key
-
     private static final String NASA_API = Config.MY_API;
     //private static final String NASA_API = "DEMO_KEY";
 
@@ -120,6 +119,7 @@ public final class NetworkUtils {
 
     //read input from http response
     public static String getResponseFromHttpUrl(URL url) throws IOException {
+        //todo change to longer read timeout if user wants all photos. Tie in with preferences.
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         //set connection timeouts
         urlConnection.setConnectTimeout(5000);

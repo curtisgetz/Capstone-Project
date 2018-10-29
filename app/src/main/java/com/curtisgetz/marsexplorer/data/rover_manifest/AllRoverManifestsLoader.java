@@ -17,8 +17,7 @@ public class AllRoverManifestsLoader extends AsyncTaskLoader<List<RoverManifest>
 
     private final static String TAG = AllRoverManifestsLoader.class.getSimpleName();
 
-    private final static int[] mRoverIndices = {HelperUtils.CURIOSITY_ROVER_INDEX,
-            HelperUtils.OPPORTUNITY_ROVER_INDEX, HelperUtils.SPIRIT_ROVER_INDEX};
+    private final static int[] mRoverIndices = HelperUtils.ROVER_INDICES;
 
 
 

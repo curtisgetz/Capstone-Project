@@ -15,8 +15,12 @@ import android.widget.Toast;
 import com.curtisgetz.marsexplorer.BuildConfig;
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
+import com.curtisgetz.marsexplorer.data.MarsRepository;
+import com.curtisgetz.marsexplorer.data.Tweet;
+import com.curtisgetz.marsexplorer.data.fcm.MarsFirebaseMessagingService;
 import com.curtisgetz.marsexplorer.ui.explore.MarsExploreActivity;
 import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
+import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
     //Remote Config
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private static final String TEST_REMOTE_CONFIG_KEY = "remote_test";
+
 
 
 
@@ -49,15 +53,66 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //mDb = AppDataBase.getInstance(getApplicationContext());
-        //createMainList();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            //check for Intent from tweet notification.
+            //if there is an intent then open ExploreDetailActivity with the tweet explore index as
+            // an extra so ExploreDetailActivity will open the Tweet Fragment
+            Intent intent = new Intent(this, ExploreDetailActivity.class);
+            intent.putExtra(getString(R.string.explore_index_extra_key), HelperUtils.ROVER_TWEETS_CAT_INDEX);
+
+            //if app was in background then attempt to create tweet and save to DB here before starting intent
+            if(extras.containsKey(MarsFirebaseMessagingService.JSON_KEY_TWEET_ID)){
+                Tweet tweet = new Tweet();
+                tweet = createTweetFromIntent(extras);
+                if(tweet != null){
+                    saveTweetToDb(tweet);
+                    startTweetFragment(intent);
+                }
+            //if app was in foreground then Tweet will already be saved to database
+            } else if(extras.containsKey(getString(R.string.explore_index_extra_key))){
+                startTweetFragment(intent);
+            }
+        }
         mAdapter = new MainExploreAdapter(this);
+
 
         mExploreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mExploreRecyclerView.setAdapter(mAdapter);
         setupRemoteConfig();
         setupViewModel();
 
+    }
+
+    private void startTweetFragment(Intent intent){
+        startActivity(intent);
+    }
+
+
+    private Tweet createTweetFromIntent(Bundle extras){
+        int tweetId;
+        int userId;
+        //try parsing ints for ID fields.  If it fails then stop and return null, otherwise
+        // continue and create the Tweet.
+        try {
+            tweetId = Integer.parseInt(extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_ID));
+            userId = Integer.parseInt(extras.getString(MarsFirebaseMessagingService.JSON_KEY_USER_ID));
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            return null;
+        }
+        String userName = extras.getString(MarsFirebaseMessagingService.JSON_KEY_USER_NAME);
+        String tweetDate =  extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_DATE);
+        String tweetText =  extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_TEXT);
+        Log.d(TAG, userName);
+        return new Tweet(tweetId, userId, userName, tweetDate, tweetText);
+    }
+
+
+    private void saveTweetToDb(Tweet tweet) {
+        MarsRepository repository = MarsRepository.getInstance(getApplication());
+        repository.insertTweet(tweet);
     }
 
 
@@ -92,11 +147,12 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
 
     private void setupRemoteConfig() {
-        mFirebaseRemoteConfig=FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        //todo remove debug mode
+ //       FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+   //             .setDeveloperModeEnabled(BuildConfig.DEBUG)
+     //           .build();
+       // mFirebaseRemoteConfig.setConfigSettings(configSettings);
 
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
         fetchRemoteConfig();
@@ -105,9 +161,8 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
     private void fetchRemoteConfig() {
         //Fetch any new Remote Config values
-        Log.d(TAG, String.valueOf(mFirebaseRemoteConfig.getString(TEST_REMOTE_CONFIG_KEY)));
-        long cacheExpiration = 3600; // 1 hour in seconds.
-        // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
+        long cacheExpiration = 14400; // 4 hours in seconds.
+        // If using developer mode, cacheExpiration is set to 0, so each fetch will
         // retrieve values from the service.
         if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
             cacheExpiration = 0;
@@ -117,15 +172,10 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Fetch Succeeded", Toast.LENGTH_LONG).show();
                             mFirebaseRemoteConfig.activateFetched();
-                        }else {
-                            Toast.makeText(MainActivity.this, "Fetch Failed", Toast.LENGTH_LONG).show();
                         }
-                        Log.d(TAG, String.valueOf(mFirebaseRemoteConfig.getString(TEST_REMOTE_CONFIG_KEY)));
                     }
                 });
     }
-
 
 }

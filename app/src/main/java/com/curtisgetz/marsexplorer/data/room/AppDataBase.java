@@ -8,10 +8,11 @@ import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
+import com.curtisgetz.marsexplorer.data.Tweet;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 
 
-@Database(entities = {MainExploreType.class, RoverManifest.class, FavoriteImage.class},
+@Database(entities = {MainExploreType.class, RoverManifest.class, FavoriteImage.class, Tweet.class},
         version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 

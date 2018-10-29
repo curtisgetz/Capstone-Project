@@ -29,9 +29,4 @@ public class WeatherViewModel extends AndroidViewModel {
         return mWeather;
     }
 
-
-
-
-
-
 }
