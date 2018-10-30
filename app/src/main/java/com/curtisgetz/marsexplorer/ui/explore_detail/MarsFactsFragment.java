@@ -5,39 +5,24 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MarsFact;
-import com.curtisgetz.marsexplorer.utils.RealtimeDatabaseUtils;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +38,7 @@ public class MarsFactsFragment extends Fragment {
 
     private MarsFactsViewModel mViewModel;
     private Unbinder mUnBinder;
+    private FactsInteraction mListener;
 
     @BindView(R.id.fact_name_text)
     TextView mFactName;
@@ -60,15 +46,19 @@ public class MarsFactsFragment extends Fragment {
     TextView mFactDescription;
     @BindView(R.id.fact_url_text)
     TextView mUrlText;
+    @BindView(R.id.reload_fact)
+    ImageView mReloadFactIv;
 
- //   private FirebaseDatabase mFirebaseDatabase;
-  //  private DatabaseReference mFactsReference;
 
-   // private final static String DB_NODE_NAME = "facts";
-    //
+
     //First child in database corresponds to the day of the year.  Will try to load the fact
     // matching the current day of the year. If no matches try to load another fact.
     // Fragment will allow cycling through facts. Widget will show 'fact of the day'
+
+    //interface for activity callback
+    public interface FactsInteraction{
+        void displaySnack(String message);
+    }
 
 
     public static MarsFactsFragment newInstance(){
@@ -85,26 +75,38 @@ public class MarsFactsFragment extends Fragment {
         super.onAttach(context);
         FragmentActivity activity = getActivity();
         if(activity == null)return;
+        //attach Listener for callbacks
+        if(context instanceof FactsInteraction){
+            mListener = (FactsInteraction) context;
+        }else {
+            throw new RuntimeException(context.toString()  +
+            " must implement FactsInteraction");
+        }
+
+        //setup view model
         mViewModel = ViewModelProviders.of(activity).get(MarsFactsViewModel.class);
+        //observe Fact
         mViewModel.getFact().observe(this, new Observer<MarsFact>() {
             @Override
             public void onChanged(@Nullable MarsFact marsFact) {
                 displayResults();
             }
         });
+        //observe max query boolean in View Model
+        mViewModel.hitMaxQuery().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean hitMaxQuery) {
+                if(hitMaxQuery != null && hitMaxQuery){
+                    mReloadFactIv.setVisibility(View.INVISIBLE);
+                    mReloadFactIv.clearAnimation();
+                    mReloadFactIv.setEnabled(false);
+                    mListener.displaySnack(getString(R.string.unable_load_new_fact));
+
+                }
+            }
+        });
     }
 
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //get db reference
-      // mFirebaseDatabase = RealtimeDatabaseUtils.getDatabase();
-        //get reference to facts node
-       // mFactsReference = mFirebaseDatabase.getReference(DB_NODE_NAME);
-    /* */
-    }
 
     //todo finish facts
     @Override
@@ -113,33 +115,48 @@ public class MarsFactsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mars_facts, container, false);
         mUnBinder = ButterKnife.bind(this, view);
-        //loadTestData();
-        MarsFact fact = new MarsFact(280, "New", "short", "full", "http:www.space-facts/Mars");
-        //mFactsReference.child("2").setValue(fact);
 
-        /*int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-        Toast.makeText(getContext(), String.valueOf(dayOfYear), Toast.LENGTH_LONG).show();
-        getFactFromDb(dayOfYear);*/
-
+        animateRefreshIcon();
         return view;
+    }
 
+    private void animateRefreshIcon() {
+        //set refresh icon to rotate around it's center. Use as a loading indicator.
+        RotateAnimation rotateAnimation = new RotateAnimation(0f, 360f,
+            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f );
+        rotateAnimation.setFillAfter(false);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
+        rotateAnimation.setRepeatMode(Animation.RESTART);
+        rotateAnimation.setDuration(500);
+        mReloadFactIv.startAnimation(rotateAnimation);
+        mReloadFactIv.setEnabled(false);
     }
 
 
+
     private void displayResults(){
+        //get Fact from ViewModel and update UI
         MarsFact fact = getFactFromViewModel();
         if(fact == null) return;
-        mFactName.setText(fact.getFactName());
+        //Stop refresh icon when fact is displayed
+        mReloadFactIv.clearAnimation();
+        mReloadFactIv.setEnabled(true);
+     //   mFactName.setText(fact.getFactName());
         mFactDescription.setText(fact.getFullDescription());
         mFactDescription.append(fact.getFullDescription());
         mFactDescription.append(fact.getFullDescription());
         mUrlText.setText(fact.getUrl());
     }
 
+    @OnClick(R.id.reload_fact)
+    public void onRefreshFactClick(){
+        animateRefreshIcon();
+        mViewModel.loadNewFact();
+    }
+
     private MarsFact getFactFromViewModel(){
        return mViewModel.getFact().getValue();
-
-
     }
 
     //open link to source of fact
@@ -159,5 +176,11 @@ public class MarsFactsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mUnBinder.unbind();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 }

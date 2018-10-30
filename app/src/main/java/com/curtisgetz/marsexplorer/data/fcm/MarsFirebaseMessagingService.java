@@ -33,6 +33,7 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
     public final static String JSON_KEY_USER_NAME = "user_name";
     public final static String JSON_KEY_TWEET_DATE = "date";
     public final static String JSON_KEY_TWEET_TEXT = "tweet_text";
+    public final static String JSON_KEY_TWEET_PHOTO = "tweet_photo";
     private final static CharSequence MESSAGE = "New Tweet From Mars Rover!";
     private final static String NOTIFICATION_CHANNEL_ID = "rover_tweet";
     private final static String NOTIFICATION_CHANNEL_NAME = "Tweets From Rover";
@@ -66,8 +67,13 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
             String userName = messageData.get(JSON_KEY_USER_NAME);
             String tweetDate = messageData.get(JSON_KEY_TWEET_DATE);
             String tweetText = messageData.get(JSON_KEY_TWEET_TEXT);
+            String tweetPhoto = messageData.get(JSON_KEY_TWEET_PHOTO);
 
             Tweet tweet = new Tweet(tweetId, userId, userName, tweetDate, tweetText);
+            //add photo url if there is one
+            if(tweetPhoto != null && !tweetPhoto.isEmpty()){
+                tweet.setTweetPhotoUrl(tweetPhoto);
+            }
 
             displayNotification(tweet);
             insertTweet(tweet);
@@ -97,7 +103,7 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
             notificationManager.createNotificationChannel(tweetChannel);
         }
 
-
+    //todo change icon
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)

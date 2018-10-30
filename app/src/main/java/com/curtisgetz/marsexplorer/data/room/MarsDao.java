@@ -70,9 +70,11 @@ public interface MarsDao {
     @Query("DELETE FROM favoriteimage")
     void deleteAllFavorites();
 
-
+    //Tweets
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTweet(Tweet tweet);
 
+    @Query("SELECT * FROM tweet ORDER BY mTweetId DESC")
+    LiveData<List<Tweet>> loadAllTweets();
 
 }

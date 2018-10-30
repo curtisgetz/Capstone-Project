@@ -175,6 +175,11 @@
     <string name="is_favorites_key">is_favorites_key</string>
     <string name="curiosity_rover_tweets_title">Curiosity Rover Tweets</string>
     <string name="twitter_profile_picture_cd">Twitter Profile Picture</string>
+    <string name="mars_facts">Mars Facts</string>
+    <string name="reload_new_mars_fact">Reload New Mars Fact</string>
+    <string name="unable_load_new_fact">Unable To Load New Fact</string>
+    <string name="explore_index_saved_key">explore_index_saved_key</string>
+    <string name="picture_from_tweet_cd">Picture from Tweet</string>
 
 
 </resources>

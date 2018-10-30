@@ -3,6 +3,8 @@ package com.curtisgetz.marsexplorer.ui.explore_detail.rover_science;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Helper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.Rover;
 import com.curtisgetz.marsexplorer.data.RoverScience;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
@@ -34,6 +37,8 @@ public class RoverScienceFragment extends Fragment{
     private List<RoverScience> mScienceList;
     private RoverSciencePagerAdapter mAdapter;
     private Unbinder mUnBinder;
+    private int mRoverIndex;
+    private int mExploreIndex;
 
     @BindView(R.id.rover_science_viewpager)
     ViewPager mViewPager;
@@ -63,14 +68,19 @@ public class RoverScienceFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_rover_science, container, false);
         mUnBinder = ButterKnife.bind(this, view);
 
+        //Get Science list based on rover and explore indices
         if(savedInstanceState == null && getArguments() != null){
             Bundle bundle = getArguments();
             //get rover and category index. Use these to get correct list of science or rover info.
-            int roverIndex = bundle.getInt(getString(R.string.rover_index_extra));
-            int exploreCat = bundle.getInt(getString(R.string.explore_index_extra_key));
-            mScienceList = new ArrayList<>(HelperUtils.getScienceList(getContext(), roverIndex,exploreCat));
-
+            mRoverIndex = bundle.getInt(getString(R.string.rover_index_extra));
+            mExploreIndex = bundle.getInt(getString(R.string.explore_index_extra_key));
+            mScienceList = new ArrayList<>(HelperUtils.getScienceList(getContext(), mRoverIndex, mExploreIndex));
+        }else if(savedInstanceState != null ){
+            mRoverIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key));
+            mExploreIndex = savedInstanceState.getInt(getString(R.string.explore_index_saved_key));
+            mScienceList = new ArrayList<>(HelperUtils.getScienceList(getContext(), mRoverIndex, mExploreIndex));
         }
+        //if list was set up then set up ViewPager and Adapter
         if(!(mScienceList == null || mScienceList.size() == 0)){
             mAdapter = new RoverSciencePagerAdapter(getChildFragmentManager());
             mViewPager.setAdapter(mAdapter);
@@ -79,6 +89,13 @@ public class RoverScienceFragment extends Fragment{
         }
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(getString(R.string.rover_index_saved_key), mRoverIndex);
+        outState.putInt(getString(R.string.explore_index_saved_key), mExploreIndex);
     }
 
     @Override

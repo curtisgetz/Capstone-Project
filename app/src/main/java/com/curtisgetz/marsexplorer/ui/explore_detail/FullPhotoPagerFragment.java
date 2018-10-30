@@ -91,7 +91,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
     @Override
     public void onDetach() {
-        Log.d(TAG, "onDetach");
         super.onDetach();
         setHasOptionsMenu(false);
         mListener = null;
@@ -177,7 +176,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         switch (id){
             case R.id.action_add_favorite:

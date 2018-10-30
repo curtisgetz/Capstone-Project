@@ -75,25 +75,14 @@ public class RoverManifestViewModel extends ViewModel {
         }
     }
 
+    //select a random sol that is in range
     public String getRandomSol(){
         if(mManifest.getValue() == null) return HelperUtils.DEFAULT_SOL_NUMBER;
         int minSol = mManifest.getValue().getMinSolInt();
         int maxSol = mManifest.getValue().getMaxSolInt();
         Random randomRand = new Random();
         int randomNum = randomRand.nextInt((maxSol - minSol) + 1) + minSol;
-        //int random = ThreadLocalRandom.current().nextInt((minSol), (maxSol+1));
         return String.valueOf(randomNum);
     }
-
-
-
-
-    @Override
-    protected void onCleared() {
-        Log.d(TAG, "ViewModel Cleared");
-        super.onCleared();
-    }
-
-
 
 }

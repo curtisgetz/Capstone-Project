@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
 
-
+//TODO create settings page
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,15 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
         String userName = extras.getString(MarsFirebaseMessagingService.JSON_KEY_USER_NAME);
         String tweetDate =  extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_DATE);
         String tweetText =  extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_TEXT);
-        Log.d(TAG, userName);
-        return new Tweet(tweetId, userId, userName, tweetDate, tweetText);
+        String tweetPhoto = extras.getString(MarsFirebaseMessagingService.JSON_KEY_TWEET_PHOTO);
+
+        Tweet tweet = new Tweet(tweetId, userId, userName, tweetDate, tweetText);
+        //if there is an image url, set it
+        if(tweetPhoto != null && !tweetPhoto.isEmpty()){
+            tweet.setTweetPhotoUrl(tweetPhoto);
+        }
+
+        return  tweet;
     }
 
 

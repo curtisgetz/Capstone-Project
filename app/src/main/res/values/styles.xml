@@ -106,5 +106,26 @@
         <item name="android:layout_marginStart">@dimen/mars_weather_detail_margin_start</item>
     </style>
 
+    <style name="MarsFactsTextTitle" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:textSize">@dimen/mars_fact_title_text_size</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="MarsFactsText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/mars_fact_text_size</item>
+        <item name="android:layout_margin">@dimen/mars_fact_layout_margin</item>
+    </style>
+
+    <style name="MarsFactBottomLink" parent="Base.TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/mars_fact_link_margin</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/mars_fact_link_margin</item>
+
+    </style>
 
 </resources>

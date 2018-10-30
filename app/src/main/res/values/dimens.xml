@@ -45,4 +45,16 @@
     <dimen name="favorite_photo_card_width">100dp</dimen>
     <dimen name="favorite_photo_card_height">100dp</dimen>
 
+    <!-- Mars Facts -->
+    <dimen name="mars_fact_title_text_size">24sp</dimen>
+    <dimen name="mars_fact_text_size">18sp</dimen>
+    <dimen name="mars_fact_layout_margin">10dp</dimen>
+    <dimen name="mars_fact_link_margin">6dp</dimen>
+    <dimen name="mars_fact_link_padding">6dp</dimen>
+
+    <!-- Tweets -->
+    <dimen name="tweet_photo_size">240dp</dimen>
+
+
+
 </resources>

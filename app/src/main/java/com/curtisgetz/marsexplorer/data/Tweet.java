@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 @Entity(tableName = "tweet")
 public class Tweet implements Parcelable{
@@ -17,6 +18,7 @@ public class Tweet implements Parcelable{
     private String mUserName;
     private String mDate;
     private String mTweetText;
+    private String mTweetPhotoUrl;
 
     public Tweet(int tweetId, int userId, String userName, String date, String tweetText) {
         this.mTweetId = tweetId;
@@ -47,6 +49,15 @@ public class Tweet implements Parcelable{
         parcel.writeString(mUserName);
         parcel.writeString(mDate);
         parcel.writeString(mTweetText);
+    }
+
+
+    public String getTweetPhotoUrl() {
+        return mTweetPhotoUrl;
+    }
+
+    public void setTweetPhotoUrl(String mTweetPhotoUrl) {
+        this.mTweetPhotoUrl = mTweetPhotoUrl;
     }
 
     public int getUserId() {

@@ -137,7 +137,7 @@ public class FullPhotoFragment extends Fragment   {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_full_photo, container, false);
-        ButterKnife.bind(this, view);
+        mUnBinder = ButterKnife.bind(this, view);
 
         mAdapter = new FullPhotoAdapter(getChildFragmentManager(), getActivity());
         mViewPager.setAdapter(mAdapter);

@@ -174,6 +174,10 @@ public class MarsRepository {
         });
     }
 
+    public LiveData<List<Tweet>> loadAllTweets(){
+        return mMarsDao.loadAllTweets();
+    }
+
 
 
 

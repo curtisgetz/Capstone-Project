@@ -4,8 +4,10 @@ package com.curtisgetz.marsexplorer.ui.explore_detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_science.RoverScienceFragment;
@@ -16,7 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ExploreDetailActivity extends AppCompatActivity implements FullPhotoPagerFragment.FullPhotoPagerInteraction{
+public class ExploreDetailActivity extends AppCompatActivity implements
+        FullPhotoPagerFragment.FullPhotoPagerInteraction, MarsFactsFragment.FactsInteraction {
 
     private final static String TAG = ExploreDetailActivity.class.getSimpleName();
 
@@ -155,4 +158,16 @@ public class ExploreDetailActivity extends AppCompatActivity implements FullPhot
         }
     }
 
+    @Override
+    public void displaySnack(String message) {
+        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snackbar_dismiss, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
+
+        snackbar.show();
+    }
 }

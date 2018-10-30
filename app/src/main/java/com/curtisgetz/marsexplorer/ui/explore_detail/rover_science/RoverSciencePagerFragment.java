@@ -47,14 +47,14 @@ public class RoverSciencePagerFragment extends Fragment {
     }
 
 
-    public static RoverSciencePagerFragment newInstance(int page, int scienceIndex){
+   /* public static RoverSciencePagerFragment newInstance(int page, int scienceIndex){
         RoverSciencePagerFragment fragment = new RoverSciencePagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(HelperUtils.SCIENCE_IMAGE_ID_EXTRA, page);
         bundle.putInt(HelperUtils.SCIENCE_INDEX_PAGER_EXTRA, scienceIndex);
         fragment.setArguments(bundle);
         return fragment;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

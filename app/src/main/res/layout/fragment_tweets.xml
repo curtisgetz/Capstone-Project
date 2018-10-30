@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
     tools:context=".ui.explore_detail.tweets.TweetsFragment">
 
     <!-- Set up only for Curiosity Rover currently. Would need some minor
@@ -35,7 +36,8 @@
         android:id="@+id/tweets_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tweets_title_text"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/twitter_profile_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

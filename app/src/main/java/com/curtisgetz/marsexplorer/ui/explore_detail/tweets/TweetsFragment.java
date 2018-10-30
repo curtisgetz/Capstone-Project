@@ -1,15 +1,26 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail.tweets;
 
+import android.app.Activity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.Tweet;
 
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -17,6 +28,11 @@ import butterknife.Unbinder;
 public class TweetsFragment extends Fragment {
 
     private Unbinder mUnBinder;
+    private TweetAdapter mAdapter;
+    private TweetViewModel mViewModel;
+
+    @BindView(R.id.tweets_recycler)
+    RecyclerView mTweetRecycler;
 
    // private OnFragmentInteractionListener mListener;
 
@@ -25,20 +41,9 @@ public class TweetsFragment extends Fragment {
 
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
 
-     * @return A new instance of fragment TweetsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TweetsFragment newInstance( ) {
-        TweetsFragment fragment = new TweetsFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
+        return new TweetsFragment();
     }
 
     @Override
@@ -47,7 +52,27 @@ public class TweetsFragment extends Fragment {
         if (getArguments() != null) {
 
         }
+
+
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        FragmentActivity activity = getActivity();
+        mAdapter = new TweetAdapter();
+        //set up ViewModel
+        if(activity != null) {
+            mViewModel = ViewModelProviders.of(activity).get(TweetViewModel.class);
+            mViewModel.getTweets().observe(activity, new Observer<List<Tweet>>() {
+                @Override
+                public void onChanged(@Nullable List<Tweet> tweets) {
+                    mAdapter.setData(tweets);
+                }
+            });
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +81,10 @@ public class TweetsFragment extends Fragment {
          View view = inflater.inflate(R.layout.fragment_tweets, container, false);
          mUnBinder = ButterKnife.bind(this, view);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+         mTweetRecycler.setLayoutManager(layoutManager);
+         mTweetRecycler.setAdapter(mAdapter);
 
          return view;
     }
@@ -66,42 +95,4 @@ public class TweetsFragment extends Fragment {
         mUnBinder.unbind();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        /*if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }*/
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-      /*  if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-       // mListener = null;
-    }
-
-/*    *//**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }
