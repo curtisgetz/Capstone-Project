@@ -14,8 +14,6 @@ import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.Tweet;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
-import com.curtisgetz.marsexplorer.ui.main.MainActivity;
-import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

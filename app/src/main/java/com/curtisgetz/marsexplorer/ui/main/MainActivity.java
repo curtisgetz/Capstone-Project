@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
     @BindView(R.id.main_recyclerview)
     RecyclerView mExploreRecyclerView;
 
-    //Remote Config
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
 
@@ -155,12 +154,6 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
     private void setupRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        //todo remove debug mode
- //       FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-   //             .setDeveloperModeEnabled(BuildConfig.DEBUG)
-     //           .build();
-       // mFirebaseRemoteConfig.setConfigSettings(configSettings);
-
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
         fetchRemoteConfig();
 

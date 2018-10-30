@@ -180,6 +180,10 @@
     <string name="unable_load_new_fact">Unable To Load New Fact</string>
     <string name="explore_index_saved_key">explore_index_saved_key</string>
     <string name="picture_from_tweet_cd">Picture from Tweet</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="daily_mars_fact">Daily Mars Fact</string>
+    <string name="background_image_of_mars_cd">Background image of Mars</string>
 
 
 </resources>

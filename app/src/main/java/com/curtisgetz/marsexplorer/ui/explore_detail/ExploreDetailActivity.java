@@ -37,6 +37,7 @@ public class ExploreDetailActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_explore_detail);
         ButterKnife.bind(this);
 
+
         Intent intent = getIntent();
         if(intent == null){
             finish();

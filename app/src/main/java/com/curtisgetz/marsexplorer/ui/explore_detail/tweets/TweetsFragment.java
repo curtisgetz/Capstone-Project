@@ -1,10 +1,9 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail.tweets;
 
-import android.app.Activity;
+
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,15 +45,6 @@ public class TweetsFragment extends Fragment {
         return new TweetsFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-
-
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -72,7 +62,6 @@ public class TweetsFragment extends Fragment {
             });
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

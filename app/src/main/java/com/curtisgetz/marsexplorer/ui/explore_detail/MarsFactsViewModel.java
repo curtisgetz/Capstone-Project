@@ -77,13 +77,10 @@ public class MarsFactsViewModel extends AndroidViewModel {
                     }
                     mFactsChildNode = getRandomDay();
                     getFactChild();
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         };
         mQueryCount++;
@@ -102,10 +99,8 @@ public class MarsFactsViewModel extends AndroidViewModel {
 
 
     private String getRandomDay(){
-        Random randomRand = new Random();
         //get random int between 1 and 365
-        int randomDay = randomRand.nextInt(365) + 1;
-        return String.valueOf(randomDay);
+        return String.valueOf(new Random().nextInt(365) + 1);
 
     }
 
@@ -123,6 +118,5 @@ public class MarsFactsViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
         mFactReference.removeEventListener(mEventListener);
-
     }
 }
