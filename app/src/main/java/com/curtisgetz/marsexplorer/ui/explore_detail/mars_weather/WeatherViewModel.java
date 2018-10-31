@@ -1,9 +1,8 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;

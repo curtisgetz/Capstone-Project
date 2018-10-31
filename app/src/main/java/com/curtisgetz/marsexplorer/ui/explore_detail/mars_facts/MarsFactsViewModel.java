@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.mars_facts;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

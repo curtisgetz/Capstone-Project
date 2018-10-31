@@ -8,7 +8,7 @@
         android:layout_gravity="top"
         android:background="@color/blackBackground"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.explore_detail.MarsFactsFragment">
+        tools:context=".ui.explore_detail.mars_facts.MarsFactsFragment">
 
         <TextView
             android:layout_margin="10dp"

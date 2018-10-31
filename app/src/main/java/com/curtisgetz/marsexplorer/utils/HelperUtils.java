@@ -1,18 +1,13 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
-import android.icu.text.IDNA;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
-import com.curtisgetz.marsexplorer.data.Rover;
 import com.curtisgetz.marsexplorer.data.RoverScience;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 

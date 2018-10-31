@@ -1,15 +1,13 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.favorites;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
-import com.curtisgetz.marsexplorer.utils.AppExecutors;
 
 import java.util.List;
 

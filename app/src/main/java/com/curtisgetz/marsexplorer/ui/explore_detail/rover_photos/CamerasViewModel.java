@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;

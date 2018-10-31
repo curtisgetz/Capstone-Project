@@ -4,19 +4,14 @@ package com.curtisgetz.marsexplorer.ui.explore_detail.rover_science;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Helper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.Rover;
 import com.curtisgetz.marsexplorer.data.RoverScience;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 

@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.favorites;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

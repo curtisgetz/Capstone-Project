@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -21,6 +21,7 @@ import android.widget.ImageView;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
+import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoriteViewModel;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.curtisgetz.marsexplorer.utils.OnSwipeListener;
 import com.squareup.picasso.Picasso;

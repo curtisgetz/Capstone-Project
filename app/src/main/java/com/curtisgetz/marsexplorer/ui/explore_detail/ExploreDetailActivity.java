@@ -10,6 +10,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoritePhotosFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.mars_facts.MarsFactsFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather.MarsWeatherFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoPagerFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.RoverPhotosFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_science.RoverScienceFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.tweets.TweetsFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;

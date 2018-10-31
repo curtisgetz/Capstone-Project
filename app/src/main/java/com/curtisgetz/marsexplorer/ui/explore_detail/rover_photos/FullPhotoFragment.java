@@ -1,11 +1,10 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,20 +15,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
+import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoriteViewModel;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

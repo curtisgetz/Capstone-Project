@@ -1,4 +1,4 @@
-package com.curtisgetz.marsexplorer.ui.explore_detail;
+package com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -14,11 +14,9 @@ import com.curtisgetz.marsexplorer.data.WeatherDetail;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WeatherDetailsAdapter extends RecyclerView.Adapter {
 

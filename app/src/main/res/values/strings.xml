@@ -186,4 +186,16 @@
     <string name="background_image_of_mars_cd">Background image of Mars</string>
 
 
+
+
+    <!-- - - - - - - - - - For Preferences - - - - - - - -->
+    <string name="pref_tweets_label">Be notified when Curiosity Rover Tweets</string>
+    <string name="pref_subscribe_to_tweets_key" translatable="false">get_tweets</string>
+    <string name="pref_limit_photos_label">Limit photo search</string>
+    <string name="pref_limit_photos_sub_label">The rovers have taken a lot of photos. Select this
+        option to limit the number of photos retrieved. This will result in faster queries and use
+        less bandwidth. Uncheck this option to retrieve all photos.</string>
+    <string name="pref_limit_photos_key">limit_photos</string>
+
+
 </resources>
