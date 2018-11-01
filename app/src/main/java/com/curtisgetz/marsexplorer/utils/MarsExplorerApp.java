@@ -1,12 +1,7 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.curtisgetz.marsexplorer.BuildConfig;
-import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestJobService;
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -15,10 +10,6 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MarsExplorerApp extends Application{
 
@@ -57,11 +48,15 @@ public class MarsExplorerApp extends Application{
                         Constraint.ON_UNMETERED_NETWORK)
                 .build();
         mJobDispatcher.mustSchedule(manifestJob);
+
     }
 
 
 
 
+    private void cancelJob(){
+        mJobDispatcher.cancel(RoverManifestJobService.class.getSimpleName());
+    }
 
 
 

@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
@@ -129,6 +130,8 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         switch (id){
             case R.id.action_delete_all_favorites:
                 confirmDeleteAll();
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
 

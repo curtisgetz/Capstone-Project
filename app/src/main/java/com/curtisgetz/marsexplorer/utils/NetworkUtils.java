@@ -60,7 +60,7 @@ public final class NetworkUtils {
                 .appendPath(PHOTOS)
                 .appendQueryParameter(SOL, sol)
                 //TODO maybe add option to limit number of photos in a settings screen. If selected then set a static page number here. (1 or 2)
-               // .appendQueryParameter(PAGE, String.valueOf(1))
+                .appendQueryParameter(PAGE, String.valueOf(1))
                 .appendQueryParameter(API_KEY, NASA_API)
                 .build();
 

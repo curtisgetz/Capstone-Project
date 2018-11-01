@@ -5,14 +5,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.widgets.Helper;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +21,7 @@ import android.widget.TextView;
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
+import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
@@ -37,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RoverExploreActivity extends AppCompatActivity implements
+public class RoverExploreActivity extends MarsBaseActivity implements
         RoverCategoryAdapter.CategoryClickListener  {
 
     private final static String TAG = RoverExploreActivity.class.getSimpleName();
@@ -124,6 +122,7 @@ public class RoverExploreActivity extends AppCompatActivity implements
             Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
             intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
             intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
+            intent.putExtra(getString(R.string.parent_activity_tag_extra), RoverExploreActivity.class.getSimpleName());
             startActivity(intent);
 
     }
@@ -147,6 +146,8 @@ public class RoverExploreActivity extends AppCompatActivity implements
             intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
             intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
             intent.putExtra(getString(R.string.sol_number_extra_key), solNumber);
+            //add extra so ExploreDetailActivity knows it's parent and can enable up navigation
+            intent.putExtra(getString(R.string.parent_activity_tag_extra), this.getClass().getSimpleName());
             startActivity(intent);
         }
     }
@@ -201,4 +202,8 @@ public class RoverExploreActivity extends AppCompatActivity implements
             return false;
         }
     }
+
+
+
+
 }

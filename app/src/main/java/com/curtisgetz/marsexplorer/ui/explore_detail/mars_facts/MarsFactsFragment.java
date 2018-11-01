@@ -16,11 +16,15 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MarsFact;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,7 +117,7 @@ public class MarsFactsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mars_facts, container, false);
         mUnBinder = ButterKnife.bind(this, view);
-
+        Toast.makeText(getActivity(), String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)), Toast.LENGTH_LONG).show();
         animateRefreshIcon();
         return view;
     }

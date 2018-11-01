@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
@@ -181,7 +182,10 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         switch (id){
             case R.id.action_add_favorite:
                 clickFavoriteMenu();
-                break;
+                return true;
+            case android.R.id.home:
+                getActivity().onNavigateUp();
+                return true;
         }
         return true;
     }

@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
@@ -23,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MarsExploreActivity extends AppCompatActivity implements ExploreCategoryAdapter.ExploreCategoryClick{
+public class MarsExploreActivity extends MarsBaseActivity implements ExploreCategoryAdapter.ExploreCategoryClick{
 
 
     @BindView(R.id.mars_explore_categories_recycler)
@@ -66,19 +68,8 @@ public class MarsExploreActivity extends AppCompatActivity implements ExploreCat
         if(isNetworkAvailable()){
             Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class);
             intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
+            intent.putExtra(getString(R.string.parent_activity_tag_extra), this.getClass().getSimpleName());
             startActivity(intent);
-
-            /*
-            switch (categoryIndex){
-                case HelperUtils.MARS_WEATHER_CAT_INDEX:
-                    intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
-                    startActivity(intent);
-                    break;
-                case HelperUtils.MARS_FACTS_CAT_INDEX:
-                    intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
-                    startActivity(intent);
-                    break;
-            }*/
         }
 
     }
@@ -101,4 +92,8 @@ public class MarsExploreActivity extends AppCompatActivity implements ExploreCat
             return false;
         }
     }
+
+
+
+
 }

@@ -1,15 +1,26 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail;
 
 
+ ;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.TaskStackBuilder;
+ import android.support.v7.app.ActionBar;
+ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
+import com.curtisgetz.marsexplorer.ui.explore.MarsExploreActivity;
+import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoritePhotosFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.mars_facts.MarsFactsFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather.MarsWeatherFragment;
@@ -18,13 +29,14 @@ import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoPager
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.RoverPhotosFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_science.RoverScienceFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.tweets.TweetsFragment;
+import com.curtisgetz.marsexplorer.ui.main.MainActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ExploreDetailActivity extends AppCompatActivity implements
+public class ExploreDetailActivity extends MarsBaseActivity implements
         FullPhotoPagerFragment.FullPhotoPagerInteraction, MarsFactsFragment.FactsInteraction {
 
     private final static String TAG = ExploreDetailActivity.class.getSimpleName();
@@ -32,6 +44,8 @@ public class ExploreDetailActivity extends AppCompatActivity implements
     private int mExploreCatIndex;
     private String mCurrentSol;
     private int mRoverIndex;
+    private Activity mParent;
+    private String mParentActivity;
    // private boolean showFavoriteMenu;
 
     @BindView(R.id.explore_detail_activity_coordinator)
@@ -43,11 +57,20 @@ public class ExploreDetailActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_explore_detail);
         ButterKnife.bind(this);
 
+        ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar == null){
+            Log.e(TAG, "Action bar is NULL");
+        }else{
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Intent intent = getIntent();
         if(intent == null){
             finish();
         }else {
+            mParentActivity = intent.getStringExtra(getString(R.string.parent_activity_tag_extra));
+
             if(savedInstanceState == null) {
 
                 mExploreCatIndex = intent.getIntExtra(getString(R.string.explore_index_extra_key), HelperUtils.MARS_WEATHER_CAT_INDEX);
@@ -177,4 +200,42 @@ public class ExploreDetailActivity extends AppCompatActivity implements
 
         snackbar.show();
     }
+
+
+    //help from https://stackoverflow.com/questions/19184154/dynamically-set-parent-activity/28334824
+    // to get parent activity when parent may be different
+    @Nullable
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        return getParentActivity();
+    }
+
+    @Nullable
+    @Override
+    public Intent getParentActivityIntent() {
+        return getParentActivity();
+    }
+
+    private Intent getParentActivity(){
+        Intent intent;
+
+        //Intent incomingIntent = getIntent();
+        //String parent = incomingIntent.getStringExtra(getString(R.string.parent_activity_tag_extra));
+        //check extra to find parent. Parent will add their name as an extra
+
+        if(mParentActivity == null){
+            Log.d(TAG, "PARENT IS NULL");
+            intent = new Intent(this, MainActivity.class);
+        }else if (mParentActivity.equalsIgnoreCase(RoverExploreActivity.class.getSimpleName())){
+            intent = new Intent(this, RoverExploreActivity.class);
+        }else if(mParentActivity.equalsIgnoreCase(MarsExploreActivity.class.getSimpleName())){
+            intent = new Intent(this, MarsExploreActivity.class);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        return intent;
+    }
+
+
 }

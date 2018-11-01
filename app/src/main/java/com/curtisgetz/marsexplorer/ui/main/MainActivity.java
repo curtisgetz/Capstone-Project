@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.BuildConfig;
@@ -18,6 +19,7 @@ import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.Tweet;
 import com.curtisgetz.marsexplorer.data.fcm.MarsFirebaseMessagingService;
+import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore.MarsExploreActivity;
 import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
@@ -32,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainExploreAdapter.ExploreClickListener {
+public class MainActivity extends MarsBaseActivity implements MainExploreAdapter.ExploreClickListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private MainExploreAdapter mAdapter;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
             // an extra so ExploreDetailActivity will open the Tweet Fragment
             Intent intent = new Intent(this, ExploreDetailActivity.class);
             intent.putExtra(getString(R.string.explore_index_extra_key), HelperUtils.ROVER_TWEETS_CAT_INDEX);
+            intent.putExtra(getString(R.string.parent_activity_tag_extra), MainActivity.class.getSimpleName());
 
             //if app was in background then attempt to create tweet and save to DB here before starting intent
             if(extras.containsKey(MarsFirebaseMessagingService.JSON_KEY_TWEET_ID)){
@@ -137,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
 
     @Override
     public void onExploreClick(int clickedPos) {
-
         MainExploreType exploreType = mAdapter.getExploreType(clickedPos);
         int exploreIndex = exploreType.getTypeIndex();
         Intent intent;
@@ -177,5 +179,6 @@ public class MainActivity extends AppCompatActivity implements MainExploreAdapte
                     }
                 });
     }
+
 
 }

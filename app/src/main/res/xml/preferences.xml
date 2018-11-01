@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
+    <PreferenceCategory
+        android:title="Category 1">
 
+        <CheckBoxPreference
+            android:defaultValue="@bool/pref_limit_photos_default"
+            android:key="@string/pref_limit_photos_key"
+            android:summary="@string/pref_limit_photos_sub_label"
+            android:title="@string/pref_limit_photos_label"
+            />
+    </PreferenceCategory>
 
 
 

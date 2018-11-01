@@ -186,8 +186,6 @@
     <string name="background_image_of_mars_cd">Background image of Mars</string>
 
 
-
-
     <!-- - - - - - - - - - For Preferences - - - - - - - -->
     <string name="pref_tweets_label">Be notified when Curiosity Rover Tweets</string>
     <string name="pref_subscribe_to_tweets_key" translatable="false">get_tweets</string>
@@ -195,7 +193,15 @@
     <string name="pref_limit_photos_sub_label">The rovers have taken a lot of photos. Select this
         option to limit the number of photos retrieved. This will result in faster queries and use
         less bandwidth. Uncheck this option to retrieve all photos.</string>
-    <string name="pref_limit_photos_key">limit_photos</string>
+    <string name="pref_limit_photos_key" translatable="false">limit_photos</string>
+    <string name="pref_rover_job_scheduler_key" translatable="false">rover_job_scheduler</string>
+    <string name="pref_rover_job_scheduler_label">Keep rover details up to date</string>
+    <string name="pref_rover_job_sub_label">Enable to keep rover mission manifests up to date.
+        This will quickly update in the background a couple times a day. </string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_action">Settings</string>
+    <string name="parent_activity_tag_extra">parent_activity_tag</string>
 
 </resources>

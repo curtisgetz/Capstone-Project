@@ -83,6 +83,8 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
 
     //TODO Try moving more logic into ViewModels
     //todo handle sol with no pictures
+    //todo show snack when downloading all pictures because it will take longer.
+    // todo also enable settings option for 1 page or all.
 
     //private RecyclerView.RecycledViewPool mViewPool;
 

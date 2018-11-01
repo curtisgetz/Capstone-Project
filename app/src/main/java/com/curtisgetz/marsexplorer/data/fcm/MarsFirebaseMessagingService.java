@@ -14,6 +14,7 @@ import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.Tweet;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
+import com.curtisgetz.marsexplorer.ui.main.MainActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -87,6 +88,7 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
     private void displayNotification(Tweet tweet) {
         Intent intent = new Intent(this, ExploreDetailActivity.class);
         intent.putExtra(getString(R.string.explore_index_extra_key), HelperUtils.ROVER_TWEETS_CAT_INDEX);
+        intent.putExtra(getString(R.string.parent_activity_tag_extra), MainActivity.class.getSimpleName());
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //create pending intent to launch activity
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
