@@ -16,17 +16,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="20dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/tweet_profile_pic_margin_start"
+        android:layout_width="@dimen/tweet_profile_pic_size"
+        android:layout_height="@dimen/tweet_profile_pic_size"
         android:src="@drawable/curiosity_twitter"/>
 
     <TextView
         android:id="@+id/tweets_title_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/tweet_title_text_margin"
+        android:gravity="center_vertical"
         android:text="@string/curiosity_rover_tweets_title"
-        android:textSize="20sp"
+        android:textSize="@dimen/tweet_screen_title_text_size"
         app:layout_constraintTop_toTopOf="@id/twitter_profile_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/twitter_profile_image"

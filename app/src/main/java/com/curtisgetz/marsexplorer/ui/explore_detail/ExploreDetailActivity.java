@@ -182,8 +182,10 @@ public class ExploreDetailActivity extends MarsBaseActivity implements
                 .findFragmentByTag(FullPhotoFragment.class.getSimpleName());
 
         if (photoFragment != null) {
+            Log.d(TAG, "getRoverIndex is NOT NULL" + String.valueOf(photoFragment.getRover()));
             return photoFragment.getRover();
         } else {
+            Log.d(TAG, "getRoverIndex is NULL");
             return -1;
         }
     }

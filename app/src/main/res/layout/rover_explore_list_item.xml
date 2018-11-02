@@ -18,7 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Setting generic content description. More detailed description will be set by Adapter-->
         <ImageView
+            android:contentDescription="@string/rover_category_cd"
             android:id="@+id/rover_explore_cardview_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"

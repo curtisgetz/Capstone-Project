@@ -29,8 +29,6 @@ public class MarsBaseActivity extends AppCompatActivity {
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
                 return true;
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }

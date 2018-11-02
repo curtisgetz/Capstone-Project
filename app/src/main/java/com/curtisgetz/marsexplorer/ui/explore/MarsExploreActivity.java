@@ -6,10 +6,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +20,12 @@ import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
+import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoritePhotosFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.mars_facts.MarsFactsFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather.MarsWeatherFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoPagerFragment;
+import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.RoverPhotosFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.List;
@@ -25,7 +33,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MarsExploreActivity extends MarsBaseActivity implements ExploreCategoryAdapter.ExploreCategoryClick{
+public class MarsExploreActivity extends MarsBaseActivity implements
+        ExploreCategoryAdapter.ExploreCategoryClick , MarsFactsFragment.FactsInteraction
+        ,FullPhotoPagerFragment.FullPhotoPagerInteraction {
 
 
     @BindView(R.id.mars_explore_categories_recycler)
@@ -36,14 +46,15 @@ public class MarsExploreActivity extends MarsBaseActivity implements ExploreCate
     CoordinatorLayout mCoordinatorLayout;
 
     private ExploreCategoryAdapter mAdapter;
-    //private int mExploreIndex;
-
+    private boolean isTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mars_explore);
         ButterKnife.bind(this);
+        isTwoPane = (findViewById(R.id.mars_explore_sw600_land) != null);
+
 
         mAdapter = new ExploreCategoryAdapter(getLayoutInflater(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -66,10 +77,31 @@ public class MarsExploreActivity extends MarsBaseActivity implements ExploreCate
     @Override
     public void onCategoryClick(int categoryIndex) {
         if(isNetworkAvailable()){
+            //if two pane then open fragment in detail view
+            if(isTwoPane){
+                Fragment fragment;
+                switch (categoryIndex){
+                    case HelperUtils.MARS_WEATHER_CAT_INDEX:
+                        fragment = MarsWeatherFragment.newInstance();
+                        break;
+                    case HelperUtils.MARS_FACTS_CAT_INDEX:
+                        fragment = MarsFactsFragment.newInstance();
+                        break;
+                    case HelperUtils.MARS_FAVORITES_CAT_INDEX:
+                        fragment = FavoritePhotosFragment.newInstance();
+                        break;
+                    default:
+                        return;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.explore_detail_container,
+                        fragment).commit();
+            //if not two plane then open Explore Detail Activity
+            }else {
             Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class);
             intent.putExtra(getString(R.string.explore_index_extra_key), categoryIndex);
             intent.putExtra(getString(R.string.parent_activity_tag_extra), this.getClass().getSimpleName());
             startActivity(intent);
+            }
         }
 
     }
@@ -94,6 +126,50 @@ public class MarsExploreActivity extends MarsBaseActivity implements ExploreCate
     }
 
 
+    @Override
+    public void displaySnack(String message) {
+        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snackbar_dismiss, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+    @Override
+    public void callDisplaySnack(String message) {
+        //call display snack method on FullPhotoFragment. This will allow the coordinatorlayout
+        //to handle the snack display and moving the FAB
+        FullPhotoFragment photoFragment = (FullPhotoFragment) getSupportFragmentManager()
+                .findFragmentByTag(FullPhotoFragment.class.getSimpleName());
 
+        if (photoFragment != null) {
+            photoFragment.displaySnack(message);
+        }
+    }
 
+    @Override
+    public String getDateString() {
+        FullPhotoFragment photoFragment = (FullPhotoFragment) getSupportFragmentManager()
+                .findFragmentByTag(FullPhotoFragment.class.getSimpleName());
+
+        if (photoFragment != null) {
+            return photoFragment.getDate();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public int getRoverIndex() {
+        FullPhotoFragment photoFragment = (FullPhotoFragment) getSupportFragmentManager()
+                .findFragmentByTag(FullPhotoFragment.class.getSimpleName());
+
+        if (photoFragment != null) {
+            return photoFragment.getRover();
+        } else {
+            return -1;
+        }
+    }
 }

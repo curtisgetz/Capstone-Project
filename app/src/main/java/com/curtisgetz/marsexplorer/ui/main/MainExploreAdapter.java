@@ -24,14 +24,16 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
 
     private List<MainExploreType> mExploreList;
     private ExploreClickListener mClickListener;
+    private boolean isLand;
 
 
     public interface ExploreClickListener{
         void onExploreClick(int clickedPos);
     }
 
-    public MainExploreAdapter(ExploreClickListener clickListener){
+    public MainExploreAdapter(ExploreClickListener clickListener, boolean isLand){
         this.mClickListener = clickListener;
+        this.isLand = isLand;
     }
 
     public void setData(List<MainExploreType> exploreList){
@@ -67,7 +69,13 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MainExploreType mainExploreTypeItem = mExploreList.get(position);
         ((ExploreViewHolder) holder).mTextView.setText(mainExploreTypeItem.getText());
+        if(isLand){
+            ((ExploreViewHolder) holder).mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }else {
+            ((ExploreViewHolder) holder).mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         Picasso.get().load(mainExploreTypeItem.getImageID()).into(((ExploreViewHolder) holder).mImageView);
+
 
     }
 

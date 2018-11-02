@@ -466,7 +466,7 @@ public final class HelperUtils {
             case SPIRIT_ROVER_INDEX:
                 return context.getResources().getString(R.string.spirit_rover);
             default:
-                return null;
+                return "";
         }
     }
 
@@ -504,7 +504,8 @@ public final class HelperUtils {
         for (int category : categories) {
             String title = getCategoryTitle(context, category);
             int imageResId = getCategoryImgResId(context, exploreIndex, category);
-            exploreCategoriesList.add(new RoverExploreCategory(title, imageResId, category));
+            //use title as content description
+            exploreCategoriesList.add(new RoverExploreCategory(title, imageResId, category, title));
         }
         return exploreCategoriesList;
     }

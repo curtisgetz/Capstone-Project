@@ -4,7 +4,10 @@ package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Cameras;
+import com.curtisgetz.marsexplorer.ui.settings.SettingsActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.ArrayList;
@@ -44,7 +48,8 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private CamerasViewModel mViewModel;
     private String mDateString;
     private Unbinder mUnBinder;
-
+    private static boolean hasShownPrefSnack = false;
+    //RecyclerViews for each camera
     @BindView(R.id.photos_fhaz_recyclerview) RecyclerView mFhazRecyclerView;
     @BindView(R.id.photos_rhaz_recyclerview) RecyclerView mRhazRecyclerView;
     @BindView(R.id.photos_mast_recyclerview) RecyclerView mMastRecyclerView;
@@ -54,7 +59,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     @BindView(R.id.photos_navcam_recyclerview) RecyclerView mNavcamRecyclerView;
     @BindView(R.id.photos_pancam_recyclerview) RecyclerView mPancamRecyclerView;
     @BindView(R.id.photos_minites_recyclerview) RecyclerView mMinitesRecyclerView;
-
+    //TextViews for camera name labels
     @BindView(R.id.photos_fhaz_label) TextView mFhazLabel;
     @BindView(R.id.photos_rhaz_label) TextView mRhazLabel;
     @BindView(R.id.photos_mast_label) TextView mMastLabel;
@@ -79,14 +84,8 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private RoverPhotosAdapter mPancamAdapter;
     private RoverPhotosAdapter mMinitesAdapter;
 
-
-
-    //TODO Try moving more logic into ViewModels
     //todo handle sol with no pictures
     //todo show snack when downloading all pictures because it will take longer.
-    // todo also enable settings option for 1 page or all.
-
-    //private RecyclerView.RecycledViewPool mViewPool;
 
     public static RoverPhotosFragment newInstance(Context context, int roverIndex, String sol){
         RoverPhotosFragment fragment = new RoverPhotosFragment();
@@ -101,17 +100,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,6 +109,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         View view = inflater.inflate(R.layout.fragment_rover_photos, container, false);
         mUnBinder = ButterKnife.bind(this, view);
 
+        displayPrefSnack();
         hideAllViews();
         showMainProgress();
 
@@ -146,6 +136,8 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         return view;
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -170,6 +162,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         //if camera has any images then setup adapter and show views.
         boolean anyCameras = false;
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX) != null){
+
             mFhazAdapter = new RoverPhotosAdapter(this);
             mFhazRecyclerView.setLayoutManager(createLayoutManager());
             mFhazRecyclerView.setAdapter(mFhazAdapter);
@@ -259,6 +252,37 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         }
     }
 
+
+    private void displayPrefSnack(){
+        if(hasShownPrefSnack) return;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean gettingAllPhotos = sharedPreferences.getBoolean(getString(R.string.pref_get_all_photos_key),
+                getResources().getBoolean(R.bool.pref_limit_photos_default));
+        if(!gettingAllPhotos){
+            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.limiting_photos_snack,Snackbar.LENGTH_LONG);
+            snackbar.setAction(R.string.settings_action, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
+                    startActivity(settingsIntent);
+                }
+            });
+            snackbar.show();
+        }else{
+            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.getting_all_photos_snack,Snackbar.LENGTH_LONG);
+            snackbar.setAction(R.string.settings_action, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
+                    startActivity(settingsIntent);
+                }
+            });
+            snackbar.show();
+        }
+        hasShownPrefSnack = true;
+    }
+
     private void displayNoCameraSnack() {
         mTitleText.setText(getString(R.string.no_photos));
         final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.no_photos, Snackbar.LENGTH_LONG);
@@ -343,12 +367,13 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         ArrayList<String> urls = new ArrayList<>(url);
         FullPhotoFragment photoFragment = FullPhotoFragment.newInstance(activity, urls,
                 clickedPos, mRoverIndex, mDateString);
-        getActivity().getSupportFragmentManager().beginTransaction()
+        activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.explore_detail_container, photoFragment,
                         FullPhotoFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
 
     }
+
 
 }

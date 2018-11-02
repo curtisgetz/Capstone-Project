@@ -39,15 +39,13 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
     private final static String TAG = MainActivity.class.getSimpleName();
     private MainExploreAdapter mAdapter;
 
-
-
     @BindView(R.id.main_recyclerview)
     RecyclerView mExploreRecyclerView;
 
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
 
-//TODO create settings page
+//TODO create credits page
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +75,24 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
                 startTweetFragment(intent);
             }
         }
-        mAdapter = new MainExploreAdapter(this);
+        mAdapter = new MainExploreAdapter(this, getResources().getBoolean(R.bool.is_land));
 
-
-        mExploreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = getLayoutManager();
+        mExploreRecyclerView.setLayoutManager(layoutManager);
         mExploreRecyclerView.setAdapter(mAdapter);
         setupRemoteConfig();
         setupViewModel();
 
+    }
+
+    private LinearLayoutManager getLayoutManager(){
+        int orientation;
+        if(getResources().getBoolean(R.bool.is_land)){
+            orientation = LinearLayoutManager.HORIZONTAL;
+        }else {
+            orientation = LinearLayoutManager.VERTICAL;
+        }
+        return new LinearLayoutManager(this, orientation, false);
     }
 
     private void startTweetFragment(Intent intent){
@@ -114,7 +122,6 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
         if(tweetPhoto != null && !tweetPhoto.isEmpty()){
             tweet.setTweetPhotoUrl(tweetPhoto);
         }
-
         return  tweet;
     }
 

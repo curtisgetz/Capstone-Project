@@ -42,6 +42,7 @@
     </style>
 
     <style name="RoverExploreCardViewText" parent="MainCardViewText">
+        <item name="android:textSize">@dimen/rover_explore_card_title_text_size</item>
         <item name="android:paddingTop">@dimen/main_cardview_text_padding_btm</item>
         <item name="android:layout_gravity">top|center_horizontal</item>
     </style>
@@ -92,6 +93,7 @@
 
     <style name="MarsExploreTitleText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/lightText</item>
+        <item name="android:textSize">@dimen/mars_explore_title_text_size</item>
         <item name="android:padding">@dimen/mars_explore_title_text_padding</item>
     </style>
 

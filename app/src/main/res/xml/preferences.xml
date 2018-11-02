@@ -6,10 +6,10 @@
 
         <SwitchPreference
             android:defaultValue="@bool/pref_limit_photos_default"
-            android:key="@string/pref_limit_photos_key"
-            android:summaryOn="@string/pref_limit_photos_summary_on"
-            android:summaryOff="@string/pref_limit_photos_summary_off"
-            android:title="@string/pref_limit_photos_label"
+            android:key="@string/pref_get_all_photos_key"
+            android:summaryOn="@string/pref_get_all_photos_summary_on"
+            android:summaryOff="@string/pref_get_all_photos_summary_off"
+            android:title="@string/pref_get_all_photos_label"
             />
 
 

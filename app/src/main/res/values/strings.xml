@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Mars Explorer</string>
-    <string name="main_explore_title">How would you like to explore Mars?</string>
-
-
+    <string name="main_explore_title">How do you want to explore Mars?</string>
+    <string name="unknown">Unknown</string>
     <string name="explore_mars">Explore Mars</string>
 
     <!-- Do Not Translate Rover Names-->
@@ -12,15 +11,13 @@
     <string name="rover_string">Rover</string>
     <string name="sol">Sol</string>
 
-
+    <!-- Rover Manifest Labels -->
     <string name="mission_status_label">Mission Status:</string>
     <string name="launch_date_label">Launch Date:</string>
     <string name="landing_date_label">Landing Date:</string>
     <string name="sol_range_label">Sol Range:</string>
     <string name="sol_range_info_CD">Click Here for information about Sol range</string>
 
-
-    <string name="unknown">Unknown</string>
 
 
     <!-- Rover Categories Title Texts-->
@@ -60,8 +57,7 @@
         it up to date in the background the details will be refreshed when that screen is opened and you may notice a short delay.</string>
     <string name="tweet_pref_desc">You are not allowing Tweets. Tweets can be enabled in Settings. \n
         Mars Explorer can notify you when Curiosity Rover publishes a Tweet. These tweets will
-        be saved but you will only see Tweets after you receive a notification. So this must be enabled in the settings if you\'d
-        like to see any Tweets. You will not be able to see any Tweets other than ones you have been notified about.</string>
+        be saved after you receive a notification</string>
 
 
     <string name="info_index_key" translatable="false">info_index_key</string>
@@ -134,14 +130,16 @@
     <string name="enter_valid_num_toast" translatable="false">Please Enter a valid number</string>
     <string name="starting_pos_saved" translatable="false">starting_pos_saved</string>
     <string name="url_list_saved" translatable="false">url_list_saved</string>
-
     <string name="clicked_photo_pos_extra" translatable="false">clicked_photo_position_extra</string>
     <string name="url_list_extra" translatable="false">url_list_extra</string>
-
+    <string name="rover_index_extra" translatable="false">rover_index_extra</string>
+    <string name="parent_activity_tag_extra" translatable="true">parent_activity_tag</string>
+    <string name="fav_menu_boolean_saved_key" translatable="false">fav_menu_boolean_saved_key</string>
 
     <!--  Snackbar Strings -->
     <string name="internet_required">This Feature Requires Internet Connection</string>
     <string name="snackbar_dismiss">OK</string>
+    <string name="unable_load_new_fact">Unable To Load New Fact</string>
 
     <!--  Weather Detail Labels -->
     <string name="weather_season">Season</string>
@@ -152,8 +150,6 @@
     <string name="weather_sunrise">Sunrise</string>
     <string name="weather_min_ground_temp">Min Ground Temp</string>
     <string name="weather_max_ground_temp">Max Ground Temp</string>
-
-
     <string name="weather_on_mars">Weather On Mars</string>
     <string name="mars_weather_info">Click here for information about weather on Mars</string>
     <string name="weather_detail_info">Click here for weather detail information</string>
@@ -167,9 +163,7 @@
     <string name="no_photos">No Pictures On This Sol</string>
     <string name="add_to_favorites_menu">Add To Favorites</string>
 
-    <string name="rover_index_extra" translatable="false">rover_index_extra</string>
-    <string name="fav_menu_boolean_saved_key" translatable="false">fav_menu_boolean_saved_key</string>
-
+    <!-- Sharing -->
     <string name="share_pic_text" formatted="false">Check out this picture from the Mars Explorer
         app!\nTaken by %1$s Rover on %2$s.\n\n%3$s</string>
 
@@ -187,24 +181,22 @@
     <string name="twitter_profile_picture_cd">Twitter Profile Picture</string>
     <string name="mars_facts">Mars Facts</string>
     <string name="reload_new_mars_fact">Reload New Mars Fact</string>
-    <string name="unable_load_new_fact">Unable To Load New Fact</string>
+
     <string name="explore_index_saved_key">explore_index_saved_key</string>
     <string name="picture_from_tweet_cd">Picture from Tweet</string>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="daily_mars_fact">Daily Mars Fact</string>
     <string name="background_image_of_mars_cd">Background image of Mars</string>
-
 
     <!-- - - - - - - - - - For Preferences - - - - - - - -->
     <string name="pref_tweets_label">Curiosity Rover Tweets</string>
     <string name="pref_tweets_summary_on">Receiving tweets from Curiosity rover</string>
     <string name="pref_tweets_summary_off">Not receiving tweets from Curiosity Rover</string>
     <string name="pref_subscribe_to_tweets_key" translatable="false">get_tweets</string>
-    <string name="pref_limit_photos_label">See all photos from rovers</string>
-    <string name="pref_limit_photos_summary_on">Showing all available photos. May use more data</string>
-    <string name="pref_limit_photos_summary_off">Showing limited photos to save data and time</string>
-    <string name="pref_limit_photos_key" translatable="false">limit_photos</string>
+    <string name="pref_get_all_photos_label">See all photos from rovers</string>
+    <string name="pref_get_all_photos_summary_on">Showing all available photos. May use more data</string>
+    <string name="pref_get_all_photos_summary_off">Showing limited photos to save data and time</string>
+    <string name="pref_get_all_photos_key" translatable="false">limit_photos</string>
     <string name="pref_rover_job_scheduler_key" translatable="false">rover_job_scheduler</string>
     <string name="pref_rover_job_scheduler_label">Keep rover details up to date</string>
     <string name="pref_rover_job_summary_off">Not keeping rover data up to date in background. Will still update when app is open</string>
@@ -213,6 +205,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings_action">Settings</string>
-    <string name="parent_activity_tag_extra">parent_activity_tag</string>
+    <string name="limiting_photos_snack">Limiting Photos</string>
+    <string name="getting_all_photos_snack">Getting All Photos</string>
+    <string name="rover_category_cd">Rover Category</string>
+    <string name="mars_category_cd">Mars Category</string>
+
 
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Main Activity-->
+    <dimen name="main_title_text_size">28sp</dimen>
+    <dimen name="main_cardview_text_size">30sp</dimen>
+    <dimen name="main_cardview_height">400dp</dimen>
+    <dimen name="main_card_start_end_margin">80dp</dimen>
+    <dimen name="main_card_top_bottom_margin">16dp</dimen>
+
+
+
+
+</resources>

@@ -28,10 +28,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     private final static String TAG = RoverCategoryAdapter.class.getSimpleName();
 
     private List<RoverExploreCategory> mCategoryList;
-   // private CategoryClickListener mClickListener;
-    //private SolClickListener mSolButtonClick;
     private CategoryClickListener mClickListener;
-   // private LayoutInflater mInflater;
     private final static int PHOTO_CATEGORY = HelperUtils.ROVER_PICTURES_CAT_INDEX;
 
 
@@ -131,7 +128,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
 
         private void setupSolSearchViews(int visibility){
-
+            mImageView.setContentDescription(mCategory.getContentDescription());
             //set visibility of Views for searching pictures
             mSolEdit.setVisibility(visibility);
             mSolRandBtn.setVisibility(visibility);

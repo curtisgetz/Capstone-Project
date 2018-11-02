@@ -36,7 +36,7 @@ public class MarsFactsViewModel extends AndroidViewModel {
     // if a fact isn't retrieved then there is some other problem. Can lower this when 'facts' node
     // has more children.
     private int mQueryCount = 0;
-    private final static int MAX_QUERY_COUNT = 365;
+    private final static int MAX_QUERY_COUNT = 3;
 
     private MutableLiveData<MarsFact> mFact = new MutableLiveData<>();
     //Realtime Database reference variables
@@ -45,6 +45,7 @@ public class MarsFactsViewModel extends AndroidViewModel {
     private DatabaseReference mFactReference;
     // Realtime Database Event Listener variable
     private ValueEventListener mEventListener;
+
     // A lifecycle-aware observable that sends only new updates after subscription, used for events like
     // navigation and Snackbar messages. (Credit cited in Class)
     private SingleLiveEvent<Boolean> mHitMaxQuery = new SingleLiveEvent<>();

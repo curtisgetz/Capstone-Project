@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
@@ -113,17 +112,10 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
                 if(direction == Direction.up){
                     //mImageView.animate().translationY(mImageView.getHeight());
                     getActivity().onBackPressed();
-                    Log.d(TAG, "SWIPED UP");
                 }
                 return true;
             }
         });
-
-        /* postponeEnterTransition();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-
-        }*/
     }
 
 
@@ -135,16 +127,13 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         View view = inflater.inflate(R.layout.full_photo_pager_item, container, false);
         mUnBinder = ButterKnife.bind(this, view);
         view.setOnTouchListener(this);
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mImageView.setTransitionName(url);
-        }*/
+
         //enable options menu from thi fragment (Star for adding to/removing from favorites)
         setHasOptionsMenu(true);
         //Picasso will throw exception with empty string. Should never be empty but do final check
         if(mUrl == null || mUrl.isEmpty()) {
             displayErrorImage();
         }else {
-           // mInteractionListener.setCurrentUrl(url);
             Picasso.get().load(mUrl)
                     .error(R.drawable.marsimageerror)
                     .placeholder(R.drawable.marsplaceholderfull)
@@ -214,6 +203,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
             //be current when menu is prepared again!
             String dateString = mListener.getDateString();
             int roverIndex = mListener.getRoverIndex();
+            Log.d(TAG, String.valueOf(roverIndex) + "  " +  dateString);
             mViewModel.saveFavoriteImage(mUrl, dateString, roverIndex);
             isAlreadyFavorite = true;
         }

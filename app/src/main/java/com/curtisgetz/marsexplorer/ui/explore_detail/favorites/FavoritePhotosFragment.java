@@ -52,6 +52,8 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
     private FavoritesAdapter mAdapter;
     private FullPhotoPagerFragment.FullPhotoPagerInteraction mListener;
     private Unbinder mUnBinder;
+    private boolean isTwoPane;
+
 
     public FavoritePhotosFragment() {
         // Required empty public constructor
@@ -108,8 +110,9 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite_photos, container, false);
         mUnBinder =  ButterKnife.bind(this, view);
-        Log.d(TAG, "onCreateView");
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        isTwoPane = getResources().getBoolean(R.bool.is_sw600_land);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getSpanCount());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -117,6 +120,10 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         return view;
     }
 
+
+    private int getSpanCount(){
+        return isTwoPane ? 4 : 3;
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -142,11 +149,16 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         FragmentActivity activity = getActivity();
         if(activity == null) return;
 
-        String dateString = mListener.getDateString();
-        int roverIndex = mListener.getRoverIndex();
+        String newDate = mViewModel.getDate(pos);
+        int roverIndex2 = mViewModel.getRoverIndex(pos);
+        Log.d(TAG, "onPhotoClick " + newDate +  " - " + String.valueOf(roverIndex2));
+
+        //String dateString = mListener.getDateString();
+      //  int roverIndex = mListener.getRoverIndex();
+       // Log.d(TAG, dateString);
         ArrayList<String> urlList = new ArrayList<>(urls);
         FullPhotoFragment photoFragment = FullPhotoFragment.newInstance(activity, urlList,
-                pos, roverIndex, dateString);
+                pos, roverIndex2, newDate);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.explore_detail_container, photoFragment,
                         FullPhotoFragment.class.getSimpleName())

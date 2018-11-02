@@ -4,11 +4,15 @@
     android:layout_width="match_parent"
     android:id="@+id/explore_detail_coordinatorlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/blackBackground"
     >
 
+    <include
+        layout="@layout/rover_explore_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        />
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -176,5 +180,5 @@
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="@id/view_line"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>-->
 </android.support.design.widget.CoordinatorLayout>

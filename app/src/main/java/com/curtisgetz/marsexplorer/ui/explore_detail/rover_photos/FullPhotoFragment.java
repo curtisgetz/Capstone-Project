@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,24 +107,19 @@ public class FullPhotoFragment extends Fragment   {
         if(savedInstanceState == null && getArguments() != null) {
             Bundle bundle = getArguments();
             mIsFavorites = bundle.getBoolean(getString(R.string.is_favorites_key), false);
-            if(!mIsFavorites){
 
-            }
             mRoverIndex = bundle.getInt(getString(R.string.rover_index_extra));
             mUrls = bundle.getStringArrayList(getString(R.string.url_list_extra));
             mStartingPos = bundle.getInt(getString(R.string.clicked_photo_pos_extra));
             mDateString = bundle.getString(getString(R.string.date_string_extra), getString(R.string.unknown_date));
+            Log.d(TAG, "in on create - " + mDateString);
         }else if(savedInstanceState != null) {
             mUrls = savedInstanceState.getStringArrayList(getString(R.string.url_list_saved));
             mStartingPos = savedInstanceState.getInt(getString(R.string.starting_pos_saved));
             mRoverIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key));
             mDateString = savedInstanceState.getString(getString(R.string.date_string_extra));
         }
-        //postponeEnterTransition();
-       /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
 
-        }*/
     }
 
     @Override
@@ -137,6 +133,8 @@ public class FullPhotoFragment extends Fragment   {
         mViewPager.setAdapter(mAdapter);
         mAdapter.setData(mUrls);
         mViewPager.setCurrentItem(mStartingPos);
+
+        Log.d(TAG, String.valueOf(mRoverIndex));
 
         return view;
     }
@@ -162,7 +160,10 @@ public class FullPhotoFragment extends Fragment   {
         FragmentActivity activity = getActivity();
         if(activity == null) return;
 
-        String roverName = HelperUtils.getRoverNameByIndex(getContext(), mRoverIndex);
+        String roverName = HelperUtils.getRoverNameByIndex(activity, mRoverIndex);
+        Log.d(TAG, "rover = " + mRoverIndex + "  " + mDateString + "  _  " + roverName);
+
+       // Log.d(TAG, "DATE IS - " + date);
         String shareMessage = getString(R.string.share_pic_text,
                 roverName, mDateString, mUrls.get(mViewPager.getCurrentItem()));
 
@@ -185,14 +186,7 @@ public class FullPhotoFragment extends Fragment   {
     }
 
     public void displaySnack(String message){
-        final Snackbar snackbar = Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG);
-        snackbar.setAction(getString(R.string.snackbar_dismiss), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+         Snackbar.make(mCoordinator, message, Snackbar.LENGTH_SHORT).show();
     }
 
 

@@ -56,7 +56,7 @@ public final class NetworkUtils {
     public static URL buildPhotosUrl(Context context,int roverIndex, String sol){
         //check preferences to see if user wants to limit number of photos
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_limit_photos_key),
+        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_get_all_photos_key),
                 context.getResources().getBoolean(R.bool.pref_limit_photos_default));
 
         Log.d(TAG, String.valueOf(seeAllPhotos));
@@ -149,7 +149,7 @@ public final class NetworkUtils {
     public static String getResponseFromHttpUrl(Context context, URL url) throws IOException {
         //see if user wants to limit number og photos
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_limit_photos_key),
+        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_get_all_photos_key),
                 context.getResources().getBoolean(R.bool.pref_limit_photos_default));
         //set longer read timeout if user wants all photos.
         Log.d(TAG, String.valueOf(seeAllPhotos));

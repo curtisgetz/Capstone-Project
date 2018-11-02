@@ -86,9 +86,14 @@ public class FavoriteViewModel extends AndroidViewModel {
         mRepository.deleteAllFavorites();
     }
 
+    public String getDate(int position){
+        if(mFavorites.getValue() == null) return null;
+        return mFavorites.getValue().get(position).getDateString();
+    }
 
-    public void displaySnack(String message){
-
+    public int getRoverIndex(int position){
+        if(mFavorites.getValue() == null) return -1;
+        return mFavorites.getValue().get(position).getRoverIndex();
     }
 
 }
