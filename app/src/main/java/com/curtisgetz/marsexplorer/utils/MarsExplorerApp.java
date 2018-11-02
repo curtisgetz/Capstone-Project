@@ -1,7 +1,11 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestJobService;
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -16,8 +20,23 @@ public class MarsExplorerApp extends Application{
     private final static String TAG = MarsExplorerApp.class.getSimpleName();
     //todo change times after testing = set to 2-4 times a day in final version
     private FirebaseJobDispatcher mJobDispatcher;
-    private final static int MANIFEST_JOB_MIN = 30;
-    private final static int MANIFEST_JOB_MAX= 360;
+    //set trigger execution min and max for execution window of Job
+    private final static int TIME_BETWEEN_JOBS = 21600000; //6 hours in milliseconds.
+    private final static int JOB_WINDOW = 1800000; // 30 minutes in milliseconds
+    private final static int MANIFEST_JOB_MIN = TIME_BETWEEN_JOBS - JOB_WINDOW;
+    private final static int MANIFEST_JOB_MAX= TIME_BETWEEN_JOBS + JOB_WINDOW;
+    //listen for pref changes to schedule or cancel job
+    private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
+            new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            Log.d(TAG, "Shared Pref Changed");
+            if(key.equals(getString(R.string.pref_rover_job_scheduler_key))){
+                scheduleManifestJob();
+            }
+
+        }
+    };
 
 
 
@@ -28,36 +47,46 @@ public class MarsExplorerApp extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(mPrefListener);
         scheduleManifestJob();
     }
 
 
     private void scheduleManifestJob(){
         //todo add setting for enable/disable jobschedule
+        //Check preferences to see if user wants to keep rover manifests up to date in background.
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean scheduleRoverJob = sharedPreferences.getBoolean(
+                getString(R.string.pref_rover_job_scheduler_key),
+                getResources().getBoolean(R.bool.pref_rover_job_scheduler_default));
+
+        Log.d(TAG, String.valueOf(scheduleRoverJob));
         mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-        //keep manifests up to date periodically but will also update on demand
-        Job manifestJob = mJobDispatcher.newJobBuilder()
-                .setService(RoverManifestJobService.class)
-                .setTag(RoverManifestJobService.class.getSimpleName())
-                .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                .setTrigger(Trigger.executionWindow(MANIFEST_JOB_MIN, MANIFEST_JOB_MAX))
-                .setReplaceCurrent(true)
-                .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING,
-                        Constraint.ON_UNMETERED_NETWORK)
-                .build();
-        mJobDispatcher.mustSchedule(manifestJob);
+
+        if(scheduleRoverJob){
+            Log.d(TAG, "scheduling manifest job");
+            //if user wants to keep manifests up to date then schedule job
+            //keep manifests up to date periodically but will also update on demand
+            Job manifestJob = mJobDispatcher.newJobBuilder()
+                    .setService(RoverManifestJobService.class)
+                    .setTag(RoverManifestJobService.class.getSimpleName())
+                    .setLifetime(Lifetime.FOREVER)
+                    .setRecurring(true)
+                    .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                    .setTrigger(Trigger.executionWindow(MANIFEST_JOB_MIN, MANIFEST_JOB_MAX))
+                    .setReplaceCurrent(true)
+                    .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING,
+                            Constraint.ON_UNMETERED_NETWORK)
+                    .build();
+            mJobDispatcher.mustSchedule(manifestJob);
+
+
+        }else {
+            //if user doesn't want to run background jobs, then cancel jobs.
+            mJobDispatcher.cancel(RoverManifestJobService.class.getSimpleName());
+        }
 
     }
-
-
-
-
-    private void cancelJob(){
-        mJobDispatcher.cancel(RoverManifestJobService.class.getSimpleName());
-    }
-
-
 
 }

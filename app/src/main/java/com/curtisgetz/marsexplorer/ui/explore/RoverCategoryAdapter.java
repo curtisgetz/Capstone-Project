@@ -72,23 +72,9 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        //if view is for photos, then show the edit text and buttons
         CategoryViewHolder viewHolder = (CategoryViewHolder) holder;
         viewHolder.setItem(mCategoryList.get(position));
 
-
-
-
-        //RoverExploreCategory category = mCategoryList.get(position);
-       /* int photoVis;
-        if(category.getmCatIndex() == PHOTO_CATEGORY){
-            photoVis = View.VISIBLE;
-        }else {
-            photoVis = View.GONE;
-        }
-        setupSolSearchViews(photoVis, holder);*/
-        /*((CategoryViewHolder) holder).mTextView.setText(category.getmTitleText());
-        Picasso.get().load(category.getmImageResId()).into(((CategoryViewHolder) holder).mImageView);*/
     }
 
     @Override
@@ -135,22 +121,12 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         }
 
 
-        void setItem(RoverExploreCategory category){
+        void setItem(RoverExploreCategory category) {
             this.mCategory = category;
             mTextView.setText(category.getmTitleText());
             Picasso.get().load(category.getmImageResId()).into(mImageView);
-            //if the cateogry is PHOTO_CATEGORY, then show buttons and edit text for user input.
+            //if the category is PHOTO_CATEGORY, then show buttons and edit text for user input.
             setupSolSearchViews(category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE);
-
-
-            //int photoVis = category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE;
-
-           /* if(category.getmCatIndex() == PHOTO_CATEGORY){
-                photoVis = View.VISIBLE;
-            }else {
-                photoVis = View.GONE;
-            }*/
-            //setupSolSearchViews(photoVis);
         }
 
 

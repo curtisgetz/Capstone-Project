@@ -62,7 +62,8 @@
                 android:resource="@xml/fact_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.settings.SettingsActivity"/>
+        <activity android:name=".ui.settings.SettingsActivity"
+            android:theme="@style/MarsSettingsTheme"/>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.JobTrigger;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
@@ -27,13 +28,8 @@ import com.firebase.jobdispatcher.Trigger;
  */
 public class FactWidgetProvider extends AppWidgetProvider {
 
-    private final static String TAG = FactWidgetProvider.class.getSimpleName();
-
-    //todo change job times
     private FirebaseJobDispatcher mJobDispatcher;
-    //start between now and 30sec
-    private final static int JOB_MIN = 0;
-    private final static int JOB_MAX = 5;
+
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, String fact) {
@@ -42,19 +38,18 @@ public class FactWidgetProvider extends AppWidgetProvider {
         //set textview with fact text
         views.setTextViewText(R.id.widget_fact_body, fact);
 
-        //Intents to allow back navigation
+        //Intents to allow up navigation
         Intent mainIntent = new Intent(context, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         Intent marsExploreIntent = new Intent(context, MarsExploreActivity.class);
         Intent intent = new Intent(context, ExploreDetailActivity.class);
         intent.putExtra(context.getString(R.string.explore_index_extra_key), HelperUtils.MARS_FACTS_CAT_INDEX);
         intent.putExtra(context.getString(R.string.parent_activity_tag_extra), MainActivity.class.getSimpleName());
-        //create pending intent with getActivities to allow back navigation
+        //create pending intent with getActivities to allow up navigation
         PendingIntent pendingIntent = PendingIntent.getActivities(context,
                 0, new Intent[]{mainIntent, marsExploreIntent, intent}, PendingIntent.FLAG_UPDATE_CURRENT);
         //set click listener for intent
         views.setOnClickPendingIntent(R.id.widget_click_box, pendingIntent);
-
         //tell manager to update widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -68,9 +63,7 @@ public class FactWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Log.d(TAG, "Widget - onUpdate");
-        //schedule job to get Fact
-        //context.startService(new Intent(context, UpdateService.class));
+        //schedule job to get Fact. Schedule for NOW.
         mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         Job factJob = mJobDispatcher.newJobBuilder()
                 .setService(FactWidgetJobService.class)

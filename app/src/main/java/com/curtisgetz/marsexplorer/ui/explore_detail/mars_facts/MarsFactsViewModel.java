@@ -23,21 +23,32 @@ public class MarsFactsViewModel extends AndroidViewModel {
 
     private final static String TAG = MarsFactsViewModel.class.getSimpleName();
 
-    /* DB node name is "facts"
-    *First child in database corresponds to a day of the year.  Will try to load the fact
-    * matching the current day of the year. If no matches try to load another fact.
-    * Fragment will allow cycling through facts. Widget will show 'fact of the day'
-    */
+    /*  FB Realtime Database structure
+       DB currently has 1 node named "facts" which has children named after a day of the year (1-365)
 
+       First child in database corresponds to the day of the year.  Will try to load the fact
+       matching the current day of the year. If no matches try to load another fact.
+       Fragment will allow cycling through facts. Widget will show 'fact of the day'
+   */
     private final static String DB_NODE_NAME = "facts";
+
+    //set a limit to number of attempts when trying to get a new fact.  365 should be the max because
+    // if a fact isn't retrieved then there is some other problem. Can lower this when 'facts' node
+    // has more children.
     private int mQueryCount = 0;
     private final static int MAX_QUERY_COUNT = 365;
+
     private MutableLiveData<MarsFact> mFact = new MutableLiveData<>();
+    //Realtime Database reference variables
     private FirebaseDatabase mRealtimeDatabase;
     private DatabaseReference mFactNodeReference;
     private DatabaseReference mFactReference;
+    // Realtime Database Event Listener variable
     private ValueEventListener mEventListener;
+    // A lifecycle-aware observable that sends only new updates after subscription, used for events like
+    // navigation and Snackbar messages. (Credit cited in Class)
     private SingleLiveEvent<Boolean> mHitMaxQuery = new SingleLiveEvent<>();
+    //variable for querying the DB
     private String mFactsChildNode;
 
     public MarsFactsViewModel(@NonNull Application application) {

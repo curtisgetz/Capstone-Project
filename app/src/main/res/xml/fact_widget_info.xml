@@ -8,7 +8,7 @@
     android:minResizeWidth="110dp"
     android:previewImage="@drawable/marsexplorericon"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="120000"
+    android:updatePeriodMillis="10800000"
     android:widgetCategory="home_screen"/>
 
 <!--  todo change update period!  -->

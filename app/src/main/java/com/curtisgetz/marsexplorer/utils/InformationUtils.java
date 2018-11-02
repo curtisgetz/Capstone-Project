@@ -17,6 +17,9 @@ public final class InformationUtils {
     public final static int GROUND_TEMP_INFO = 3;
     public final static int SUNRISE_SUNSET_INFO = 4;
     public final static int ATMO_INFO = 5;
+    public final static int PHOTO_LIMIT_PREF = 6;
+    public final static int ROVER_JOB_PREF = 7;
+    public final static int TWEET_JOB_PREF = 8;
 
 
     public static String getInformationText(Context context,  int infoIndex){
@@ -34,6 +37,12 @@ public final class InformationUtils {
                 return context.getString(R.string.info_sunrise_sunset);
             case ATMO_INFO:
                 return context.getString(R.string.info_atmo);
+            case PHOTO_LIMIT_PREF:
+                return context.getString(R.string.limit_photos_pref_desc);
+            case ROVER_JOB_PREF:
+                return context.getString(R.string.rover_manifest_pref_desc);
+            case TWEET_JOB_PREF:
+                return context.getString(R.string.tweet_pref_desc);
             default:
                 return context.getResources().getString(R.string.info_error_text);
         }

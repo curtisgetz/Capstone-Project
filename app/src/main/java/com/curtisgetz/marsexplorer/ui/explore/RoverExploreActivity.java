@@ -5,8 +5,10 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -118,14 +120,27 @@ public class RoverExploreActivity extends MarsBaseActivity implements
 
     @Override
     public void onCategoryClick(int catIndex) {
-        //Send explore index and rover index to ExploreActivity
-            Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
-            intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
-            intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
-            intent.putExtra(getString(R.string.parent_activity_tag_extra), RoverExploreActivity.class.getSimpleName());
-            startActivity(intent);
+
+        switch (catIndex){
+            // don't allow click on photo category,   only the sol buttons
+            case HelperUtils.ROVER_PICTURES_CAT_INDEX:
+                return;
+            // check is user is allowing Tweets.  If not no tweets will ever come in
+            case HelperUtils.ROVER_TWEETS_CAT_INDEX:
+            default:
+                //Send explore index and rover index to ExploreActivity
+                Intent intent = new Intent(getApplicationContext(), ExploreDetailActivity.class );
+                intent.putExtra(getString(R.string.explore_index_extra_key), catIndex);
+                intent.putExtra(getString(R.string.rover_index_extra), mRoverIndex);
+                intent.putExtra(getString(R.string.parent_activity_tag_extra), RoverExploreActivity.class.getSimpleName());
+                startActivity(intent);
+
+        }
+
 
     }
+
+
 
     @Override
     public void onSolSearchClick(String solNumber, int catIndex) {

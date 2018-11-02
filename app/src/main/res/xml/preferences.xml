@@ -2,16 +2,39 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Category 1">
+        android:title="Data use">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="@bool/pref_limit_photos_default"
             android:key="@string/pref_limit_photos_key"
-            android:summary="@string/pref_limit_photos_sub_label"
+            android:summaryOn="@string/pref_limit_photos_summary_on"
+            android:summaryOff="@string/pref_limit_photos_summary_off"
             android:title="@string/pref_limit_photos_label"
+            />
+
+
+        <SwitchPreference
+            android:defaultValue="@bool/pref_rover_job_scheduler_default"
+            android:key="@string/pref_rover_job_scheduler_key"
+            android:summaryOn="@string/pref_rover_job_summary_on"
+            android:summaryOff="@string/pref_rover_job_summary_off"
+            android:title="@string/pref_rover_job_scheduler_label"
             />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Alerts">
+        <SwitchPreference
+            android:defaultValue="@bool/pref_tweets_default"
+            android:key="@string/pref_subscribe_to_tweets_key"
+            android:summaryOn="@string/pref_tweets_summary_on"
+            android:summaryOff="@string/pref_tweets_summary_off"
+            android:title="@string/pref_tweets_label"
+            />
+
+
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

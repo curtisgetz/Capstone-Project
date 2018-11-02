@@ -87,7 +87,7 @@ public class MarsRepository {
             public void run() {
                 try {
                     URL solRequestUrl = NetworkUtils.buildPhotosUrl(context, index, sol);
-                    String jsonResponse = NetworkUtils.getResponseFromHttpUrl(solRequestUrl);
+                    String jsonResponse = NetworkUtils.getResponseFromHttpUrl(context, solRequestUrl);
                     cameras.postValue(JsonUtils.getCameraUrls(index, jsonResponse));
 
                 }catch (Exception e){

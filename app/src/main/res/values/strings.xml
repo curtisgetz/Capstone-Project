@@ -52,6 +52,16 @@
         bigger differences between day and night temperatures. Moreover, dust storms lash its surface.
         However, Mars\' and Earth\'s climates have important similarities, such as the polar ice
         caps and seasonal changes. As on Earth, on Mars we can have sunny, cloudy or windy days, for example.</string>
+    <string name="limit_photos_pref_desc">The rovers have taken a very large number of pictures of the while on the
+        surface of Mars. You can limit the number of photos the app retrieves if searches are taking too long
+        or if you are concerned about using too much data.</string>
+    <string name="rover_manifest_pref_desc">The app can keep mission manifest details up to date in the background.
+        This will run a couple times a day and should not use much data or take much time. If you do not want to keep
+        it up to date in the background the details will be refreshed when that screen is opened and you may notice a short delay.</string>
+    <string name="tweet_pref_desc">You are not allowing Tweets. Tweets can be enabled in Settings. \n
+        Mars Explorer can notify you when Curiosity Rover publishes a Tweet. These tweets will
+        be saved but you will only see Tweets after you receive a notification. So this must be enabled in the settings if you\'d
+        like to see any Tweets. You will not be able to see any Tweets other than ones you have been notified about.</string>
 
 
     <string name="info_index_key" translatable="false">info_index_key</string>
@@ -187,17 +197,18 @@
 
 
     <!-- - - - - - - - - - For Preferences - - - - - - - -->
-    <string name="pref_tweets_label">Be notified when Curiosity Rover Tweets</string>
+    <string name="pref_tweets_label">Curiosity Rover Tweets</string>
+    <string name="pref_tweets_summary_on">Receiving tweets from Curiosity rover</string>
+    <string name="pref_tweets_summary_off">Not receiving tweets from Curiosity Rover</string>
     <string name="pref_subscribe_to_tweets_key" translatable="false">get_tweets</string>
-    <string name="pref_limit_photos_label">Limit photo search</string>
-    <string name="pref_limit_photos_sub_label">The rovers have taken a lot of photos. Select this
-        option to limit the number of photos retrieved. This will result in faster queries and use
-        less bandwidth. Uncheck this option to retrieve all photos.</string>
+    <string name="pref_limit_photos_label">See all photos from rovers</string>
+    <string name="pref_limit_photos_summary_on">Showing all available photos. May use more data</string>
+    <string name="pref_limit_photos_summary_off">Showing limited photos to save data and time</string>
     <string name="pref_limit_photos_key" translatable="false">limit_photos</string>
     <string name="pref_rover_job_scheduler_key" translatable="false">rover_job_scheduler</string>
     <string name="pref_rover_job_scheduler_label">Keep rover details up to date</string>
-    <string name="pref_rover_job_sub_label">Enable to keep rover mission manifests up to date.
-        This will quickly update in the background a couple times a day. </string>
+    <string name="pref_rover_job_summary_off">Not keeping rover data up to date in background. Will still update when app is open</string>
+    <string name="pref_rover_job_summary_on">Allowing rover data to update in the background a couple times a day.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

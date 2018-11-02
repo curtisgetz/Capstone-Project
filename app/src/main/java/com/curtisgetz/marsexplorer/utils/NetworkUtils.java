@@ -1,9 +1,12 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.curtisgetz.marsexplorer.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.io.IOException;
@@ -46,28 +49,51 @@ public final class NetworkUtils {
     private static final String ROVERS  = "rovers";
     private static final String  PHOTOS = "photos";
 
+    private static final int DEFAULT_READ_TIMEOUT = 10000;
+    private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
 
     //build URL for requesting rover photos by Sol number(as a String, validated before here)
     public static URL buildPhotosUrl(Context context,int roverIndex, String sol){
+        //check preferences to see if user wants to limit number of photos
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_limit_photos_key),
+                context.getResources().getBoolean(R.bool.pref_limit_photos_default));
+
+        Log.d(TAG, String.valueOf(seeAllPhotos));
+
         //Get BASE Url from Firebase Remote Config
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         String baseUrl = firebaseRemoteConfig.getString(PHOTOS_BASE_REMOTE_CONFIG_KEY);
         //get rover name from HelperUtils
         String rover = HelperUtils.getRoverNameByIndex(context, roverIndex);
-        Uri builtUri = Uri.parse(baseUrl).buildUpon()
-                .appendPath(ROVERS)
-                .appendPath(rover)
-                .appendPath(PHOTOS)
-                .appendQueryParameter(SOL, sol)
-                //TODO maybe add option to limit number of photos in a settings screen. If selected then set a static page number here. (1 or 2)
-                .appendQueryParameter(PAGE, String.valueOf(1))
-                .appendQueryParameter(API_KEY, NASA_API)
-                .build();
+
+        Uri builtUri;
+        if(seeAllPhotos){
+            //if user chooses to limit photos then only get 1st page of photos
+            builtUri = Uri.parse(baseUrl).buildUpon()
+                    .appendPath(ROVERS)
+                    .appendPath(rover)
+                    .appendPath(PHOTOS)
+                    .appendQueryParameter(SOL, sol)
+                    .appendQueryParameter(API_KEY, NASA_API)
+                    .build();
+        }else {
+            //if user doesn't want to limit, then get all photos available for that Sol/Day
+            builtUri = Uri.parse(baseUrl).buildUpon()
+                    .appendPath(ROVERS)
+                    .appendPath(rover)
+                    .appendPath(PHOTOS)
+                    .appendQueryParameter(SOL, sol)
+                    .appendQueryParameter(PAGE, "1")
+                    .appendQueryParameter(API_KEY, NASA_API)
+                    .build();
+        }
+
 
         URL url = null;
         try {
             url = new URL(builtUri.toString());
-
+            Log.d(TAG, builtUri.toString());
         }catch (MalformedURLException e){
             e.printStackTrace();
         }
@@ -117,13 +143,37 @@ public final class NetworkUtils {
         return null;
     }
 
-    //read input from http response
+
+
+    //read input from http response passing context for shared preferences
+    public static String getResponseFromHttpUrl(Context context, URL url) throws IOException {
+        //see if user wants to limit number og photos
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_limit_photos_key),
+                context.getResources().getBoolean(R.bool.pref_limit_photos_default));
+        //set longer read timeout if user wants all photos.
+        Log.d(TAG, String.valueOf(seeAllPhotos));
+        int readTimeout;
+        if(seeAllPhotos){
+            readTimeout = 20000;
+        }else {
+            readTimeout = DEFAULT_READ_TIMEOUT;
+        }
+
+        return getStringResponse(readTimeout, url);
+
+    }
+
+    //read input from http response, default 10sec read timeout
     public static String getResponseFromHttpUrl(URL url) throws IOException {
-        //todo change to longer read timeout if user wants all photos. Tie in with preferences.
+        return getStringResponse(DEFAULT_READ_TIMEOUT, url);
+    }
+
+    private static String getStringResponse(int timeout, URL url) throws IOException{
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         //set connection timeouts
         urlConnection.setConnectTimeout(5000);
-        urlConnection.setReadTimeout(10000);
+        urlConnection.setReadTimeout(timeout);
         InputStream inputStream = urlConnection.getInputStream();
         try (Scanner scanner = new Scanner(inputStream)) {
             //try scanning input
@@ -139,7 +189,7 @@ public final class NetworkUtils {
         } finally {
             urlConnection.disconnect();
         }
-
     }
+
 
 }

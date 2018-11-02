@@ -52,10 +52,13 @@ public class MarsFactsFragment extends Fragment {
     ImageView mReloadFactIv;
 
 
+    /*  FB Realtime Database structure
+        DB currently has 1 node named "facts" which has children named after a day of the year (1-365)
 
-    //First child in database corresponds to the day of the year.  Will try to load the fact
-    // matching the current day of the year. If no matches try to load another fact.
-    // Fragment will allow cycling through facts. Widget will show 'fact of the day'
+        First child in database corresponds to the day of the year.  Will try to load the fact
+        matching the current day of the year. If no matches try to load another fact.
+        Fragment will allow cycling through facts. Widget will show 'fact of the day'
+    */
 
     //interface for activity callback
     public interface FactsInteraction{
@@ -94,14 +97,17 @@ public class MarsFactsFragment extends Fragment {
                 displayResults();
             }
         });
-        //observe max query boolean in View Model
+        //observe max query boolean in View Model (SingleLiveEvent)
         mViewModel.hitMaxQuery().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean hitMaxQuery) {
                 if(hitMaxQuery != null && hitMaxQuery){
+                    //if hitMaxQuery is true then query limit has been reached and there is a problem
+                    // so we should stop trying to load more and disable & hide the refresh button/icon.
                     mReloadFactIv.setVisibility(View.INVISIBLE);
                     mReloadFactIv.clearAnimation();
                     mReloadFactIv.setEnabled(false);
+                    //have Activity display Snack
                     mListener.displaySnack(getString(R.string.unable_load_new_fact));
 
                 }
@@ -110,14 +116,12 @@ public class MarsFactsFragment extends Fragment {
     }
 
 
-    //todo finish facts
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mars_facts, container, false);
         mUnBinder = ButterKnife.bind(this, view);
-        Toast.makeText(getActivity(), String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)), Toast.LENGTH_LONG).show();
         animateRefreshIcon();
         return view;
     }
@@ -144,10 +148,7 @@ public class MarsFactsFragment extends Fragment {
         //Stop refresh icon when fact is displayed
         mReloadFactIv.clearAnimation();
         mReloadFactIv.setEnabled(true);
-     //   mFactName.setText(fact.getFactName());
         mFactDescription.setText(fact.getFullDescription());
-        mFactDescription.append(fact.getFullDescription());
-        mFactDescription.append(fact.getFullDescription());
         mUrlText.setText(fact.getUrl());
     }
 
