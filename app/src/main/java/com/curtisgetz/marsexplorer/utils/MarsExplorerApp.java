@@ -3,7 +3,6 @@ package com.curtisgetz.marsexplorer.utils;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifestJobService;
@@ -17,7 +16,6 @@ import com.firebase.jobdispatcher.Trigger;
 
 public class MarsExplorerApp extends Application{
 
-    private final static String TAG = MarsExplorerApp.class.getSimpleName();
     private FirebaseJobDispatcher mJobDispatcher;
     //set trigger execution min and max for execution window of Job
     private final static int TIME_BETWEEN_JOBS = 21600000; //6 hours in milliseconds.
@@ -58,7 +56,6 @@ public class MarsExplorerApp extends Application{
                 getString(R.string.pref_rover_job_scheduler_key),
                 getResources().getBoolean(R.bool.pref_rover_job_scheduler_default));
 
-        Log.d(TAG, String.valueOf(scheduleRoverJob));
         mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
         if(scheduleRoverJob){

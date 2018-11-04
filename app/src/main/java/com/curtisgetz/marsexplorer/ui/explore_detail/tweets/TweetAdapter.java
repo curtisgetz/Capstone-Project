@@ -24,7 +24,7 @@ public class TweetAdapter extends RecyclerView.Adapter {
     private List<Tweet> mTweetsList;
 
 
-    public TweetAdapter() {
+    TweetAdapter() {
     }
 
     @NonNull
@@ -32,7 +32,6 @@ public class TweetAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.tweets_item, parent, false);
-
 
         return new TweetViewHolder(view);
     }

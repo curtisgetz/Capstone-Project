@@ -23,7 +23,6 @@ import butterknife.Unbinder;
  */
 public class RoverSciencePagerFragment extends Fragment {
 
-
     @BindView(R.id.science_text_view)
     TextView mScienceText;
     @BindView(R.id.science_imageview)
@@ -43,7 +42,6 @@ public class RoverSciencePagerFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

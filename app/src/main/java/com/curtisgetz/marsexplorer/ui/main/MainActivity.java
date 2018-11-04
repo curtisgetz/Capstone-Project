@@ -5,15 +5,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.widget.Toast;
 
-import com.curtisgetz.marsexplorer.BuildConfig;
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
@@ -27,8 +22,6 @@ import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,14 +29,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends MarsBaseActivity implements MainExploreAdapter.ExploreClickListener {
 
-    private final static String TAG = MainActivity.class.getSimpleName();
-    private MainExploreAdapter mAdapter;
 
     @BindView(R.id.main_recyclerview)
     RecyclerView mExploreRecyclerView;
-
+    private MainExploreAdapter mAdapter;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,7 @@ public class CamerasVMFactory extends ViewModelProvider.NewInstanceFactory{
     private int mRoverIndex;
     private String mSolNumber;
 
-    public CamerasVMFactory(Application application, int roverIndex, String solNumber){
+    CamerasVMFactory(Application application, int roverIndex, String solNumber){
         this.mApplication = application;
         this.mRoverIndex = roverIndex;
         this.mSolNumber = solNumber;

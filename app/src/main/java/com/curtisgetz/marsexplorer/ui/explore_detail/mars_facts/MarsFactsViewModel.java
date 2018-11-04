@@ -80,7 +80,7 @@ public class MarsFactsViewModel extends AndroidViewModel {
                     mQueryCount = 0;
                     mFact.postValue(dataSnapshot.getValue(MarsFact.class));
                 }else {
-                    //if no snapshot exists, get a random day and try loading again only until
+                    //if no snapshot exists, get a random day and try loading again only while
                     // mQueryCount is below MAX QUERY COUNT. If query count is that high than there must be
                     // a problem. (can lower max query once there are more facts inDB)
                     if(mQueryCount >= MAX_QUERY_COUNT){

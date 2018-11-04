@@ -4,7 +4,6 @@ package com.curtisgetz.marsexplorer.ui.explore_detail.tweets;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,8 +18,6 @@ import android.view.ViewGroup;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Tweet;
-import com.curtisgetz.marsexplorer.ui.explore.RoverExploreActivity;
-import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 import com.curtisgetz.marsexplorer.utils.InformationUtils;
 

@@ -7,17 +7,13 @@ import android.net.NetworkInfo;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.data.rover_explore.ExploreCategory;
 import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.favorites.FavoritePhotosFragment;
@@ -25,7 +21,6 @@ import com.curtisgetz.marsexplorer.ui.explore_detail.mars_facts.MarsFactsFragmen
 import com.curtisgetz.marsexplorer.ui.explore_detail.mars_weather.MarsWeatherFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoFragment;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoPagerFragment;
-import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.RoverPhotosFragment;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.List;
@@ -55,20 +50,17 @@ public class MarsExploreActivity extends MarsBaseActivity implements
         ButterKnife.bind(this);
         isTwoPane = (findViewById(R.id.mars_explore_sw600_land) != null);
 
-
         mAdapter = new ExploreCategoryAdapter(getLayoutInflater(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-
         populateUI();
     }
 
 
     private void populateUI(){
-        List<RoverExploreCategory> categories = HelperUtils.getExploreCategories(this, HelperUtils.MARS_EXPLORE_INDEX);
+        List<ExploreCategory> categories = HelperUtils.getExploreCategories(this, HelperUtils.MARS_EXPLORE_INDEX);
         mAdapter.setData(categories);
     }
 

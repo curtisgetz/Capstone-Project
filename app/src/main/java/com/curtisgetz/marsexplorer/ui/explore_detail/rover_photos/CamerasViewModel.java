@@ -3,7 +3,6 @@ package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.Cameras;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
@@ -13,27 +12,22 @@ import java.util.List;
 
 public class CamerasViewModel extends  ViewModel {
 
-    private final static String TAG = CamerasViewModel.class.getSimpleName();
 
     private LiveData<Cameras> mCameras;
     private MarsRepository mRepository;
 
 
-    public CamerasViewModel(Application application, int roverIndex, String solNumber) {
-//        mRepository = new MarsRepository(application);
+    CamerasViewModel(Application application, int roverIndex, String solNumber) {
         mRepository = MarsRepository.getInstance(application);
         mCameras = mRepository.getCameras(application.getApplicationContext(), roverIndex, solNumber);
-
     }
 
     public LiveData<Cameras> getCameras(){
-        Log.i(TAG, "Getting Cameras From View Model");
         return mCameras;
     }
 
     @Override
     protected void onCleared() {
-        Log.i(TAG, "ViewModel Cleared");
         super.onCleared();
     }
 
@@ -65,7 +59,6 @@ public class CamerasViewModel extends  ViewModel {
                 return null;
         }
     }
-
 
 
 }

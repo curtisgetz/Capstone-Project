@@ -105,8 +105,6 @@ public class Tweet implements Parcelable{
 
 
     public final static Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>(){
-
-
         @Override
         public Tweet createFromParcel(Parcel parcel) {
             return new Tweet(parcel);

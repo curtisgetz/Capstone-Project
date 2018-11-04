@@ -4,13 +4,9 @@ package com.curtisgetz.marsexplorer.ui.settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceScreen;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 
 import com.curtisgetz.marsexplorer.R;
 
@@ -21,7 +17,7 @@ public class  SettingsFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener{
 
 
-    /*Tweets preference change is not functioning at this time. This preference requires FCM topics which
+    /*Tweets preference change is not functioning at this time. This preference requires FCM topics
        which , as far as I know, cannot be sent from the FB console and will have to be implemented when
        I set up a backend to handle the Tweets automatically.
        Currently the Tweets need to be sent manually via the FB console (a notification message) but the
@@ -34,22 +30,6 @@ public class  SettingsFragment extends PreferenceFragmentCompat implements
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences);
-
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-
-        int count = preferenceScreen.getPreferenceCount();
-
-        for(int i = 0; i < count; i++){
-            Preference preference = preferenceScreen.getPreference(i);
-            if(!(preference instanceof CheckBoxPreference)){
-
-            }
-        }
-
-
-
-
     }
 
 

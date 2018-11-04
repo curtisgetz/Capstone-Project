@@ -21,17 +21,15 @@ import butterknife.ButterKnife;
 public class MainExploreAdapter extends RecyclerView.Adapter {
 
 
-
     private List<MainExploreType> mExploreList;
     private ExploreClickListener mClickListener;
     private boolean isLand;
-
 
     public interface ExploreClickListener{
         void onExploreClick(int clickedPos);
     }
 
-    public MainExploreAdapter(ExploreClickListener clickListener, boolean isLand){
+    MainExploreAdapter(ExploreClickListener clickListener, boolean isLand){
         this.mClickListener = clickListener;
         this.isLand = isLand;
     }
@@ -46,11 +44,6 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
         return mExploreList.get(pos);
     }
 
-    public void clearData(){
-        this.mExploreList.clear();
-        notifyDataSetChanged();
-    }
-
 
     @NonNull
     @Override
@@ -58,9 +51,6 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_list_item, parent, false);
-
-
-
 
         return new ExploreViewHolder(view);
     }
@@ -91,7 +81,7 @@ public class MainExploreAdapter extends RecyclerView.Adapter {
         @BindView(R.id.main_cardview_image) ImageView mImageView;
         @BindView(R.id.main_cardview_text) TextView mTextView;
 
-        public ExploreViewHolder(View itemView) {
+        ExploreViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);

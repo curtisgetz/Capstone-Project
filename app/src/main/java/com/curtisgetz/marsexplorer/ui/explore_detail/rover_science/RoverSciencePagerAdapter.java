@@ -14,8 +14,7 @@ public class RoverSciencePagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<RoverScience> mScienceList;
 
-
-    public RoverSciencePagerAdapter(FragmentManager fm) {
+    RoverSciencePagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

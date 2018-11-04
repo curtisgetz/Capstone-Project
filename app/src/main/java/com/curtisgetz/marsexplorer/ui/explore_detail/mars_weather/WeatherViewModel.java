@@ -12,7 +12,6 @@ import java.util.List;
 
 public class WeatherViewModel extends AndroidViewModel {
 
-    private final static String TAG = WeatherViewModel.class.getSimpleName();
 
     private LiveData<List<WeatherDetail>> mWeather;
     private MarsRepository mRepository;

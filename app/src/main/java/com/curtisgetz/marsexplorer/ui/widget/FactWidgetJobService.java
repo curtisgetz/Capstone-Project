@@ -4,10 +4,8 @@ package com.curtisgetz.marsexplorer.ui.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsFact;
-import com.curtisgetz.marsexplorer.data.SingleLiveEvent;
 import com.curtisgetz.marsexplorer.utils.RealtimeDatabaseUtils;
 import com.firebase.jobdispatcher.JobParameters;
 import com.google.firebase.database.DataSnapshot;
@@ -23,12 +21,8 @@ import java.util.Calendar;
 
 public class FactWidgetJobService extends JobService {
 
-    private final static String TAG = FactWidgetJobService.class.getSimpleName();
-    //private FirebaseDatabase mDatabse;
-
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
-        Log.d(TAG, "onStartJob");
         //get instance of Realtime Database
         FirebaseDatabase realtimeDatabase = RealtimeDatabaseUtils.getDatabase();
         //get reference to 'facts' node
@@ -41,13 +35,9 @@ public class FactWidgetJobService extends JobService {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChanged");
                 if(dataSnapshot.exists() ) {
-                    Log.d(TAG, "snapshot DOES exist");
                     //extract Fact and send to widget.
                     setupFact(dataSnapshot.getValue(MarsFact.class));
-                }else {
-                    Log.d(TAG, "snapshot does NOT exist");
                 }
                 // finish Job
                 jobFinished(jobParameters, false);
@@ -76,7 +66,6 @@ public class FactWidgetJobService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
-
         return false;
     }
 }

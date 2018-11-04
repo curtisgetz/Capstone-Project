@@ -2,17 +2,18 @@ package com.curtisgetz.marsexplorer.data;
 
 public class MarsFact {
 
-//    private int mId;
     private int dayToShow;
     private String factName;
     private String shortDescription;
     private String fullDescription;
     private String url;
 
-
+    //Suppress unused constructor warning. Class is used by RealTime DB callback to construct returned data
+    @SuppressWarnings("unused")
     public MarsFact() {
     }
 
+    @SuppressWarnings("unused")
     public MarsFact(int dayToShow, String factName, String shortDescription, String fullDescription, String url) {
         this.dayToShow = dayToShow;
         this.factName = factName;

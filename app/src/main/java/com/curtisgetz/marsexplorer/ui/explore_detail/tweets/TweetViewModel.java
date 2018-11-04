@@ -18,7 +18,7 @@ public class TweetViewModel extends AndroidViewModel {
     public TweetViewModel(@NonNull Application application) {
         super(application);
         mRepository = MarsRepository.getInstance(application);
-        mTweets = mRepository.loadAllTweets();
+        mTweets = mRepository.getAllTweets();
     }
 
     public LiveData<List<Tweet>> getTweets() {

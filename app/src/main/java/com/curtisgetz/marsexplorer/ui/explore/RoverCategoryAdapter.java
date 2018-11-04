@@ -1,6 +1,5 @@
 package com.curtisgetz.marsexplorer.ui.explore;
 
-import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -14,8 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.MarsRepository;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.data.rover_explore.ExploreCategory;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.squareup.picasso.Picasso;
 
@@ -27,12 +25,9 @@ import butterknife.ButterKnife;
 
 public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
-    private final static String TAG = RoverCategoryAdapter.class.getSimpleName();
-
-    private List<RoverExploreCategory> mCategoryList;
+    private List<ExploreCategory> mCategoryList;
     private CategoryClickListener mClickListener;
     private final static int PHOTO_CATEGORY = HelperUtils.ROVER_PICTURES_CAT_INDEX;
-
 
     public interface CategoryClickListener{
         void onCategoryClick(int clickedPos);
@@ -40,13 +35,11 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         void onRandomSolClick(int catIndex);
     }
 
-
-
-    public RoverCategoryAdapter(CategoryClickListener clickListener){
+    RoverCategoryAdapter(CategoryClickListener clickListener){
        this.mClickListener = clickListener;
     }
 
-    public void setData(List<RoverExploreCategory> categories){
+    public void setData(List<ExploreCategory> categories){
         this.mCategoryList = new ArrayList<>(categories);
         notifyDataSetChanged();
     }
@@ -70,7 +63,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CategoryViewHolder viewHolder = (CategoryViewHolder) holder;
         viewHolder.setItem(mCategoryList.get(position));
-
     }
 
     @Override
@@ -96,14 +88,13 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         TextView mSolSearchLabel;
 
         CategoryClickListener mCatClickListener;
-        RoverExploreCategory mCategory;
+        ExploreCategory mCategory;
 
         CategoryViewHolder(View itemView, CategoryClickListener listener){
             super(itemView);
             this.mCatClickListener = listener;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-
         }
 
 
@@ -113,7 +104,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         }
 
 
-        void setItem(RoverExploreCategory category) {
+        void setItem(ExploreCategory category) {
             this.mCategory = category;
             mTextView.setText(category.getmTitleText());
             Picasso.get().load(category.getmImageResId()).into(mImageView);

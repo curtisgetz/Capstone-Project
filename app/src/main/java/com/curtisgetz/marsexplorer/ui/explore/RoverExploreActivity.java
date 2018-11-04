@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.data.rover_explore.ExploreCategory;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
 import com.curtisgetz.marsexplorer.ui.MarsBaseActivity;
 import com.curtisgetz.marsexplorer.ui.explore_detail.ExploreDetailActivity;
@@ -48,7 +48,6 @@ import static android.view.View.VISIBLE;
 public class RoverExploreActivity extends MarsBaseActivity implements
         RoverCategoryAdapter.CategoryClickListener, FullPhotoPagerFragment.FullPhotoPagerInteraction  {
 
-    private final static String TAG = RoverExploreActivity.class.getSimpleName();
 
     private RoverCategoryAdapter mAdapter;
     private int mRoverIndex;
@@ -56,8 +55,6 @@ public class RoverExploreActivity extends MarsBaseActivity implements
     private boolean isSw600;
     private RoverManifestViewModel mViewModel;
     private static boolean hasDownloadedManifests = false;
-
-
 
     @BindView(R.id.rover_options_recycler) RecyclerView mCategoryRecycler;
     @BindView(R.id.explore_master_title_text) TextView mTitleText;
@@ -74,7 +71,6 @@ public class RoverExploreActivity extends MarsBaseActivity implements
     @BindView(R.id.sol_range_label)TextView mSolRangeLabel;
     @BindView(R.id.sol_info_clickbox) View mSolClickbox;
     @BindView(R.id.sol_range_info_imageview)ImageView mSolRangeInfoIv;
-
 
 
 
@@ -132,7 +128,7 @@ public class RoverExploreActivity extends MarsBaseActivity implements
         String roverName = HelperUtils.getRoverNameByIndex(this, roverIndex);
         String titleString = roverName + " " + getString(R.string.rover_string);
         mTitleText.setText(titleString);
-        List<RoverExploreCategory> roverExploreCategories = HelperUtils.getRoverCategories(this, roverIndex);
+        List<ExploreCategory> roverExploreCategories = HelperUtils.getRoverCategories(this, roverIndex);
         mAdapter.setData(roverExploreCategories);
     }
 
@@ -275,8 +271,6 @@ public class RoverExploreActivity extends MarsBaseActivity implements
     }
 
 
-
-
     //call display snack method on FullPhotoFragment. This will allow the coordinatorlayout
     //to handle the snack display and moving the FAB
     @Override
@@ -317,8 +311,6 @@ public class RoverExploreActivity extends MarsBaseActivity implements
             return -1;
         }
     }
-
-
 
 
 }

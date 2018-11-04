@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.util.Log;
+
 
 import com.curtisgetz.marsexplorer.R;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -19,23 +19,19 @@ import javax.net.ssl.HttpsURLConnection;
 
 public final class NetworkUtils {
 
-    private static final String TAG = NetworkUtils.class.getSimpleName();
 
     //TODO  Use "DEMO_KEY" for limited use.  If you reach limits you can apply for a key at https://api.nasa.gov/index.html#apply-for-an-api-key
-    private static final String NASA_API = Config.MY_API;
+    private static final String NASA_API = Config.MY_NASA_API;
     //private static final String NASA_API = "DEMO_KEY";
 
     //remote config keys
     private final static String PHOTOS_BASE_REMOTE_CONFIG_KEY = "base_rover_photos_url";
     private final static String WEATHER_BASE_REMOTE_CONFIG_KEY = "base_mars_weather_url";
 
-
-
     //query parameters.
     private final static String API_KEY = "api_key";
     private final static String PAGE = "page";
     private final static String SOL = "sol";
-
 
     //A mission manifest is available for each Rover at /manifests/rover_name.
     // This manifest will list details of the Rover's mission to help narrow down photo queries to the API.
@@ -49,7 +45,7 @@ public final class NetworkUtils {
     private static final String  PHOTOS = "photos";
 
     private static final int DEFAULT_READ_TIMEOUT = 10000;
-    private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
+
 
     //build URL for requesting rover photos by Sol number(as a String, validated before here)
     public static URL buildPhotosUrl(Context context,int roverIndex, String sol){
@@ -57,8 +53,6 @@ public final class NetworkUtils {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_get_all_photos_key),
                 context.getResources().getBoolean(R.bool.pref_limit_photos_default));
-
-        Log.d(TAG, String.valueOf(seeAllPhotos));
 
         //Get BASE Url from Firebase Remote Config
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -92,7 +86,6 @@ public final class NetworkUtils {
         URL url = null;
         try {
             url = new URL(builtUri.toString());
-            Log.d(TAG, builtUri.toString());
         }catch (MalformedURLException e){
             e.printStackTrace();
         }
@@ -145,7 +138,6 @@ public final class NetworkUtils {
         boolean seeAllPhotos = sharedPreferences.getBoolean(context.getString(R.string.pref_get_all_photos_key),
                 context.getResources().getBoolean(R.bool.pref_limit_photos_default));
         //set longer read timeout if user wants all photos.
-        Log.d(TAG, String.valueOf(seeAllPhotos));
         int readTimeout;
         if(seeAllPhotos){
             readTimeout = 20000;

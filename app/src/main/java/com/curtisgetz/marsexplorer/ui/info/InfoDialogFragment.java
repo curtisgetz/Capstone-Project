@@ -32,9 +32,6 @@ import butterknife.OnClick;
  */
 public class InfoDialogFragment extends DialogFragment {
 
-    private static final String TAG = InfoDialogFragment.class.getSimpleName();
-
-
     @BindView(R.id.information_text) TextView mInfoText;
 
 
@@ -68,7 +65,6 @@ public class InfoDialogFragment extends DialogFragment {
         Bundle bundle = getArguments();
         int infoIndex = bundle.getInt(getString(R.string.info_index_key), -1);
         String text = InformationUtils.getInformationText(getActivity(), infoIndex);
-        Log.i(TAG, text);
         mInfoText.setText(text);
 
         return view;

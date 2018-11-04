@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.rover_manifest.RoverManifest;
@@ -16,8 +15,6 @@ import java.util.Random;
 
 
 public class RoverManifestViewModel extends ViewModel {
-
-    private final static String TAG = RoverManifestViewModel.class.getSimpleName();
 
     private LiveData<RoverManifest> mManifest;
     private MarsRepository mRepository;

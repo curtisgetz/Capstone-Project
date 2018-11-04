@@ -8,16 +8,12 @@ import android.support.annotation.NonNull;
 
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.MarsRepository;
-import com.curtisgetz.marsexplorer.data.room.AppDataBase;
-import com.curtisgetz.marsexplorer.utils.AppExecutors;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExploreTypeViewModel  extends AndroidViewModel {
-
-    private final static String TAG = ExploreTypeViewModel.class.getSimpleName();
 
     private MarsRepository mRepository;
     private LiveData<List<MainExploreType>> mExploreTypes;
@@ -27,7 +23,6 @@ public class ExploreTypeViewModel  extends AndroidViewModel {
         mRepository = MarsRepository.getInstance(application);
         mExploreTypes = mRepository.getAllExploreTypes();
     }
-
 
     public LiveData<List<MainExploreType>> getExploreTypes() {
         return mExploreTypes;

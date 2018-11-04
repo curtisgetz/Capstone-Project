@@ -1,25 +1,20 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.MainExploreType;
 import com.curtisgetz.marsexplorer.data.RoverScience;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.data.rover_explore.ExploreCategory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class HelperUtils {
 
-    private final static String TAG = HelperUtils.class.getSimpleName();
 
     public final static String PHOTO_PAGER_URL_EXTRA = "photo_url_extra";
-    public final static String SCIENCE_INDEX_PAGER_EXTRA = "science_index_extra";
-    public final static String SCIENCE_IMAGE_ID_EXTRA = "science_image_extra";
     public final static String SCIENCE_PARCELABLE_EXTRA = "science_parcelable_extra";
-    public final static String SCIENCE_PARCELABLE_LIST_EXTRA = "science_parcelable_list_extra";
 
     public final static String DEFAULT_SOL_NUMBER = "200";
 
@@ -36,7 +31,7 @@ public final class HelperUtils {
     public final static int MARS_FACTS_CAT_INDEX = 101;
     public final static int MARS_FAVORITES_CAT_INDEX = 102;
 
-    public final static int[] MARS_EXPLORE_CATEGORIES =
+    private final static int[] MARS_EXPLORE_CATEGORIES =
             {MARS_WEATHER_CAT_INDEX, MARS_FACTS_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
 
     //ROVER CATEGORY INDICES
@@ -71,22 +66,7 @@ public final class HelperUtils {
     public final static int CAM_PANCAM_INDEX = 7;
     public final static int CAM_MINITES_INDEX = 8;
 
-    public final static int[] All_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
-            CAM_MAST_INDEX, CAM_CHEMCAM_INDEX, CAM_MAHLI_INDEX, CAM_MARDI_INDEX, CAM_NAVCAM_INDEX,
-            CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
-
-    public final static int[] CURIOSITY_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
-            CAM_MAST_INDEX, CAM_CHEMCAM_INDEX, CAM_MAHLI_INDEX, CAM_MARDI_INDEX, CAM_NAVCAM_INDEX};
-    public final static int[] OPPORTUNITY_CAMREA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
-            CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
-    public final static int[] SPIRIT_CAMERA_INDICES = {CAM_FHAZ_INDEX, CAM_RHAZ_INDEX,
-            CAM_NAVCAM_INDEX, CAM_PANCAM_INDEX, CAM_MINITES_INDEX};
-
-
     //WEATHER DETAILS INDICES
-    public final static int WEATHER_STATUS_INDEX = 0;
-    public final static int WEATHER_SOL_INDEX = 1;
-    public final static int WEATHER_SEASON_INDEX = 2;
     public final static int WEATHER_MIN_TEMP_INDEX = 3;
     public final static int WEATHER_MAX_TEMP_INDEX = 4;
     public final static int WEATHER_ATMO_INDEX = 5;
@@ -94,27 +74,25 @@ public final class HelperUtils {
     public final static int WEATHER_SUNRISE_INDEX = 7;
     public final static int WEATHER_MIN_GRND_TMP_INDEX = 9;
     public final static int WEATHER_MAX_GRND_TMP_INDEX = 10;
-    public final static int WEATHER_UNIT_OF_MEASURE_INDEX = 11;
-    public final static int WEATHER_TZ_DATA_INDEX = 12;
 
 
     //ROVER INFO INDICES
-    public final static int SCIENCE_MASTCAM_INDEX = 200;
-    public final static int SCIENCE_PANCAM_INDEX = 202;
-    public final static int SCIENCE_HAZCAM_INDEX = 204;
-    public final static int SCIENCE_NAVCAM_INDEX = 203;
-    public final static int SCIENCE_DRT_INDEX = 211;
-    public final static int SCIENCE_ROBOTIC_ARM_INDEX = 215;
-    public final static int SCIENCE_LEGS_WHEELS_INDEX = 216;
-    public final static int SCIENCE_POWER_INDEX = 217;
-    public final static int SCIENCE_ANTENNA_INDEX = 218;
-    public final static int SCIENCE_BRAINS_INDEX = 219;
-    public final static int SCIENCE_MAGNET_INDEX = 223;
-    public final static int SCIENCE_SOLAR_INDEX = 224;
-    public final static int SCIENCE_BODY_INDEX = 225;
-    public final static int SCIENCE_TEMP_INDEX = 226;
-    public final static int SCIENCE_MARDI_INDEX = 214;
-    public final static int SCIENCE_RAT_INDEX = 222;
+    private final static int SCIENCE_MASTCAM_INDEX = 200;
+    private final static int SCIENCE_PANCAM_INDEX = 202;
+    private final static int SCIENCE_HAZCAM_INDEX = 204;
+    private final static int SCIENCE_NAVCAM_INDEX = 203;
+    private final static int SCIENCE_DRT_INDEX = 211;
+    private final static int SCIENCE_ROBOTIC_ARM_INDEX = 215;
+    private final static int SCIENCE_LEGS_WHEELS_INDEX = 216;
+    private final static int SCIENCE_POWER_INDEX = 217;
+    private final static int SCIENCE_ANTENNA_INDEX = 218;
+    private final static int SCIENCE_BRAINS_INDEX = 219;
+    private final static int SCIENCE_MAGNET_INDEX = 223;
+    private final static int SCIENCE_SOLAR_INDEX = 224;
+    private final static int SCIENCE_BODY_INDEX = 225;
+    private final static int SCIENCE_TEMP_INDEX = 226;
+    private final static int SCIENCE_MARDI_INDEX = 214;
+    private final static int SCIENCE_RAT_INDEX = 222;
 
 
     private final static int[] CURIOSITY_ROVER_INFO_INDICES = {SCIENCE_MASTCAM_INDEX,
@@ -134,28 +112,28 @@ public final class HelperUtils {
 
 
     //SCIENCE INSTRUMENT INDICES
-    public final static int SCIENCE_CHEMCAM_INDEX = 201;
-    public final static int SCIENCE_MAHLI_INDEX = 205;
-    public final static int SCIENCE_MINITES_INDEX = 206;
-    public final static int SCIENCE_REMS_INDEX = 207;
-    public final static int SCIENCE_APXS_INDEX = 208;
-    public final static int SCIENCE_CHEMIN_INDEX = 209;
-    public final static int SCIENCE_SAM_INDEX = 210;
-    public final static int SCIENCE_RAD_INDEX = 212;
-    public final static int SCIENCE_DAN_INDEX = 213;
-    public final static int SCIENCE_MB_INDEX = 220;
-    public final static int SCIENCE_MI_INDEX = 221;
+    private final static int SCIENCE_CHEMCAM_INDEX = 201;
+    private final static int SCIENCE_MAHLI_INDEX = 205;
+    private final static int SCIENCE_MINITES_INDEX = 206;
+    private final static int SCIENCE_REMS_INDEX = 207;
+    private final static int SCIENCE_APXS_INDEX = 208;
+    private final static int SCIENCE_CHEMIN_INDEX = 209;
+    private final static int SCIENCE_SAM_INDEX = 210;
+    private final static int SCIENCE_RAD_INDEX = 212;
+    private final static int SCIENCE_DAN_INDEX = 213;
+    private final static int SCIENCE_MB_INDEX = 220;
+    private final static int SCIENCE_MI_INDEX = 221;
 
-
-    public final static int[] CURIOSITY_SCIENCE_INDICES = {SCIENCE_CHEMCAM_INDEX,
+    private final static int[] CURIOSITY_SCIENCE_INDICES = {SCIENCE_CHEMCAM_INDEX,
             SCIENCE_REMS_INDEX,  SCIENCE_MAHLI_INDEX, SCIENCE_APXS_INDEX,
             SCIENCE_CHEMIN_INDEX, SCIENCE_SAM_INDEX, SCIENCE_RAD_INDEX, SCIENCE_DAN_INDEX };
 
-    public static final int[] OPPORTUNITY_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
+    private static final int[] OPPORTUNITY_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
             SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX};
 
-    public static final int[] SPIRIT_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
+    private static final int[] SPIRIT_SCIENCE_INDICES = { SCIENCE_MINITES_INDEX,
             SCIENCE_MB_INDEX, SCIENCE_APXS_INDEX, SCIENCE_MI_INDEX};
+
 
     public static List<RoverScience> getScienceList(Context context, int roverIndex, int roverCatIndex){
         int[] indices;
@@ -427,30 +405,6 @@ public final class HelperUtils {
         }
     }
 
-    public static String getCameraNameByIndex(Context context, int camIndex){
-        switch (camIndex){
-            case CAM_FHAZ_INDEX:
-                return context.getResources().getString(R.string.FHAZ);
-            case CAM_RHAZ_INDEX:
-                return context.getResources().getString(R.string.RHAZ);
-            case CAM_MAST_INDEX:
-                return context.getResources().getString(R.string.MAST);
-            case CAM_CHEMCAM_INDEX:
-                return context.getResources().getString(R.string.CHEMCAM);
-            case CAM_MAHLI_INDEX:
-                return context.getResources().getString(R.string.MAHLI);
-            case CAM_MARDI_INDEX:
-                return context.getResources().getString(R.string.MARDI);
-            case CAM_NAVCAM_INDEX:
-                return context.getResources().getString(R.string.NAVCAM);
-            case CAM_PANCAM_INDEX:
-                return context.getResources().getString(R.string.PANCAM);
-            case CAM_MINITES_INDEX:
-                return context.getResources().getString(R.string.MINITES);
-            default:
-                return context.getResources().getString(R.string.unknown);
-        }
-    }
 
     public static String getRoverNameByIndex(Context context, int roverIndex){
 
@@ -467,11 +421,11 @@ public final class HelperUtils {
     }
 
 
-    public static List<RoverExploreCategory> getExploreCategories(Context context, int exploreIndex){
+    public static List<ExploreCategory> getExploreCategories(Context context, int exploreIndex){
         return setupCategories(context, MARS_EXPLORE_CATEGORIES, MARS_EXPLORE_INDEX);
     }
 
-    public static List<RoverExploreCategory> getRoverCategories(Context context, int exploreIndex){
+    public static List<ExploreCategory> getRoverCategories(Context context, int exploreIndex){
         //set up categories for selected rover
         int[] categories;
         switch (exploreIndex){
@@ -495,13 +449,13 @@ public final class HelperUtils {
     }
 
 
-    private static List<RoverExploreCategory> setupCategories(Context context, int[] categories, int exploreIndex){
-        List<RoverExploreCategory> exploreCategoriesList = new ArrayList<>();
+    private static List<ExploreCategory> setupCategories(Context context, int[] categories, int exploreIndex){
+        List<ExploreCategory> exploreCategoriesList = new ArrayList<>();
         for (int category : categories) {
             String title = getCategoryTitle(context, category);
             int imageResId = getCategoryImgResId(context, exploreIndex, category);
-            //use title as content description
-            exploreCategoriesList.add(new RoverExploreCategory(title, imageResId, category, title));
+            //use title as content description when creating new ExploreCategory
+            exploreCategoriesList.add(new ExploreCategory(title, imageResId, category, title));
         }
         return exploreCategoriesList;
     }

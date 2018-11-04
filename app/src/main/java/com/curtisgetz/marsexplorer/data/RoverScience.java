@@ -69,12 +69,9 @@ public class RoverScience implements Parcelable {
         parcel.writeString(mDetails);
         parcel.writeInt(mImageResId);
         parcel.writeString(mName);
-
     }
 
-
     public static final Parcelable.Creator<RoverScience> CREATOR = new Parcelable.Creator<RoverScience>(){
-
         @Override
         public RoverScience createFromParcel(Parcel parcel) {
             return new RoverScience(parcel);

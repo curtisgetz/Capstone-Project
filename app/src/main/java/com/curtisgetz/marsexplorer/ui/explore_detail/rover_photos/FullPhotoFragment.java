@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +37,6 @@ import butterknife.Unbinder;
  */
 public class FullPhotoFragment extends Fragment   {
 
-    private final static String TAG = FullPhotoFragment.class.getSimpleName();
-
 
     private List<String> mUrls = new ArrayList<>();
 
@@ -54,7 +51,6 @@ public class FullPhotoFragment extends Fragment   {
     private boolean mIsFavorites;
     private Unbinder mUnBinder;
     private FavoriteViewModel mViewModel;
-    private boolean favoritesDisplayed;
 
 
     public static FullPhotoFragment newInstance(Context context, ArrayList<String> urls, int startingPos,
@@ -70,7 +66,6 @@ public class FullPhotoFragment extends Fragment   {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
 
     public FullPhotoFragment() {
@@ -131,7 +126,6 @@ public class FullPhotoFragment extends Fragment   {
         View view = inflater.inflate(R.layout.fragment_full_photo, container, false);
         mUnBinder = ButterKnife.bind(this, view);
 
-
         mAdapter = new FullPhotoAdapter(getChildFragmentManager(), getActivity());
         mViewPager.setAdapter(mAdapter);
         mAdapter.setData(mUrls);
@@ -155,14 +149,13 @@ public class FullPhotoFragment extends Fragment   {
         outState.putBoolean(getString(R.string.is_favorites_saved_key), mIsFavorites);
     }
 
-
     @OnClick(R.id.photo_share_fab)
     public void onFabClick(){
         FragmentActivity activity = getActivity();
         if(activity == null) return;
 
         String roverName = HelperUtils.getRoverNameByIndex(activity, mRoverIndex);
-               //use custom share message if not in Favorites. Otherwise use simple share message.
+        //use custom share message if not in Favorites. Otherwise use simple share message.
         //look into custom share message for Favorites later.
         String shareMessage;
         if(mRoverIndex == -1){

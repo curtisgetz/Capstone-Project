@@ -27,7 +27,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter{
         void onPhotoClick(List<String> urls, int pos);
     }
 
-    public FavoritesAdapter(FavoriteClickListner clickListner) {
+    FavoritesAdapter(FavoriteClickListner clickListner) {
         mClickListner = clickListner;
     }
 
@@ -86,7 +86,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter{
         @BindView(R.id.favorite_photo_imageview)
         ImageView mImageView;
 
-        public FavoriteViewHolder(@NonNull View itemView) {
+        FavoriteViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);

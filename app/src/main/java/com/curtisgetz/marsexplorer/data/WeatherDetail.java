@@ -18,12 +18,6 @@ public class WeatherDetail {
     }
 
 
-    public WeatherDetail(String mLabel, String mValue) {
-        this.mLabel = mLabel;
-        this.mValue = mValue;
-    }
-
-
     public int getmId() {
         return mId;
     }

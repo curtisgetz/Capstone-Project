@@ -1,6 +1,7 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos;
 
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -17,7 +18,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +42,6 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.PhotoClickListener {
-
-    private final static String TAG = RoverPhotosFragment.class.getSimpleName();
 
     private String mSol;
     private int mRoverIndex;
@@ -155,7 +153,6 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     }
 
 
-
     private LinearLayoutManager createLayoutManager(){
         return new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
     }
@@ -165,7 +162,6 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         //if camera has any images then setup adapter and show views.
         boolean anyCameras = false;
         if(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_FHAZ_INDEX) != null){
-
             mFhazAdapter = new RoverPhotosAdapter(this);
             mFhazRecyclerView.setLayoutManager(createLayoutManager());
             mFhazRecyclerView.setAdapter(mFhazAdapter);
@@ -242,7 +238,6 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
             mMinitesRecyclerView.setLayoutManager(createLayoutManager());
             mMinitesRecyclerView.setAdapter(mMinitesAdapter);
             mMinitesAdapter.setData(mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX));
-            Log.d(TAG, mViewModel.getImageUrlsForCamera(HelperUtils.CAM_MINITES_INDEX).get(0));
             mMinitesRecyclerView.setVisibility(View.VISIBLE);
             mMinitesLabel.setVisibility(View.VISIBLE);
             anyCameras = true;
@@ -262,27 +257,23 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean gettingAllPhotos = sharedPreferences.getBoolean(getString(R.string.pref_get_all_photos_key),
                 getResources().getBoolean(R.bool.pref_limit_photos_default));
+        String snackMessage;
         if(!gettingAllPhotos){
-            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.limiting_photos_snack,Snackbar.LENGTH_LONG);
-            snackbar.setAction(R.string.settings_action, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
-                }
-            });
-            snackbar.show();
-        }else{
-            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.getting_all_photos_snack,Snackbar.LENGTH_LONG);
-            snackbar.setAction(R.string.settings_action, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
-                }
-            });
-            snackbar.show();
+            snackMessage = getString(R.string.limiting_photos_snack);
+        }else {
+            snackMessage = getString(R.string.getting_all_photos_snack);
         }
+
+        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, snackMessage, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.settings_action, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(settingsIntent);
+            }
+        });
+        snackbar.show();
+
         hasShownPrefSnack = true;
     }
 
@@ -292,6 +283,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         snackbar.setAction(R.string.snackbar_back, new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                if(getActivity() == null) return;
                 getActivity().onBackPressed();
                 snackbar.dismiss();
             }
@@ -307,6 +299,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private void updateTitleText(){
         String roverName = HelperUtils.getRoverNameByIndex(getContext(), mRoverIndex);
         Cameras cameras = mViewModel.getCameras().getValue();
+        if(cameras == null) return;
         mDateString = cameras.getEarthDate();
         String title = TextUtils.join(" - ", new String[] {roverName, mSol, mDateString});
         mTitleText.setText(title);

@@ -12,19 +12,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.FavoriteImage;
 import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoFragment;
-import com.curtisgetz.marsexplorer.ui.explore_detail.rover_photos.FullPhotoPagerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +37,6 @@ import butterknife.Unbinder;
  */
 public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter.FavoriteClickListner{
 
-    private final static String TAG = FavoritePhotosFragment.class.getSimpleName();
-
-
     @BindView(R.id.favorite_photos_recycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.favorite_photo_coordinator)
@@ -50,7 +44,6 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
 
     private FavoriteViewModel mViewModel;
     private FavoritesAdapter mAdapter;
-    //private FullPhotoPagerFragment.FullPhotoPagerInteraction mListener;
     private Unbinder mUnBinder;
     private boolean isTwoPane;
     private boolean isSw600;
@@ -86,7 +79,6 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
             mViewModel.getFavorites().observe(this, new Observer<List<FavoriteImage>>() {
                 @Override
                 public void onChanged(@Nullable List<FavoriteImage> favoriteImages) {
-                    Log.d(TAG, "onChanged");
                     mAdapter.setData(favoriteImages);
                 }
             });
@@ -109,11 +101,9 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         isTwoPane = getResources().getBoolean(R.bool.is_sw600_land);
         isSw600 = getResources().getBoolean(R.bool.is_sw600);
 
-        Log.d(TAG, String.valueOf(isTwoPane));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getSpanCount());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
 
         return view;
     }

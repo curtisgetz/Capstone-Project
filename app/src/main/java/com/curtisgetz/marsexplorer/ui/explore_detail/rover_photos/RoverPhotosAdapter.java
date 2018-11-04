@@ -50,9 +50,6 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         String photoUrl = mPhotoUrls.get(position);
-        /*//Set transition names here to allow return transition from viewpager
-        ViewCompat.setTransitionName(((RoverPhotosViewHolder) holder).mCardView,photoUrl);*/
-
         //Picasso will throw exception with blank string. Do check as fallback
         if(!photoUrl.isEmpty()){
             Picasso.get().load(photoUrl)
@@ -73,16 +70,11 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
         return mPhotoUrls.size();
     }
 
-
     public void setData(List<String> photoUrls){
         mPhotoUrls = photoUrls;
         notifyDataSetChanged();
     }
 
-    public void clearData(){
-        mPhotoUrls.clear();
-        notifyDataSetChanged();
-    }
 
     class RoverPhotosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -98,7 +90,6 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View view) {
-            //ViewCompat.setTransitionName(view, url);
             //Send full list and clicked position for ViewPager use
             mClickListener.onPhotoClick(mPhotoUrls, view, getAdapterPosition());
         }

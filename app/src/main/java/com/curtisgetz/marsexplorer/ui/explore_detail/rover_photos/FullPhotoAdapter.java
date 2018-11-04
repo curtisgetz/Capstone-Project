@@ -7,26 +7,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.ImageView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.FavoriteImage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class FullPhotoAdapter extends FragmentPagerAdapter{
 
-
     private List<String> mUrls;
-
-
-
     @BindView(R.id.rover_photo_full_imageview)
-     ImageView mImageView;
+    ImageView mImageView;
 
 
-
-    public FullPhotoAdapter(FragmentManager fm, Context context) {
+    FullPhotoAdapter(FragmentManager fm, Context context) {
         super(fm);
     }
 
@@ -36,14 +29,11 @@ public class FullPhotoAdapter extends FragmentPagerAdapter{
     }
 
 
-
     @Override
     public int getCount() {
         if(mUrls == null) return 0;
         return mUrls.size();
     }
-
-
 
     @Override
     public Fragment getItem(int position) {
@@ -51,10 +41,6 @@ public class FullPhotoAdapter extends FragmentPagerAdapter{
         return FullPhotoPagerFragment.newInstance(url);
     }
 
-
-    public String getUrl(int position){
-        return mUrls.get(position);
-    }
 
 
 }

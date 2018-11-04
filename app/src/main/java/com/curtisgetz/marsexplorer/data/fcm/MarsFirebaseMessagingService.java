@@ -26,7 +26,7 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
 // Tweets are being sent manually through the Firebase Console.  If this feature is kept I would
 // develop a back end to get tweets and send data messages to the FCM server automatically.
 
-    private final static String TAG = MarsFirebaseMessagingService.class.getSimpleName();
+
     public final static String JSON_KEY_TWEET_ID = "tweet_id";
     public final static String JSON_KEY_USER_ID = "user_id";
     public final static String JSON_KEY_USER_NAME = "user_name";
@@ -38,21 +38,15 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
     private final static String NOTIFICATION_CHANNEL_NAME = "Tweets From Rover";
 
 
-    @Override
-    public void onNewToken(String s) {
-        Log.d(TAG, "TOKEN = " + s);
-    }
 
     //Notification messages only received here when app is in foreground
     //create notification and save tweet into database
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.d(TAG, "Message Received from: " + remoteMessage.getFrom());
         Map<String, String> messageData = remoteMessage.getData();
 
         if (messageData.size() > 0){
-            Log.d(TAG, "data payload - " + messageData);
             //attempt to parse ints from message
             int tweetId;
             int userId;

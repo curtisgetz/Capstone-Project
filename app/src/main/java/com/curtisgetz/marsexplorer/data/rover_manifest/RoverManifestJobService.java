@@ -1,7 +1,6 @@
 package com.curtisgetz.marsexplorer.data.rover_manifest;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.utils.AppExecutors;
@@ -15,16 +14,12 @@ import java.net.URL;
 
 public class RoverManifestJobService extends JobService   {
 
-    private final static String TAG = RoverManifestJobService.class.getSimpleName();
     private final static int[] mRoverIndices = HelperUtils.ROVER_INDICES;
-
 
     private MarsRepository mRepository;
 
-
     @Override
     public boolean onStartJob(final com.firebase.jobdispatcher.JobParameters job) {
-        Log.d(TAG, "Starting Job");
         mRepository = MarsRepository.getInstance(getApplication());
 
         final Context context = getApplicationContext();
@@ -36,7 +31,6 @@ public class RoverManifestJobService extends JobService   {
                         URL manifestUrl = NetworkUtils.buildManifestUrl(context, roverIndex);
                         String jsonResponse = NetworkUtils.getResponseFromHttpUrl(manifestUrl);
                         RoverManifest manifest = JsonUtils.getRoverManifest(roverIndex, jsonResponse);
-                        Log.d(TAG, "Adding Manifest To Database");
                         mRepository.insertManifest(manifest);
                     } catch (Exception e) {
                         e.printStackTrace();

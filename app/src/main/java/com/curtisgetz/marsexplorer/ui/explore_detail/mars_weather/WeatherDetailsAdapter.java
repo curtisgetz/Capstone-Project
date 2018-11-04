@@ -21,19 +21,14 @@ import butterknife.ButterKnife;
 public class WeatherDetailsAdapter extends RecyclerView.Adapter {
 
 
-    private final static String TAG = WeatherDetailsAdapter.class.getSimpleName();
-
-
-
     private List<WeatherDetail> mWeatherDetails;
     private DetailInfoClick mClickListener;
-
 
     public interface DetailInfoClick{
         void onDetailInfoClick(int index);
     }
 
-    public WeatherDetailsAdapter(DetailInfoClick clickListener) {
+    WeatherDetailsAdapter(DetailInfoClick clickListener) {
         this.mClickListener = clickListener;
     }
 
@@ -81,7 +76,7 @@ public class WeatherDetailsAdapter extends RecyclerView.Adapter {
         private DetailInfoClick mViewClickListener;
         private WeatherDetail mWeatherDetail;
 
-        public WeatherViewHolder(@NonNull View itemView, DetailInfoClick clickListener) {
+        WeatherViewHolder(@NonNull View itemView, DetailInfoClick clickListener) {
             super(itemView);
             this.mViewClickListener = clickListener;
             ButterKnife.bind(this, itemView);

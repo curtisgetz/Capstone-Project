@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
+import com.curtisgetz.marsexplorer.data.rover_explore.ExploreCategory;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,9 +20,8 @@ import butterknife.ButterKnife;
 
 public class ExploreCategoryAdapter extends RecyclerView.Adapter {
 
-    private final static String TAG = ExploreCategoryAdapter.class.getSimpleName();
 
-    private List<RoverExploreCategory> mCategoryList;
+    private List<ExploreCategory> mCategoryList;
     private LayoutInflater mInflater;
     private ExploreCategoryClick mClickListener;
 
@@ -31,12 +30,12 @@ public class ExploreCategoryAdapter extends RecyclerView.Adapter {
     }
 
 
-    public ExploreCategoryAdapter(LayoutInflater mInflater, ExploreCategoryClick mClickListener) {
+    ExploreCategoryAdapter(LayoutInflater mInflater, ExploreCategoryClick mClickListener) {
         this.mInflater = mInflater;
         this.mClickListener = mClickListener;
     }
 
-    public void setData(List<RoverExploreCategory> categories){
+    public void setData(List<ExploreCategory> categories){
         mCategoryList = new ArrayList<>(categories);
         notifyDataSetChanged();
     }
@@ -72,16 +71,16 @@ public class ExploreCategoryAdapter extends RecyclerView.Adapter {
         TextView mTextView;
 
         private ExploreCategoryClick mCatClickListener;
-        private RoverExploreCategory mCategory;
+        private ExploreCategory mCategory;
 
-        public ExploreCategoryViewHolder(@NonNull View itemView, ExploreCategoryClick clickListener) {
+        ExploreCategoryViewHolder(@NonNull View itemView, ExploreCategoryClick clickListener) {
             super(itemView);
             this.mCatClickListener = clickListener;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
-        void setItem(RoverExploreCategory category){
+        void setItem(ExploreCategory category){
             this.mCategory = category;
             mTextView.setText(mCategory.getmTitleText());
             Picasso.get().load(category.getmImageResId()).into(mImageView);

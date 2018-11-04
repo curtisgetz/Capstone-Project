@@ -20,8 +20,6 @@ import java.util.List;
 
 public class MarsRepository {
 
-    private final static String TAG = MarsRepository.class.getSimpleName();
-
     private MarsDao mMarsDao;
     private static MarsRepository sInstance;
 
@@ -31,7 +29,6 @@ public class MarsRepository {
         }
         return sInstance;
     }
-
 
     private MarsRepository(Application application){
         AppDataBase dataBase = AppDataBase.getInstance(application);
@@ -47,15 +44,6 @@ public class MarsRepository {
             @Override
             public void run() {
                 mMarsDao.insertRoverManifest(roverManifest);
-            }
-        });
-    }
-
-    public void updateManifest(final RoverManifest roverManifest){
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mMarsDao.updateRoverManifest(roverManifest);
             }
         });
     }
@@ -79,7 +67,6 @@ public class MarsRepository {
         });
     }
 
-
     public LiveData<Cameras> getCameras(final Context context, final int index, final String sol){
         final MutableLiveData<Cameras> cameras = new MutableLiveData<>();
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -98,7 +85,6 @@ public class MarsRepository {
         return cameras;
     }
 
-
     public LiveData<List<WeatherDetail>> getLatestWeather(final Context context){
         final MutableLiveData<List<WeatherDetail>> weatherDetail = new MutableLiveData<>();
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -115,10 +101,6 @@ public class MarsRepository {
         });
         return weatherDetail;
     }
-
-
-
-
 
     public void addExploreTypesToDB(final List<MainExploreType> exploreTypes){
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -140,7 +122,6 @@ public class MarsRepository {
     public LiveData<List<MainExploreType>> getAllExploreTypes(){
         return mMarsDao.loadAllExploreTypes();
     }
-
 
     public void deleteFavoriteImage(final FavoriteImage favoriteImage){
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -174,7 +155,7 @@ public class MarsRepository {
         });
     }
 
-    public LiveData<List<Tweet>> loadAllTweets(){
+    public LiveData<List<Tweet>> getAllTweets(){
         return mMarsDao.loadAllTweets();
     }
 

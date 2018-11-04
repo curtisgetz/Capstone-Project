@@ -1,23 +1,23 @@
 package com.curtisgetz.marsexplorer.data.rover_explore;
 
-public class RoverExploreCategory {
+public class ExploreCategory {
 
     private int mCatIndex;
     private String mTitleText;
     private int mImageResId;
     private String mContentDescription = "";
 
-    public RoverExploreCategory(){
+    public ExploreCategory(){
 
     }
 
-    public RoverExploreCategory(String mTitleText, int mImageResId, int catIndex) {
+    public ExploreCategory(String mTitleText, int mImageResId, int catIndex) {
         this.mTitleText = mTitleText;
         this.mImageResId = mImageResId;
         this.mCatIndex = catIndex;
     }
 
-    public RoverExploreCategory(String mTitleText, int mImageResId, int catIndex, String contentDescription) {
+    public ExploreCategory(String mTitleText, int mImageResId, int catIndex, String contentDescription) {
         this.mTitleText = mTitleText;
         this.mImageResId = mImageResId;
         this.mCatIndex = catIndex;

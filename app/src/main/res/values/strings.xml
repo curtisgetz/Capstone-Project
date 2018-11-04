@@ -234,5 +234,6 @@
     <string name="enter_sol_hint"><font size="12">Enter Num</font></string>
     <string name="is_favorites_saved_key">is_favorites_saved_key</string>
     <string name="no_favorites">No Favorites</string>
+    <string name="error_getting_weather_snack">Error Getting Weather Data</string>
 
 </resources>

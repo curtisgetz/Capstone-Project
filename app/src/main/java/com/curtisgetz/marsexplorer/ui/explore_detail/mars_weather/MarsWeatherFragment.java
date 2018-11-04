@@ -28,15 +28,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-/*
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MarsWeatherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
-public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapter.DetailInfoClick{
 
-    private final static String TAG = MarsWeatherFragment.class.getSimpleName();
+public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapter.DetailInfoClick{
 
     @BindView(R.id.weather_detail_recycler)
     RecyclerView mWeatherRecycler;
@@ -48,8 +41,6 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
     CoordinatorLayout mCoordinatorLayout;
     private WeatherDetailsAdapter mAdapter;
     private Unbinder mUnBinder;
-
-    // private OnFragmentInteractionListener mListener;
     private WeatherViewModel mViewModel;
 
     public MarsWeatherFragment() {
@@ -86,9 +77,6 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
             }
         });
 
-
-
-
         return view;
     }
 
@@ -105,18 +93,9 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
 
     private void showLoadingError() {
         hideProgress();
-        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "Error Getting Weather Data", Snackbar.LENGTH_LONG);
-        snackbar.setAction("OK", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-
+        Snackbar.make(mCoordinatorLayout, R.string.error_getting_weather_snack,
+                Snackbar.LENGTH_LONG).show();
     }
-
-
 
     private void showProgress(){
         mWeatherProgress.setVisibility(View.VISIBLE);
@@ -133,9 +112,6 @@ public class MarsWeatherFragment extends Fragment implements WeatherDetailsAdapt
         if(activity == null) return;
         InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(activity, InformationUtils.WEATHER_INFO);
         infoDialogFragment.show(activity.getSupportFragmentManager(), InformationUtils.class.getSimpleName());
-
-      /*  InformationUtils.getInfoFragment(InformationUtils.WEATHER_INFO)
-                .show(getActivity().getSupportFragmentManager(), InformationUtils.class.getSimpleName());*/
     }
 
 

@@ -1,9 +1,6 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Helper;
-import android.util.Log;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Cameras;
@@ -19,7 +16,7 @@ import java.util.List;
 
 public final class JsonUtils {
 
-    private final static String TAG = JsonUtils.class.getSimpleName();
+
 
 
 //JSON keys---------------------------------
@@ -73,7 +70,6 @@ public final class JsonUtils {
         JSONObject mainObject = new JSONObject(url);
 
         int status = mainObject.optInt(WEATHER_STATUS, 0);
-        Log.d(TAG, String.valueOf(status));
         if(status != 200) {
             return null;
         }
@@ -141,7 +137,6 @@ public final class JsonUtils {
             maxSol = manifestObject.optString(ROVER_MAX_SOL, FALLBACK_STRING);
             maxDate = manifestObject.optString(ROVER_MAX_DATE, FALLBACK_STRING);
             totalPhotos = manifestObject.optString(ROVER_TOTAL_PHOTOS, FALLBACK_STRING);
-            Log.i(TAG, status);
             return new RoverManifest(roverIndex, name, launch, land, status, maxSol, maxDate, totalPhotos);
         }
         return null;

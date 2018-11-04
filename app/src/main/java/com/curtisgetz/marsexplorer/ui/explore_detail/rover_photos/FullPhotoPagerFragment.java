@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,8 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FullPhotoPagerFragment extends Fragment implements View.OnTouchListener {
-    private final static String TAG = FullPhotoPagerFragment.class.getSimpleName();
-
 
 
     @BindView(R.id.rover_photo_full_imageview)
@@ -53,8 +50,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         String getDateString();
         int getRoverIndex();
     }
-
-
 
     public static FullPhotoPagerFragment newInstance(String url) {
         FullPhotoPagerFragment fullPhotoPagerFragment = new FullPhotoPagerFragment();
@@ -102,6 +97,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
             mUrl = getArguments().getString(HelperUtils.PHOTO_PAGER_URL_EXTRA);
         }
         //Allow user to swipe photo up to close
+        // add animation later
         mGestureDetector = new GestureDetectorCompat(getContext(), new OnSwipeListener(){
             @Override
             public boolean onSwipe(Direction direction) {
@@ -120,7 +116,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         mUnBinder = ButterKnife.bind(this, view);
 
         view.setOnTouchListener(this);
-        //enable options menu from thi fragment (Star for adding to/removing from favorites)
+        //enable options menu from this fragment (Star for adding to/removing from favorites)
         setHasOptionsMenu(true);
         //Picasso will throw exception with empty string. Should never be empty but do final check
         if(mUrl == null || mUrl.isEmpty()) {
@@ -191,7 +187,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
             //be current when menu is prepared again!
             String dateString = mListener.getDateString();
             int roverIndex = mListener.getRoverIndex();
-            Log.d(TAG, String.valueOf(roverIndex) + "  " +  dateString);
             mViewModel.saveFavoriteImage(mUrl, dateString, roverIndex);
             isAlreadyFavorite = true;
         }
