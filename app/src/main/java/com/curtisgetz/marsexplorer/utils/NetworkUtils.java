@@ -21,8 +21,8 @@ public final class NetworkUtils {
 
 
     //TODO  Use "DEMO_KEY" for limited use.  If you reach limits you can apply for a key at https://api.nasa.gov/index.html#apply-for-an-api-key
-    private static final String NASA_API = Config.MY_NASA_API;
-    //private static final String NASA_API = "DEMO_KEY";
+    //private static final String NASA_API = Config.MY_NASA_API;
+    private static final String NASA_API = "DEMO_KEY";
 
     //remote config keys
     private final static String PHOTOS_BASE_REMOTE_CONFIG_KEY = "base_rover_photos_url";
