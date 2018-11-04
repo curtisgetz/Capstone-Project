@@ -26,8 +26,10 @@ import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
 import com.curtisgetz.marsexplorer.data.Cameras;
+import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 import com.curtisgetz.marsexplorer.ui.settings.SettingsActivity;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
+import com.curtisgetz.marsexplorer.utils.InformationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private String mDateString;
     private Unbinder mUnBinder;
     private static boolean hasShownPrefSnack = false;
+
     //RecyclerViews for each camera
     @BindView(R.id.photos_fhaz_recyclerview) RecyclerView mFhazRecyclerView;
     @BindView(R.id.photos_rhaz_recyclerview) RecyclerView mRhazRecyclerView;
@@ -84,8 +87,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
     private RoverPhotosAdapter mPancamAdapter;
     private RoverPhotosAdapter mMinitesAdapter;
 
-    //todo handle sol with no pictures
-    //todo show snack when downloading all pictures because it will take longer.
+
 
     public static RoverPhotosFragment newInstance(Context context, int roverIndex, String sol){
         RoverPhotosFragment fragment = new RoverPhotosFragment();
@@ -109,6 +111,7 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
         View view = inflater.inflate(R.layout.fragment_rover_photos, container, false);
         mUnBinder = ButterKnife.bind(this, view);
 
+        shownPhotoLimitDialog();
         displayPrefSnack();
         hideAllViews();
         showMainProgress();
@@ -375,5 +378,21 @@ public class RoverPhotosFragment extends Fragment implements RoverPhotosAdapter.
 
     }
 
+    private void shownPhotoLimitDialog(){
+        //see if dialog has been shown to user before.
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if(!sharedPreferences.getBoolean(getString(R.string.pref_shown_photos_info),
+                getResources().getBoolean(R.bool.pref_shown_photos_dialog_default))){
+            FragmentActivity activity = getActivity();
+            if(activity!=null){
+                InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(activity, InformationUtils.PHOTO_LIMIT_PREF);
+                infoDialogFragment.show(activity.getSupportFragmentManager(), InformationUtils.class.getSimpleName());
+                //change shared pref to true so dialog only shows one time. Snackbar will continue to show sometimes.
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(getString(R.string.pref_shown_photos_info), true);
+                editor.apply();
+            }
+        }
+    }
 
 }

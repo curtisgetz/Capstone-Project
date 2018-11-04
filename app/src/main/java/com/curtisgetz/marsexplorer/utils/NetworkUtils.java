@@ -28,8 +28,7 @@ public final class NetworkUtils {
     //remote config keys
     private final static String PHOTOS_BASE_REMOTE_CONFIG_KEY = "base_rover_photos_url";
     private final static String WEATHER_BASE_REMOTE_CONFIG_KEY = "base_mars_weather_url";
-   // private static final String BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/";
-   // private static final String WEATHER_BASE_URL= "https://api.maas2.jiinxt.com/";
+
 
 
     //query parameters.
@@ -135,12 +134,6 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
         return url;
-    }
-
-    public static URL buildWeatherUrl(int sol){
-        //todo get weather within range (maybe can wait)
-        URL url = buildWeatherUrl();
-        return null;
     }
 
 

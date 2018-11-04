@@ -78,6 +78,10 @@ public class FactWidgetProvider extends AppWidgetProvider {
 
     }
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+    }
 
     @Override
     public void onEnabled(Context context) {

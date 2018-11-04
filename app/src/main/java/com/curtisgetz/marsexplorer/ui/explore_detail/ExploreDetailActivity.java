@@ -1,20 +1,15 @@
 package com.curtisgetz.marsexplorer.ui.explore_detail;
 
 
- ;
-import android.app.Activity;
+
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.TaskStackBuilder;
  import android.support.v7.app.ActionBar;
- import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 
 import com.curtisgetz.marsexplorer.R;
@@ -44,9 +39,7 @@ public class ExploreDetailActivity extends MarsBaseActivity implements
     private int mExploreCatIndex;
     private String mCurrentSol;
     private int mRoverIndex;
-    private Activity mParent;
     private String mParentActivity;
-   // private boolean showFavoriteMenu;
 
     @BindView(R.id.explore_detail_activity_coordinator)
     CoordinatorLayout mCoordinatorLayout;
@@ -192,15 +185,8 @@ public class ExploreDetailActivity extends MarsBaseActivity implements
 
     @Override
     public void displaySnack(String message) {
-        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.snackbar_dismiss, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
+        Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
 
-        snackbar.show();
     }
 
 
@@ -220,13 +206,8 @@ public class ExploreDetailActivity extends MarsBaseActivity implements
 
     private Intent getParentActivity(){
         Intent intent;
-
-        //Intent incomingIntent = getIntent();
-        //String parent = incomingIntent.getStringExtra(getString(R.string.parent_activity_tag_extra));
         //check extra to find parent. Parent will add their name as an extra
-
         if(mParentActivity == null){
-            Log.d(TAG, "PARENT IS NULL");
             intent = new Intent(this, MainActivity.class);
         }else if (mParentActivity.equalsIgnoreCase(RoverExploreActivity.class.getSimpleName())){
             intent = new Intent(this, RoverExploreActivity.class);
@@ -238,6 +219,7 @@ public class ExploreDetailActivity extends MarsBaseActivity implements
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return intent;
     }
+
 
 
 }

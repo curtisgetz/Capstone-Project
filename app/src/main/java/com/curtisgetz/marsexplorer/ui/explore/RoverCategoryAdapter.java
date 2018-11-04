@@ -40,10 +40,9 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
 
 
-    public RoverCategoryAdapter(LayoutInflater inflater, CategoryClickListener clickListener){
+    public RoverCategoryAdapter(CategoryClickListener clickListener){
        this.mClickListener = clickListener;
-       //this.mInflater = inflater;
-       // this.mSolButtonClick = solClickListener;
+
     }
 
     public void setData(List<RoverExploreCategory> categories){
@@ -60,7 +59,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rover_explore_list_item, parent,  false);
 
@@ -79,9 +77,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
         if(mCategoryList == null) return 0;
         return mCategoryList.size();
     }
-
-
-
 
 
     class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -113,7 +108,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-
             mCatClickListener.onCategoryClick(mCategory.getmCatIndex());
         }
 
@@ -123,13 +117,13 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
             mTextView.setText(category.getmTitleText());
             Picasso.get().load(category.getmImageResId()).into(mImageView);
             //if the category is PHOTO_CATEGORY, then show buttons and edit text for user input.
-            setupSolSearchViews(category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE);
+            setupViews(category.getmCatIndex() == PHOTO_CATEGORY ? View.VISIBLE : View.GONE);
         }
 
 
-        private void setupSolSearchViews(int visibility){
+        private void setupViews(int visibility){
             mImageView.setContentDescription(mCategory.getContentDescription());
-            //set visibility of Views for searching pictures
+            //set visibility of Views for searching rover pictures
             mSolEdit.setVisibility(visibility);
             mSolRandBtn.setVisibility(visibility);
             mSolSearchBtn.setVisibility(visibility);

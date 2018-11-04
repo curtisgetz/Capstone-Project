@@ -18,7 +18,6 @@ import com.firebase.jobdispatcher.Trigger;
 public class MarsExplorerApp extends Application{
 
     private final static String TAG = MarsExplorerApp.class.getSimpleName();
-    //todo change times after testing = set to 2-4 times a day in final version
     private FirebaseJobDispatcher mJobDispatcher;
     //set trigger execution min and max for execution window of Job
     private final static int TIME_BETWEEN_JOBS = 21600000; //6 hours in milliseconds.
@@ -30,7 +29,6 @@ public class MarsExplorerApp extends Application{
             new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            Log.d(TAG, "Shared Pref Changed");
             if(key.equals(getString(R.string.pref_rover_job_scheduler_key))){
                 scheduleManifestJob();
             }
@@ -54,7 +52,6 @@ public class MarsExplorerApp extends Application{
 
 
     private void scheduleManifestJob(){
-        //todo add setting for enable/disable jobschedule
         //Check preferences to see if user wants to keep rover manifests up to date in background.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean scheduleRoverJob = sharedPreferences.getBoolean(
@@ -65,7 +62,6 @@ public class MarsExplorerApp extends Application{
         mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
         if(scheduleRoverJob){
-            Log.d(TAG, "scheduling manifest job");
             //if user wants to keep manifests up to date then schedule job
             //keep manifests up to date periodically but will also update on demand
             Job manifestJob = mJobDispatcher.newJobBuilder()

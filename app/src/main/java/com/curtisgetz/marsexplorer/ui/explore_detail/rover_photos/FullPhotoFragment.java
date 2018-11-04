@@ -54,6 +54,7 @@ public class FullPhotoFragment extends Fragment   {
     private boolean mIsFavorites;
     private Unbinder mUnBinder;
     private FavoriteViewModel mViewModel;
+    private boolean favoritesDisplayed;
 
 
     public static FullPhotoFragment newInstance(Context context, ArrayList<String> urls, int startingPos,
@@ -61,13 +62,15 @@ public class FullPhotoFragment extends Fragment   {
 
         FullPhotoFragment fragment = new FullPhotoFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList(context.getResources().getString(R.string.url_list_extra), urls);
+        bundle.putStringArrayList(context.getString(R.string.url_list_extra), urls);
         bundle.putInt(context.getString(R.string.clicked_photo_pos_extra), startingPos);
         bundle.putInt(context.getString(R.string.rover_index_extra), roverIndex);
         bundle.putString(context.getString(R.string.date_string_extra), dateString);
+        bundle.putBoolean(context.getString(R.string.is_favorite_screen_extra), false);
         fragment.setArguments(bundle);
         return fragment;
     }
+
 
 
     public FullPhotoFragment() {
@@ -107,17 +110,16 @@ public class FullPhotoFragment extends Fragment   {
         if(savedInstanceState == null && getArguments() != null) {
             Bundle bundle = getArguments();
             mIsFavorites = bundle.getBoolean(getString(R.string.is_favorites_key), false);
-
             mRoverIndex = bundle.getInt(getString(R.string.rover_index_extra));
             mUrls = bundle.getStringArrayList(getString(R.string.url_list_extra));
             mStartingPos = bundle.getInt(getString(R.string.clicked_photo_pos_extra));
             mDateString = bundle.getString(getString(R.string.date_string_extra), getString(R.string.unknown_date));
-            Log.d(TAG, "in on create - " + mDateString);
         }else if(savedInstanceState != null) {
             mUrls = savedInstanceState.getStringArrayList(getString(R.string.url_list_saved));
             mStartingPos = savedInstanceState.getInt(getString(R.string.starting_pos_saved));
             mRoverIndex = savedInstanceState.getInt(getString(R.string.rover_index_saved_key));
             mDateString = savedInstanceState.getString(getString(R.string.date_string_extra));
+            mIsFavorites = savedInstanceState.getBoolean(getString(R.string.is_favorites_saved_key));
         }
 
     }
@@ -129,12 +131,11 @@ public class FullPhotoFragment extends Fragment   {
         View view = inflater.inflate(R.layout.fragment_full_photo, container, false);
         mUnBinder = ButterKnife.bind(this, view);
 
+
         mAdapter = new FullPhotoAdapter(getChildFragmentManager(), getActivity());
         mViewPager.setAdapter(mAdapter);
         mAdapter.setData(mUrls);
         mViewPager.setCurrentItem(mStartingPos);
-
-        Log.d(TAG, String.valueOf(mRoverIndex));
 
         return view;
     }
@@ -148,10 +149,10 @@ public class FullPhotoFragment extends Fragment   {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-       // ArrayList<String> urlList = new ArrayList<>(mUrls);
         outState.putStringArrayList(getString(R.string.url_list_saved),  new ArrayList<>(mUrls));
         outState.putInt(getString(R.string.starting_pos_saved), mStartingPos);
         outState.putInt(getString(R.string.rover_index_saved_key), mRoverIndex);
+        outState.putBoolean(getString(R.string.is_favorites_saved_key), mIsFavorites);
     }
 
 
@@ -161,12 +162,16 @@ public class FullPhotoFragment extends Fragment   {
         if(activity == null) return;
 
         String roverName = HelperUtils.getRoverNameByIndex(activity, mRoverIndex);
-        Log.d(TAG, "rover = " + mRoverIndex + "  " + mDateString + "  _  " + roverName);
-
-       // Log.d(TAG, "DATE IS - " + date);
-        String shareMessage = getString(R.string.share_pic_text,
-                roverName, mDateString, mUrls.get(mViewPager.getCurrentItem()));
-
+               //use custom share message if not in Favorites. Otherwise use simple share message.
+        //look into custom share message for Favorites later.
+        String shareMessage;
+        if(mRoverIndex == -1){
+            shareMessage = getString(R.string.simple_share_pic_text)
+                    + "\n\n" + mUrls.get(mViewPager.getCurrentItem());
+        }else {
+            shareMessage = getString(R.string.share_pic_text,
+                    roverName, mDateString, mUrls.get(mViewPager.getCurrentItem()));
+        }
         Intent intentToShare = ShareCompat.IntentBuilder.from(activity)
                 .setType("text/plain")
                 .setText(shareMessage)

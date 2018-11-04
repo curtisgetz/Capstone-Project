@@ -113,14 +113,8 @@ public class MarsExploreActivity extends MarsBaseActivity implements
         if((networkInfo != null && networkInfo.isConnected())){
             return true;
         }else {
-            final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, R.string.internet_required, Snackbar.LENGTH_LONG);
-            snackbar.setAction(getString(R.string.snackbar_dismiss), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    snackbar.dismiss();
-                }
-            });
-            snackbar.show();
+            Snackbar.make(mCoordinatorLayout, R.string.internet_required,
+                    Snackbar.LENGTH_LONG).show();
             return false;
         }
     }
@@ -128,14 +122,8 @@ public class MarsExploreActivity extends MarsBaseActivity implements
 
     @Override
     public void displaySnack(String message) {
-        final Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.snackbar_dismiss, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+
     }
     @Override
     public void callDisplaySnack(String message) {

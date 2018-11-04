@@ -50,9 +50,10 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
 
     private FavoriteViewModel mViewModel;
     private FavoritesAdapter mAdapter;
-    private FullPhotoPagerFragment.FullPhotoPagerInteraction mListener;
+    //private FullPhotoPagerFragment.FullPhotoPagerInteraction mListener;
     private Unbinder mUnBinder;
     private boolean isTwoPane;
+    private boolean isSw600;
 
 
     public FavoritePhotosFragment() {
@@ -77,12 +78,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
     public void onAttach(Context context) {
         super.onAttach(context);
         setHasOptionsMenu(true);
-        if(context instanceof FullPhotoPagerFragment.FullPhotoPagerInteraction){
-            mListener = (FullPhotoPagerFragment.FullPhotoPagerInteraction) context;
-        }else{
-            throw new RuntimeException(context.toString()
-                    + " must implement FullPhotoPagerInteraction");
-        }
+
         FragmentActivity activity = getActivity();
         if(activity != null) {
             mAdapter = new FavoritesAdapter(this);
@@ -100,7 +96,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+
         setHasOptionsMenu(false);
     }
 
@@ -111,7 +107,9 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         View view = inflater.inflate(R.layout.fragment_favorite_photos, container, false);
         mUnBinder =  ButterKnife.bind(this, view);
         isTwoPane = getResources().getBoolean(R.bool.is_sw600_land);
+        isSw600 = getResources().getBoolean(R.bool.is_sw600);
 
+        Log.d(TAG, String.valueOf(isTwoPane));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getSpanCount());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -122,7 +120,7 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
 
 
     private int getSpanCount(){
-        return isTwoPane ? 4 : 3;
+        return isTwoPane|isSw600 ? 4 : 3;
     }
 
     @Override
@@ -149,16 +147,10 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
         FragmentActivity activity = getActivity();
         if(activity == null) return;
 
-        String newDate = mViewModel.getDate(pos);
-        int roverIndex2 = mViewModel.getRoverIndex(pos);
-        Log.d(TAG, "onPhotoClick " + newDate +  " - " + String.valueOf(roverIndex2));
-
-        //String dateString = mListener.getDateString();
-      //  int roverIndex = mListener.getRoverIndex();
-       // Log.d(TAG, dateString);
         ArrayList<String> urlList = new ArrayList<>(urls);
         FullPhotoFragment photoFragment = FullPhotoFragment.newInstance(activity, urlList,
-                pos, roverIndex2, newDate);
+                pos, -1, "");
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.explore_detail_container, photoFragment,
                         FullPhotoFragment.class.getSimpleName())
@@ -166,9 +158,12 @@ public class FavoritePhotosFragment extends Fragment implements FavoritesAdapter
                 .commit();
     }
 
+
+
+
     private void confirmDeleteAll(){
-        Snackbar snackbar = Snackbar.make(mCoordinator, "Delete All?", Snackbar.LENGTH_LONG);
-        snackbar.setAction("Confirm", new View.OnClickListener() {
+        Snackbar snackbar = Snackbar.make(mCoordinator, R.string.delete_all_snack, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.confirm_action, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mViewModel.deleteAllFavorites();

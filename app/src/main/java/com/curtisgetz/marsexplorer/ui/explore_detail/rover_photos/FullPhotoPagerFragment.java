@@ -56,8 +56,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
 
 
-//todo animate swipe up to close
-    public static Fragment newInstance(String url) {
+    public static FullPhotoPagerFragment newInstance(String url) {
         FullPhotoPagerFragment fullPhotoPagerFragment = new FullPhotoPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(HelperUtils.PHOTO_PAGER_URL_EXTRA, url);
@@ -84,7 +83,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
                 @Override
                 public void onChanged(@Nullable List<FavoriteImage> favoriteImages) {
                     updateMenu();
-
                 }
             });
         }
@@ -100,8 +98,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
-
         if(getArguments() != null) {
             mUrl = getArguments().getString(HelperUtils.PHOTO_PAGER_URL_EXTRA);
         }
@@ -110,29 +106,25 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
             @Override
             public boolean onSwipe(Direction direction) {
                 if(direction == Direction.up){
-                    //mImageView.animate().translationY(mImageView.getHeight());
-                    getActivity().onBackPressed();
+                    if(getActivity()!=null) getActivity().onBackPressed();
                 }
                 return true;
             }
         });
     }
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.full_photo_pager_item, container, false);
         mUnBinder = ButterKnife.bind(this, view);
-        view.setOnTouchListener(this);
 
+        view.setOnTouchListener(this);
         //enable options menu from thi fragment (Star for adding to/removing from favorites)
         setHasOptionsMenu(true);
         //Picasso will throw exception with empty string. Should never be empty but do final check
         if(mUrl == null || mUrl.isEmpty()) {
-            displayErrorImage();
+            Picasso.get().load(R.drawable.marsimageerror).into(mImageView);
         }else {
             Picasso.get().load(mUrl)
                     .error(R.drawable.marsimageerror)
@@ -149,10 +141,6 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         mUnBinder.unbind();
     }
 
-    private void displayErrorImage(){
-        Picasso.get().load(R.drawable.marsimageerror).into(mImageView);
-    }
-
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         view.performClick();
@@ -167,13 +155,13 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
+
+        switch (item.getItemId()){
             case R.id.action_add_favorite:
                 clickFavoriteMenu();
                 return true;
             case android.R.id.home:
-                getActivity().onNavigateUp();
+                if(getActivity()!=null) getActivity().onNavigateUp();
                 return true;
         }
         return true;
@@ -208,7 +196,7 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
             isAlreadyFavorite = true;
         }
         displaySnack();
-        getActivity().invalidateOptionsMenu();
+        if(getActivity() != null) getActivity().invalidateOptionsMenu();
     }
 
     private void displaySnack() {
@@ -221,11 +209,10 @@ public class FullPhotoPagerFragment extends Fragment implements View.OnTouchList
         mListener.callDisplaySnack(message);
     }
 
-
     private void updateMenu(){
         //Find if current url is already a favorite and update menu
         isAlreadyFavorite = mViewModel.isAlreadyFavorite(mUrl);
-        getActivity().invalidateOptionsMenu();
+        if(getActivity() != null) getActivity().invalidateOptionsMenu();
     }
 
 

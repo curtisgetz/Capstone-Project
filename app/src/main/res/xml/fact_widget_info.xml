@@ -10,5 +10,3 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="10800000"
     android:widgetCategory="home_screen"/>
-
-<!--  todo change update period!  -->

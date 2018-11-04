@@ -45,8 +45,6 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
 
-//TODO create credits page
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,7 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            //check for Intent from tweet notification.
+            //check for bundle from tweet notification.
             //if there is an intent then open ExploreDetailActivity with the tweet explore index as
             // an extra so ExploreDetailActivity will open the Tweet Fragment
             Intent intent = new Intent(this, ExploreDetailActivity.class);
@@ -64,8 +62,7 @@ public class MainActivity extends MarsBaseActivity implements MainExploreAdapter
 
             //if app was in background then attempt to create tweet and save to DB here before starting intent
             if(extras.containsKey(MarsFirebaseMessagingService.JSON_KEY_TWEET_ID)){
-                Tweet tweet = new Tweet();
-                tweet = createTweetFromIntent(extras);
+                Tweet tweet = createTweetFromIntent(extras);
                 if(tweet != null){
                     saveTweetToDb(tweet);
                     startTweetFragment(intent);

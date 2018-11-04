@@ -1,46 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Main Explore Options Index -->
-    <integer name="mars_explore_index">0</integer>
-    <integer name="curiosity_rover_index">1</integer>
-    <integer name="opportunity_rover_index">2</integer>
-    <integer name="spirit_rover_index">3</integer>
-
-    <integer-array name="main_explore_options">
-        <item>@integer/mars_explore_index</item>
-        <item>@integer/curiosity_rover_index</item>
-        <item>@integer/opportunity_rover_index</item>
-        <item>@integer/spirit_rover_index</item>
-    </integer-array>
-
-
-
-    <!-- Rover Categories Index -->
-    <integer name="rover_pictures_category_index">0</integer>
-    <integer name="rover_info_category_index">1</integer>
-    <integer name="rover_science_category_index">2</integer>
-
-    <!-- Available Categories For Each Rover -->
-    <integer-array name="curiosity_categories">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </integer-array>
-    <integer-array name="opportunity_categories">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </integer-array>
-    <integer-array name="spirit_categories">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </integer-array>
-
-
-    <!-- information dialog fragment index -->
-    <integer name="error_loading_info">-1</integer>
-    <integer name="sol_range_info">0</integer>
 
 
 </resources>

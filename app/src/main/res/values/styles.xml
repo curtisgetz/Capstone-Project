@@ -5,9 +5,20 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/marsOrange</item>
         <item name="colorPrimaryDark">@color/marsOrangeDark</item>
-        <item name="colorAccent">@color/marsYellow</item>
+        <item name="colorAccent">@color/marsLightOrange</item>
         <item name="android:windowBackground">@color/blackBackground</item>
         <item name="android:textColor">@color/lightText</item>
+        <item name="popupMenuStyle">@style/MarsPopupMenu</item>
+        <item name="actionBarPopupTheme">@style/MarsPopupMenu</item>
+
+
+    </style>
+
+
+    <style name="MarsPopupMenu" parent="Widget.AppCompat.ListPopupWindow">
+        <item name="android:textColor">@color/blackBackground</item>
+        <item name="android:background">@color/lightText</item>
+
     </style>
 
     <style name="MarsSettingsTheme" parent="AppTheme">
@@ -42,9 +53,25 @@
     </style>
 
     <style name="RoverExploreCardViewText" parent="MainCardViewText">
+        <item name="android:textColor">@color/blackBackground</item>
         <item name="android:textSize">@dimen/rover_explore_card_title_text_size</item>
         <item name="android:paddingTop">@dimen/main_cardview_text_padding_btm</item>
         <item name="android:layout_gravity">top|center_horizontal</item>
+    </style>
+
+    <style name="MarsExploreCardViewText" parent="RoverExploreCardViewText">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="RoverExploreButton" parent="Base.Widget.AppCompat.Button.Colored">
+
+    </style>
+
+    <style name="RoverExploreSolSearchText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/rover_explore_card_sol_search_text_size</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
     </style>
 
 
@@ -99,10 +126,13 @@
 
     <style name="MarsWeatherText" parent="Base.TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/blackBackground</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+
     </style>
 
     <style name="MarsWeatherText.Label" parent="MarsWeatherText">
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/mars_weather_label_text_size</item>
         <item name="android:layout_marginStart">@dimen/mars_weather_label_margin_start</item>
     </style>
@@ -110,6 +140,20 @@
     <style name="MarsWeatherText.Detail" parent="MarsWeatherText">
         <item name="android:textSize">@dimen/mars_weather_detail_text_size</item>
         <item name="android:layout_marginStart">@dimen/mars_weather_detail_margin_start</item>
+    </style>
+
+    <style name="MarsWeatherText.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/blackBackground</item>
+        <item name="android:textSize">@dimen/mars_weather_title_text_size</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/mars_weather_title_text_margin</item>
+    </style>
+
+    <style name="MarsWeatherText.SubTitle" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/mars_weather_subtitle_text_size</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/mars_weather_subtitle_text_size</item>
     </style>
 
     <style name="MarsFactsTextTitle" parent="TextAppearance.AppCompat.Display1">
@@ -120,7 +164,8 @@
 
     <style name="MarsFactsText" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">@dimen/mars_fact_text_size</item>
-        <item name="android:layout_margin">@dimen/mars_fact_layout_margin</item>
+        <item name="android:padding">@dimen/mars_fact_text_padding</item>
+        <item name="android:layout_margin">@dimen/mars_fact_text_margin</item>
     </style>
 
     <style name="MarsFactBottomLink" parent="Base.TextAppearance.AppCompat.Body2">
@@ -131,7 +176,16 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:padding">@dimen/mars_fact_link_margin</item>
-
     </style>
+
+    <style name="InformationText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:textSize">@dimen/information_dialog_text_size</item>
+        <item name="android:padding">@dimen/information_dialog_text_padding</item>
+    </style>
+
+
+
+
 
 </resources>

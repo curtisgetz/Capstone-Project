@@ -34,7 +34,8 @@
     <string name="info_error_text">Error Loading Information</string>
     <string name="info_sol_text_details">The term Sol is used to refer to the duration of a solar day on Mars.
         \nA Martian solar day, or "Sol", is 24 hours, 39 minutes, and 35.244 seconds.
-        \nPhotos are organized by the Sol on which they were taken, counting up from the rover landing date. </string>
+        \nPhotos are organized by the Sol on which they were taken, counting up from the rover landing date.
+        \nSearch by entering a number within the sol range or by random sol.</string>
     <string name="info_air_temp">Mars is farther from the Sun than Earth. Because of this,  Mars is colder than our planet.
         Moreover, Martian atmosphere, which is extremely tenuous, does not retain the heat; hence
         the difference between day and night's temperatures is more pronounced than in our planet.</string>
@@ -49,15 +50,15 @@
         bigger differences between day and night temperatures. Moreover, dust storms lash its surface.
         However, Mars\' and Earth\'s climates have important similarities, such as the polar ice
         caps and seasonal changes. As on Earth, on Mars we can have sunny, cloudy or windy days, for example.</string>
-    <string name="limit_photos_pref_desc">The rovers have taken a very large number of pictures of the while on the
-        surface of Mars. You can limit the number of photos the app retrieves if searches are taking too long
-        or if you are concerned about using too much data.</string>
     <string name="rover_manifest_pref_desc">The app can keep mission manifest details up to date in the background.
         This will run a couple times a day and should not use much data or take much time. If you do not want to keep
         it up to date in the background the details will be refreshed when that screen is opened and you may notice a short delay.</string>
     <string name="tweet_pref_desc">You are not allowing Tweets. Tweets can be enabled in Settings. \n
         Mars Explorer can notify you when Curiosity Rover publishes a Tweet. These tweets will
         be saved after you receive a notification</string>
+    <string name="shown_photos_info_dialog">The rovers have taken a lot of photos from the surface of Mars.
+        Mars Explorer limits the number of photos by default. If you would like to get all available
+        photos when searching you can enable this in Settings. This may use more data and take longer. </string>
 
 
     <string name="info_index_key" translatable="false">info_index_key</string>
@@ -135,11 +136,15 @@
     <string name="rover_index_extra" translatable="false">rover_index_extra</string>
     <string name="parent_activity_tag_extra" translatable="true">parent_activity_tag</string>
     <string name="fav_menu_boolean_saved_key" translatable="false">fav_menu_boolean_saved_key</string>
+    <string name="date_string_extra" translatable="false">date_string_extra</string>
+
 
     <!--  Snackbar Strings -->
     <string name="internet_required">This Feature Requires Internet Connection</string>
-    <string name="snackbar_dismiss">OK</string>
     <string name="unable_load_new_fact">Unable To Load New Fact</string>
+    <string name="settings_action">Settings</string>
+    <string name="limiting_photos_snack">Limiting Photos</string>
+    <string name="getting_all_photos_snack">Getting All Photos</string>
 
     <!--  Weather Detail Labels -->
     <string name="weather_season">Season</string>
@@ -167,13 +172,14 @@
     <string name="share_pic_text" formatted="false">Check out this picture from the Mars Explorer
         app!\nTaken by %1$s Rover on %2$s.\n\n%3$s</string>
 
+    <string name="simple_share_pic_text">Check out this picture from the Mars Explorer app!</string>
+
 
     <string name="your_saved_photo_cd">Your saved photo</string>
     <string name="delete_all_favorites_menu">Delete All Favorites</string>
     <string name="photo_from_rover_cd">Photo from rover</string>
     <string name="added_to_favorites">Added To Favorites</string>
     <string name="removed_from_favorites">Removed From Favorites</string>
-    <string name="date_string_extra">date_string_extra</string>
     <string name="unknown_date">unknown date</string>
     <string name="date_on_string">on</string>
     <string name="is_favorites_key">is_favorites_key</string>
@@ -201,14 +207,31 @@
     <string name="pref_rover_job_scheduler_label">Keep rover details up to date</string>
     <string name="pref_rover_job_summary_off">Not keeping rover data up to date in background. Will still update when app is open</string>
     <string name="pref_rover_job_summary_on">Allowing rover data to update in the background a couple times a day.</string>
+    <string name="pref_shown_photos_info" translatable="false">shown_photos_dialog</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="settings_action">Settings</string>
-    <string name="limiting_photos_snack">Limiting Photos</string>
-    <string name="getting_all_photos_snack">Getting All Photos</string>
+
+
     <string name="rover_category_cd">Rover Category</string>
     <string name="mars_category_cd">Mars Category</string>
+    <string name="is_favorite_screen_extra">is_favorite_screen</string>
+    <string name="info_icon_cd">Information Icon</string>
+    <string name="confirm_action">Confirm</string>
+    <string name="delete_all_snack">Delete All?</string>
 
+
+
+
+    <!-- Credits Dialog -->
+
+    <string name="credits_dialog">Thanks to :\n
+        NASA.gov\ntheplanets.org\nnineplanets.org\nmaas2.jiinxt.com\nIcons made by freepik.com via flaticon.com
+    </string>
+    <string name="credits">Credits…</string>
+    <string name="photo_of_rover_cd">Photo of rover</string>
+    <string name="view_photos_from_sol">View Photos From Sol #</string>
+    <string name="search_sol_button">Search Sol</string>
+    <string name="random_sol_button">Random Sol</string>
+    <string name="enter_sol_hint"><font size="12">Enter Num</font></string>
+    <string name="is_favorites_saved_key">is_favorites_saved_key</string>
 
 </resources>

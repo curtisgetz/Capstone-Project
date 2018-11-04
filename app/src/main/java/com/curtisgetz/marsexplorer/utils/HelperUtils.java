@@ -188,20 +188,19 @@ public final class HelperUtils {
         List<RoverScience> roverScienceList = new ArrayList<>();
         for(int index : indices){
             String text = getScienceText(context, index, roverIndex);
-            int imageId = 1;
+            int imageId;
             if(roverIndex == CURIOSITY_ROVER_INDEX){
                 imageId = getCuriosityScienceImageId(index);
             }else {
                 imageId = getOppSpiritScienceImageId(index);
             }
-            //int imageId = getScienceImageId(context, index, roverIndex);
-            String title = getScienceTabTitle(context, index, roverIndex);
+            String title = getScienceTabTitle(context, index);
             roverScienceList.add(new RoverScience(index, title, text, imageId));
         }
         return roverScienceList;
     }
 
-    private static String getScienceTabTitle(Context context, int scienceIndex, int roverIndex){
+    private static String getScienceTabTitle(Context context, int scienceIndex){
         switch (scienceIndex){
             case SCIENCE_MASTCAM_INDEX:
                 return context.getString(R.string.science_mast);
@@ -261,7 +260,6 @@ public final class HelperUtils {
                 return "";
         }
     }
-
 
 
     private static String getScienceText(Context context, int scienceIndex, int roverIndex){
@@ -391,11 +389,9 @@ public final class HelperUtils {
                 return R.drawable.curiosity_antenna;
             case SCIENCE_BRAINS_INDEX:
                 return R.drawable.curiosity_body;
-
             default:
                 return R.drawable.curiosity_selfie;
         }
-
     }
 
     //get image resId for science instrument or rover part info
@@ -510,7 +506,6 @@ public final class HelperUtils {
         return exploreCategoriesList;
     }
 
-
     private static String getCategoryTitle(Context context, int categoryIndex){
         switch (categoryIndex){
             case MARS_WEATHER_CAT_INDEX:
@@ -532,7 +527,6 @@ public final class HelperUtils {
         }
 
     }
-
 
 
     private static int getCategoryImgResId(Context context, int exploreIndex, int categoryIndex){
@@ -575,7 +569,6 @@ public final class HelperUtils {
 
         return context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
     }
-
 
 
     private static String getMainExploreOptionTitle(Context context, int exploreIndex){
@@ -644,14 +637,10 @@ public final class HelperUtils {
         }
     }
 
-
-
     public static String capitalizeFirstLetter(String text){
         return text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
 
     }
-
-
 
 
     // Setup Main Explore Options Below
@@ -685,7 +674,5 @@ public final class HelperUtils {
         return new MainExploreType(SPIRIT_ROVER_INDEX,
                 getMainExploreOptionTitle(context, SPIRIT_ROVER_INDEX), R.drawable.opp_spirit_main);
     }
-
-
 
 }

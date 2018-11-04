@@ -36,7 +36,7 @@ public class MarsFactsViewModel extends AndroidViewModel {
     // if a fact isn't retrieved then there is some other problem. Can lower this when 'facts' node
     // has more children.
     private int mQueryCount = 0;
-    private final static int MAX_QUERY_COUNT = 3;
+    private final static int MAX_QUERY_COUNT = 365;
 
     private MutableLiveData<MarsFact> mFact = new MutableLiveData<>();
     //Realtime Database reference variables

@@ -103,11 +103,10 @@ public class MarsFirebaseMessagingService extends FirebaseMessagingService{
             notificationManager.createNotificationChannel(tweetChannel);
         }
 
-    //todo change icon
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_delete_all)
+                .setSmallIcon(R.drawable.marsexplorericon)
                 .setContentTitle(MESSAGE)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

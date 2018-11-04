@@ -17,39 +17,24 @@ import java.util.Random;
 
 public class RoverManifestViewModel extends ViewModel {
 
-
     private final static String TAG = RoverManifestViewModel.class.getSimpleName();
-
 
     private LiveData<RoverManifest> mManifest;
     private MarsRepository mRepository;
 
 
-
     RoverManifestViewModel(int roverIndex, Application application){
-        Log.i(TAG, "Loading RoverManifest from database by index");
-        //this.mRepository =  new MarsRepository(application );
         this.mRepository = MarsRepository.getInstance(application);
         this.mManifest = mRepository.getRoverManifest(roverIndex);
     }
 
-    public void setManifest(LiveData<RoverManifest> manifest){
-        this.mManifest = manifest;
-    }
 
     public LiveData<RoverManifest> getManifest() {
-        Log.i(TAG, "Getting RoverManifest from ViewModel");
         return mManifest;
     }
 
-
     public void downloadNewManifests(Context context){
-        Log.d(TAG, "Starting downloadNewManifests");
         mRepository.downloadManifestsFromNetwork(context);
-    }
-
-    public void updateManifest(RoverManifest roverManifest){
-        mRepository.updateManifest(roverManifest);
     }
 
 
@@ -58,8 +43,10 @@ public class RoverManifestViewModel extends ViewModel {
         int solInputNumber;
         try {
             solInputNumber = Integer.parseInt(solInput);
+
         }catch (NumberFormatException e){
-            return HelperUtils.DEFAULT_SOL_NUMBER;
+            //if integer parse fails then use random sol
+            return getRandomSol();
         }
         int maxSol = mManifest.getValue().getMaxSolInt();
         int minSol = mManifest.getValue().getMinSolInt();

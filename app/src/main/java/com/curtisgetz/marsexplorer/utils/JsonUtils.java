@@ -21,23 +21,15 @@ public final class JsonUtils {
 
     private final static String TAG = JsonUtils.class.getSimpleName();
 
-    //todo clean up unused keys
-    public final static String JSON_DATE_FORMAT = "yyyy/MM/dd";
-    // Add all for future use
 
 //JSON keys---------------------------------
     private final static String  NASA_PHOTOS = "photos";
     //next level
-    // private final static String NASA_PHOTO_ID = "id";
-    // private final static String NASA_PHOTO_SOL = "sol";
     private final static String NASA_PHOTO_CAMERA = "camera";
     private final static String NASA_IMAGE = "img_src";
     private final static String NASA_DATE = "earth_date";
-    //private final String PAGE_NUMBER = "page";
     private final static String NASA_NAME = "name";
 
-    //final String NASA_ROVER = "rover";
-    //final String ROVER_ID = "id";
     private final static String MANIFEST_KEY = "photo_manifest";
 
     //MAN IFEST KEYS
@@ -47,8 +39,7 @@ public final class JsonUtils {
 
 
     //rover cameras
-    private final static String ROVER_CAMERAS = "cameras",
-            ROVER_FHAZ ="FHAZ",
+    private final static String ROVER_FHAZ ="FHAZ",
             ROVER_RHAZ ="RHAZ",ROVER_MAST ="MAST",
             ROVER_CHEMCAM ="CHEMCAM",ROVER_MAHLI ="MAHLI",
             ROVER_MARDI ="MARDI",ROVER_NAVCAM ="NAVCAM",
@@ -59,23 +50,20 @@ public final class JsonUtils {
 
 
     //weather json keys
-    public final static String WEATHER_MAIN_KEY = "JSON";
-    public final static String WEATHER_STATUS = "status";
-    public final static String WEATHER_SOL = "sol";
-    public final static String WEATHER_SEASON = "season";
-    public final static String WEATHER_MIN_TEMP = "min_temp";
-    public final static String WEATHER_MAX_TEMP = "max_temp";
-    public final static String WEATHER_ATMO_OPACITY = "atmo_opacity";
-    public final static String WEATHER_SUNSET = "sunset";
-    public final static String WEATHER_SUNRISE = "sunrise";
-    public final static String WEATHER_MIN_GROUND_TEMP = "min_gts_temp";
-    public final static String WEATHER_MAX_GROUND_TEMP = "max_gts_temp";
-    public final static String WEATHER_UNIT_OF_MEASURE = "unitOfMeasure";
+
+    private final static String WEATHER_STATUS = "status";
+    private final static String WEATHER_SOL = "sol";
+    private final static String WEATHER_MIN_TEMP = "min_temp";
+    private final static String WEATHER_MAX_TEMP = "max_temp";
+    private final static String WEATHER_ATMO_OPACITY = "atmo_opacity";
+    private final static String WEATHER_SUNSET = "sunset";
+    private final static String WEATHER_SUNRISE = "sunrise";
+    private final static String WEATHER_MIN_GROUND_TEMP = "min_gts_temp";
+    private final static String WEATHER_MAX_GROUND_TEMP = "max_gts_temp";
     //array of which weather details to display
     private final static String[] WEATHER_DETAILS_TO_DISPLAY = {WEATHER_MIN_TEMP,WEATHER_MAX_TEMP,
             WEATHER_ATMO_OPACITY,WEATHER_SUNSET,WEATHER_SUNRISE,WEATHER_MIN_GROUND_TEMP,
             WEATHER_MAX_GROUND_TEMP};
-    private final static int FALLBACK_INT = -9999;
 
 //JSON keys---------------------------------
 
@@ -83,14 +71,10 @@ public final class JsonUtils {
 
     public static List<WeatherDetail> getWeatherDetail(Context context, String url) throws JSONException{
         JSONObject mainObject = new JSONObject(url);
-        /*if(!mainObject.has(WEATHER_MAIN_KEY)) {
-            Log.e(TAG, "No MAIN KEY found in Weather JSON");
-            return null;
-        }*/
+
         int status = mainObject.optInt(WEATHER_STATUS, 0);
         Log.d(TAG, String.valueOf(status));
         if(status != 200) {
-            Log.e(TAG, "HTTP STATUS NOT 200");
             return null;
         }
         List<WeatherDetail> weatherDetails = new ArrayList<>();
@@ -103,7 +87,6 @@ public final class JsonUtils {
             value = addTempUnit(context, jsonKey, value);
             weatherDetails.add(new WeatherDetail(label, value, infoIndex, sol));
         }
-
         return weatherDetails;
     }
 
@@ -146,7 +129,6 @@ public final class JsonUtils {
         JSONObject mainObject = new JSONObject(url);
 
         if(!mainObject.has(MANIFEST_KEY)) return null;
-
         JSONObject manifestObject = mainObject.getJSONObject(MANIFEST_KEY);
 
         if(manifestObject.length() > 0){
@@ -229,7 +211,7 @@ public final class JsonUtils {
 
 
 
-    //todo change maybe
+
     public static String getDateString(String earthDate) throws ArrayIndexOutOfBoundsException{
         String[] dateStrings = earthDate.split("-");
         String year = dateStrings[0];

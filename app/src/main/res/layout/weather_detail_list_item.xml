@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="@dimen/mars_weather_detail_card_margin_top_bottom"
     app:cardBackgroundColor="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -28,24 +28,18 @@
         <TextView
             android:id="@+id/weather_detail_label"
             android:layout_marginStart="6dp"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
+            style="@style/MarsWeatherText.Label"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:text="Air Temp:"/>
 
         <TextView
             tools:text="-68min   -5max"
             android:layout_marginStart="6dp"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/blackBackground"
             android:id="@+id/weather_detail_value"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/TextAppearance.AppCompat.Body1"/>
+            android:layout_height="wrap_content"
+            style="@style/MarsWeatherText.Detail"/>
 
 
 

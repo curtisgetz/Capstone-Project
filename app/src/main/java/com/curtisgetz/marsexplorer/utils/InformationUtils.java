@@ -1,10 +1,8 @@
 package com.curtisgetz.marsexplorer.utils;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import com.curtisgetz.marsexplorer.R;
-import com.curtisgetz.marsexplorer.ui.info.InfoDialogFragment;
 
 public final class InformationUtils {
 
@@ -20,6 +18,8 @@ public final class InformationUtils {
     public final static int PHOTO_LIMIT_PREF = 6;
     public final static int ROVER_JOB_PREF = 7;
     public final static int TWEET_JOB_PREF = 8;
+    public final static int CREDIT_INFO = 9;
+
 
 
     public static String getInformationText(Context context,  int infoIndex){
@@ -38,11 +38,13 @@ public final class InformationUtils {
             case ATMO_INFO:
                 return context.getString(R.string.info_atmo);
             case PHOTO_LIMIT_PREF:
-                return context.getString(R.string.limit_photos_pref_desc);
+                return context.getString(R.string.shown_photos_info_dialog);
             case ROVER_JOB_PREF:
                 return context.getString(R.string.rover_manifest_pref_desc);
             case TWEET_JOB_PREF:
                 return context.getString(R.string.tweet_pref_desc);
+            case CREDIT_INFO:
+                return context.getString(R.string.credits_dialog);
             default:
                 return context.getResources().getString(R.string.info_error_text);
         }

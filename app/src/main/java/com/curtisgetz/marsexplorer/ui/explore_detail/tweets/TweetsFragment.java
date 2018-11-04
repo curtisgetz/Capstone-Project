@@ -52,7 +52,6 @@ public class TweetsFragment extends Fragment {
     @BindView(R.id.tweets_recycler)
     RecyclerView mTweetRecycler;
 
-   // private OnFragmentInteractionListener mListener;
 
     public TweetsFragment() {
         // Required empty public constructor
