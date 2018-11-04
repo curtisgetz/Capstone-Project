@@ -1,5 +1,6 @@
 package com.curtisgetz.marsexplorer.ui.explore;
 
+import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtisgetz.marsexplorer.R;
+import com.curtisgetz.marsexplorer.data.MarsRepository;
 import com.curtisgetz.marsexplorer.data.rover_explore.RoverExploreCategory;
 import com.curtisgetz.marsexplorer.utils.HelperUtils;
 import com.squareup.picasso.Picasso;
@@ -42,7 +44,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
     public RoverCategoryAdapter(CategoryClickListener clickListener){
        this.mClickListener = clickListener;
-
     }
 
     public void setData(List<RoverExploreCategory> categories){
@@ -52,7 +53,7 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
 
     public void clearData(){
         this.mCategoryList.clear();
-        notifyItemRangeRemoved(mCategoryList.size(), mCategoryList.size());
+        notifyDataSetChanged();
     }
 
 
@@ -155,8 +156,6 @@ public class RoverCategoryAdapter extends RecyclerView.Adapter {
                 });
             }
         }
-
-
 
     }
 

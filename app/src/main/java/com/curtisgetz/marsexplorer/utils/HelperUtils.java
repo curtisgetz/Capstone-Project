@@ -49,9 +49,9 @@ public final class HelperUtils {
     private final static int[] CURIOSITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
             ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX, ROVER_TWEETS_CAT_INDEX};
     private final static int[] OPPORTUNITY_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
-            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX};
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
     private final static int[] SPIRIT_CATEGORIES = {ROVER_PICTURES_CAT_INDEX,
-            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX};
+            ROVER_INFO_CAT_INDEX, ROVER_SCIENCE_CAT_INDEX, MARS_FAVORITES_CAT_INDEX};
 
     //Sol start for each rover
     public final static int CURIOSITY_SOL_START = 0;
@@ -532,41 +532,35 @@ public final class HelperUtils {
     private static int getCategoryImgResId(Context context, int exploreIndex, int categoryIndex){
         // Images will have the format = CATEGORY_INDEX
         //ex. Photo category for Curiosity will be 'photos_1'
-        String exploreIndexString = "1";//String.valueOf(exploreIndex);
+        String exploreIndexString = String.valueOf(exploreIndex);
         String resourcePrefix;
-        //todo update images
         switch (categoryIndex){
             case MARS_WEATHER_CAT_INDEX:
-                resourcePrefix = "photos_";
-//                resourcePrefix = context.getString(R.string.mars_weather_res_prefix);
+                resourcePrefix = context.getString(R.string.mars_weather_res_prefix);
                 break;
             case MARS_FACTS_CAT_INDEX:
-                resourcePrefix = "photos_";
-//                resourcePrefix = context.getString(R.string.mars_facts_res_prefix);
+                resourcePrefix = context.getString(R.string.mars_facts_res_prefix);
                 break;
             case MARS_FAVORITES_CAT_INDEX:
-                resourcePrefix = "photos_";
-//                resourcePrefix = context.getString(R.string.mars_favorites_res_prefix);
+                resourcePrefix = context.getString(R.string.mars_favorites_res_prefix);
+                exploreIndexString = String.valueOf(MARS_FAVORITES_CAT_INDEX);
+                break;
             case ROVER_PICTURES_CAT_INDEX:
                 resourcePrefix = context.getString(R.string.photos_category_res_prefix);
                 break;
             case ROVER_INFO_CAT_INDEX:
-                resourcePrefix = context.getString(R.string.photos_category_res_prefix);
-                //resourcePrefix = context.getString(R.string.info_category_res_prefix);
+                resourcePrefix = context.getString(R.string.info_category_res_prefix);
                 break;
             case ROVER_SCIENCE_CAT_INDEX:
-                resourcePrefix = context.getString(R.string.photos_category_res_prefix);
-                //resourcePrefix = context.getString(R.string.science_category_res_prefix);
+                resourcePrefix = context.getString(R.string.science_category_res_prefix);
+                break;
+            case ROVER_TWEETS_CAT_INDEX:
+                resourcePrefix = context.getString(R.string.tweets_category_res_prefix);
                 break;
             default:
                 resourcePrefix = context.getString(R.string.photos_category_res_prefix);
-//                resourcePrefix = context.getString(R.string.science_category_res_prefix);
         }
-        //todo remove this line once all images are added
-        resourcePrefix = context.getString(R.string.photos_category_res_prefix);
         String resName = resourcePrefix + exploreIndexString;
-        Log.d(TAG, resName );
-
         return context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
     }
 
@@ -644,8 +638,6 @@ public final class HelperUtils {
 
 
     // Setup Main Explore Options Below
-    //todo change photos
-
     public static List<MainExploreType> getAllExploreTypes(Context context){
         List<MainExploreType> mainExploreTypes = new ArrayList<>();
         mainExploreTypes.add(createMarsExploreType(context));

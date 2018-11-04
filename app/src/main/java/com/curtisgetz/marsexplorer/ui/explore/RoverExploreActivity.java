@@ -76,6 +76,8 @@ public class RoverExploreActivity extends MarsBaseActivity implements
     @BindView(R.id.sol_range_info_imageview)ImageView mSolRangeInfoIv;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,6 +275,8 @@ public class RoverExploreActivity extends MarsBaseActivity implements
     }
 
 
+
+
     //call display snack method on FullPhotoFragment. This will allow the coordinatorlayout
     //to handle the snack display and moving the FAB
     @Override
@@ -313,6 +317,8 @@ public class RoverExploreActivity extends MarsBaseActivity implements
             return -1;
         }
     }
+
+
 
 
 }

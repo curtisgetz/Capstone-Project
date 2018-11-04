@@ -20,6 +20,7 @@
         android:gravity="center_horizontal"/>
 
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mars_explore_categories_recycler"
         android:layout_width="0dp"

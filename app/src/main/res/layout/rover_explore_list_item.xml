@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/rover_explore_cardview_height"
     style="@style/CardView.Light"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/default_cardview_elevation"
     android:layout_marginStart="@dimen/rover_explore_cardview_margin_start_end"
@@ -25,13 +26,15 @@
             android:id="@+id/rover_explore_cardview_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:background="@color/blackBackground"
+            android:scaleType="fitCenter"
+            android:background="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rover_explore_cardview_text"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+
+
 
         <TextView
             android:id="@+id/rover_explore_cardview_text"

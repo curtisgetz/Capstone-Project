@@ -67,6 +67,9 @@
 
     </style>
 
+    <style name="RoverExploreCardView" parent="CardView.Light">
+
+    </style>
     <style name="RoverExploreSolSearchText" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/rover_explore_card_sol_search_text_size</item>
         <item name="android:textColor">@color/lightText</item>
@@ -185,7 +188,9 @@
     </style>
 
 
-
+    <style name="EmptyFavoriteText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
 
 
 </resources>

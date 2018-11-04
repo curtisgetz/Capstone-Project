@@ -233,5 +233,6 @@
     <string name="random_sol_button">Random Sol</string>
     <string name="enter_sol_hint"><font size="12">Enter Num</font></string>
     <string name="is_favorites_saved_key">is_favorites_saved_key</string>
+    <string name="no_favorites">No Favorites</string>
 
 </resources>

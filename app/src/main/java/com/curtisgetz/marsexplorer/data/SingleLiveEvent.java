@@ -15,6 +15,7 @@ package com.curtisgetz.marsexplorer.data;
  *  limitations under the License.
  */
 
+
 //https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java
 //https://medium.com/@abhishektiwari_51145/how-to-use-singleliveevent-in-mvvm-architecture-component-b7c04ed8705
 
