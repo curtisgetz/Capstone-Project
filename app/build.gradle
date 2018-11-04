@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword 'UdacityKey7'
-            storeFile file('C:/Users/curti/AndroidStudioProjects/MarsExplorer/kaystore.jks')
+            storeFile file("$rootDir/kaystore.jks")
             storePassword 'UdacityKey7'
         }
     }
